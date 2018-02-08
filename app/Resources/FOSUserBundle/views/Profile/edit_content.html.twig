@@ -1,0 +1,37 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{{ form_start(form, { 'action': form.vars.action, 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+{% if form.vars.method == 'PUT' %}
+    <input type="hidden" name="_method" value="PUT">
+    {% set editing = true %}
+{% endif %}
+<div class="row">
+    <div class="col-md-12">
+        {{ form_row(form.username) }}
+    </div>
+    <div class="col-md-12">
+        {{ form_row(form.email) }}
+    </div>
+    <div class="col-md-12">
+        {{ form_row(form.plainPassword) }}
+    </div>
+    <div class="col-md-12">
+        {{ form_row(form.roles, {'attr': {'class': 'select2'}}) }}
+    </div>
+    <div class="col-md-12">
+        {{ form_row(form.enabled) }}
+    </div>
+    {{ form_widget(form._token) }}
+
+    <div id="button_actions" class="col-md-12">
+        <button type="submit" class="btn btn-primary btn-sm"
+                title="{{ (editing is not defined ? "actions.new" : "actions.edit")|trans({}, 'messages') }}">
+            <i class="fa {{ editing is not defined ? "fa-save" : "fa-edit" }}"></i> {{ (editing is not defined ? "actions.new" : "actions.edit")|trans({}, 'messages') }}
+        </button>
+        <a class="btn btn-default btn-sm" href="{{ path("user_index") }}"
+           title="{{ (editing is not defined ? "actions.cancel" : "actions.list")|trans({}, 'messages') }}">
+            <i class="fa {{ editing is not defined ? " fa-remove" : " fa-chevron-left" }}"></i> {{ (editing is not defined ? "actions.cancel" : "actions.list")|trans({}, 'messages') }}
+        </a>
+    </div>
+</div>
+{{ form_end(form) }}

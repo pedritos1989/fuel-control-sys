@@ -1,0 +1,46 @@
+
+    /**
+{% block phpdoc_method_header %}
+     * Displays a form to edit an existing {{ entity_singularized }} entity.
+{% endblock phpdoc_method_header %}
+     *
+{% block phpdoc_method_annotations %}
+{% if 'annotation' == format %}
+     * @Route("/{id}/edit", name="{{ route_name_prefix }}_edit")
+     * @Method({"GET", "PUT"})
+{% endif %}
+{% endblock phpdoc_method_annotations %}
+     */
+{% block method_definition %}
+    public function editAction(Request $request, {{ entity_class }} ${{ entity_singularized }})
+{% endblock method_definition %}
+    {
+{% block method_body %}
+        $editForm = $this->createForm('{{ namespace }}\Form\Type\{{ entity }}Type', ${{ entity_singularized }}, array(
+            'method' => 'PUT',
+            'action' => $this->generateUrl('{{ route_name_prefix }}_edit', array('id' => ${{ entity_singularized }}->getId())),
+        ));
+
+        $editForm->handleRequest($request);
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            try {
+                $em = $this->get('doctrine.orm.entity_manager');
+                $em->flush();
+
+                $this->addFlash('success', $this->get('translator')->trans('updated.success'));
+
+                return $this->redirectToRoute('{{ route_name_prefix }}_show', array('id' => ${{ entity_singularized }}->getId()));
+            } catch (\Exception $e) {
+                ErrorHandler::handleError($e, 'An error occur editing {{ entity_singularized|capitalize }}.', $this->get('logger'), $this->get('kernel')->isDebug());
+                $this->addFlash('danger', $this->get('translator')->trans('updated.error', array(), 'messages'));
+            }
+        }
+{% endblock method_body %}
+
+{% block method_return %}
+        return $this->render('{{ entity|lower|replace({'\\': '/'}) }}/edit.html.twig', array(
+            '{{ entity_singularized }}' => ${{ entity_singularized }},
+            'editForm' => $editForm->createView(),
+        ));
+{% endblock method_return %}
+    }

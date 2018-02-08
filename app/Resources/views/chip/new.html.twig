@@ -1,0 +1,29 @@
+{% extends '::base.html.twig' %}
+
+{% block block('subheader') %}
+
+{% block header 'chip.label'|trans %}
+
+{% block subheader 'chip.create'|trans %}
+
+{% block container -%}
+    {% embed '_smart_widget.html.twig' %}
+        {% set config, collapse, refresh, remove = false, true, false, false %}
+        {% block widgetheader %}
+            {{ 'chip.create'|trans }}
+        {% endblock widgetheader %}
+
+        {% block widgetbody %}
+            {% include 'chip/_form.html.twig' %}
+        {% endblock widgetbody %}
+    {% endembed %}
+{% endblock -%}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $('.select2').select2();
+        $('.datepicker').datetimepicker({
+            'format': 'D/M/Y H:mm'
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,17 @@
+{{ "{{ form_errors(form) }}" }}
+<form id="{{ '{{ form.vars.id }}' }}" name="{{ '{{ form.vars.full_name }}' }}" action="{{ '{{ form.vars.action }}' }}" method="get">
+    <div class="row">
+        {% for field, metadata in fields if metadata.id is not defined -%}
+            <div class="col-md-4 col-sm-12">
+                {{ "{{ form_row(form." ~ field|replace({'_': ''})|lower ~ ") }}" }}
+            </div>
+        {% endfor -%}
+
+        {{ "    {{ form_widget(form._token) }}" }}
+
+        <div id="button_filters" class="col-md-12">
+            <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-filter"></i> {{ "{{ 'actions.filter'|trans }}" }}</button>
+            <a href="#restart" class="btn btn-danger btn-sm"><i class="fa fa-refresh"></i> {{ "{{ 'actions.restart'|trans }}" }}</a>
+        </div>
+    </div>
+</form>

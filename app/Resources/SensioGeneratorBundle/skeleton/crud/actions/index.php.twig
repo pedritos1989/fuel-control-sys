@@ -1,0 +1,81 @@
+    /**
+{% block phpdoc_method_header %}
+     * Lists all {{ entity_singularized }} entities.
+{% endblock phpdoc_method_header %}
+     *
+{% block phpdoc_method_annotations %}
+{% if 'annotation' == format %}
+     * @Route("/", name="{{ route_name_prefix }}")
+     * @Method("GET")
+{% endif %}
+{% endblock phpdoc_method_annotations %}
+     */
+{% block method_definition %}
+    public function indexAction(Request $request)
+{% endblock method_definition %}
+    {
+{% block method_body %}
+        $em = $this->get('doctrine.orm.entity_manager');
+        $paginator = $this->get('knp_paginator');
+        $filterForm = $this->createFormFilter();
+
+        $filterForm->handleRequest($request);
+        if ($filterForm->isSubmitted() && $filterForm->isValid()) {
+            $filter = $filterForm->getNormData();
+            ${{ entity_pluralized }} = $em->getRepository('{{ bundle }}:{{ entity }}')->findBy($filter);
+        } else {
+            ${{ entity_pluralized }} = $em->getRepository('{{ bundle }}:{{ entity }}')->findAll();
+        }
+
+        ${{ entity_pluralized }} = $paginator->paginate(
+            ${{ entity_pluralized }},
+            $request->query->getInt('page', 1),
+            $request->query->getInt('limit', AppDefaults::ELEMENTS_PER_PAGE)
+        );
+{% endblock method_body %}
+
+{% block method_return %}
+        return $this->render('{{ entity|lower|replace({'\\': '/'}) }}/index.html.twig', array(
+            '{{ entity_pluralized }}' => ${{ entity_pluralized }},
+            'filterForm' => $filterForm->createView(),
+        ));
+{% endblock method_return %}
+    }
+
+{% block form %}
+    /**
+    * @return \Symfony\Component\Form\Form The filter form
+    */
+    private function createFormFilter()
+    {
+        $form = $this->get('form.factory')
+            ->createNamedBuilder('{{ entity_singularized }}_filter')
+            ->setAction($this->generateUrl('{{ route_name_prefix }}'))
+            ->setMethod('GET');
+
+        $form
+            {% for field, metadata in fields if metadata.id is not defined -%}
+                {% set fieldtype = 'TextType::class' -%}
+                {% if metadata.type in ['boolean', 'bool'] -%}
+                    {% set fieldtype = 'CheckboxType::class' -%}
+                {% elseif metadata.type in ['decimal', 'float'] %}
+                    {% set fieldtype = 'NumberType::class' -%}
+                {% elseif metadata.type == 'integer' %}
+                    {% set fieldtype = 'IntegerType::class' -%}
+                {% elseif metadata.type == 'date' %}
+                    {% set fieldtype = 'DateType::class' -%}
+                {% elseif metadata.type == 'datetime' %}
+                    {% set fieldtype = 'DateTimeType::class' -%}
+                {% elseif metadata.type == 'text' -%}
+                    {% set fieldtype = 'TextareaType::class' -%}
+                {% endif -%}
+                ->add('{{ field }}', {{ fieldtype }}, array(
+                    'label' => '{{ entity|lower ~ '.' ~ field }}',
+                    'required' => false
+                ))
+            {% endfor %}
+        ;
+
+        return $form->getForm();
+    }
+{% endblock %}

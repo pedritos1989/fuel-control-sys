@@ -1,0 +1,29 @@
+<div id="{{ entity|lower }}_delete_modal" data-keyboard="false" data-backdrop="static" class="modal"
+     style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header clearfix" style="color: #d73d32;">
+                <i class="fa fa-fire pull-left" style="font-size: 25px; margin-top: 10px;"></i>
+
+                <div class="modal-title pull-left"><h3
+                            style="margin: 10px;">{{ "{{ 'delete.header' | trans }}" }}</h3></div>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+
+            <div class="modal-body" style="color: #737373;">
+                <p>{{ "{{ '" ~ entity|lower ~ ".delete'|trans }}" }}. <strong>{{ "{{ 'are_you_sure_question'|trans }}" }}</strong></p>
+            </div>
+            <div class="modal-footer">
+                <form name="{{ "{{ deleteForm.vars.full_name }}" }}" id="{{ "{{ deleteForm.vars.id }}" }}" action="{{ "{{ deleteForm.vars.action }}" }}"
+                      method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="_method" value="DELETE"/>
+                    {{ "{{ form_widget(deleteForm._token) }}" }}
+                </form>
+                <a id="btn_modal_cancel" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="fa fa-remove"></i> {{ "{{ 'actions.cancel' | trans }}" }}</a>
+                <button id="btn_modal_delete" class="btn btn-danger btn-sm" form="{{ "{{ deleteForm.vars.id }}" }}" type="submit">
+                    <i class="fa fa-trash"></i> {{ "{{ 'actions.confirm' | trans }}" }}</button>
+            </div>
+        </div>
+    </div>
+</div>

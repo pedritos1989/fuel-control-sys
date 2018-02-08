@@ -1,0 +1,139 @@
+<aside class="sidebar-menu fixed">
+    <div class="sidebar-inner scrollable-sidebar">
+        <div class="main-menu">
+            <ul class="accordion">
+                <li class="menu-header">
+                    Main Menu
+                </li>
+                <li class="bg-palette1">
+                    <a href="{{ path('homepage') }}">
+                        <span class="menu-content block">
+                            <span class="menu-icon"><i class="block fa fa-home fa-lg"></i></span>
+                            <span class="text m-left-sm"> {{ 'home.title'|trans }}</span>
+                        </span>
+                        <span class="menu-content-hover block">
+                            {{ 'home.alt'|trans }}
+                        </span>
+                    </a>
+                </li>
+                <li class="bg-palette2">
+                    <a href="{{ path('area_index') }}">
+                        <span class="menu-content block">
+                            <span class="menu-icon"><i class="block fa fa-map-signs fa-lg"></i></span>
+                            <span class="text m-left-sm">{{ 'section.title'|transchoice(2) }}</span>
+                        </span>
+                        <span class="menu-content-hover block"> {{ 'section.alt'|trans }}</span>
+                    </a>
+                </li>
+                <li class="bg-palette3">
+                    <a href="{{ path('carro_index') }}">
+                        <span class="menu-content block">
+                            <span class="menu-icon"><i class="block fa fa-automobile fa-lg"></i></span>
+                            <span class="text m-left-sm">{{ 'car.title'|transchoice(2) }}</span>
+                        </span>
+                        <span class="menu-content-hover block"> {{ 'car.alt'|trans }}</span>
+                    </a>
+                </li>
+                <li class="bg-palette4">
+                    <a href="{{ path('chip_index') }}">
+                        <span class="menu-content block">
+                            <span class="menu-icon"><i class="block fa fa-ticket fa-lg"></i></span>
+                            <span class="text m-left-sm">{{ 'chip.title'|transchoice(2) }}</span>
+                        </span>
+                        <span class="menu-content-hover block"> {{ 'chip.alt'|trans }}</span>
+                    </a>
+                </li>
+                <li class="bg-palette1">
+                    <a href="{{ path('chofer_index') }}">
+                        <span class="menu-content block">
+                            <span class="menu-icon"><i class="block fa fa-male fa-lg"></i></span>
+                            <span class="text m-left-sm">{{ 'driver.title'|transchoice(2) }}</span>
+                        </span>
+                        <span class="menu-content-hover block"> {{ 'driver.alt'|trans }}</span>
+                    </a>
+                </li>
+                <li class="bg-palette2">
+                    <a href="{{ path('distribucion_index') }}">
+                        <span class="menu-content block">
+                            <span class="menu-icon"><i class="block fa fa-send fa-lg"></i></span>
+                            <span class="text m-left-sm">{{ 'distribution.title'|transchoice(2) }}</span>
+                        </span>
+                        <span class="menu-content-hover block"> {{ 'distribution.alt'|trans }}</span>
+                    </a>
+                </li>
+                <li class="openable bg-palette3">
+                    <a href="#">
+                        <span class="menu-content block">
+                            <span class="menu-icon"><i class="block fa fa-cogs fa-lg"></i></span>
+                            <span class="text m-left-sm">{{ 'nomenclator.title'|transchoice(2) }}</span>
+                            <span class="submenu-icon"></span>
+                        </span>
+                        <span class="menu-content-hover block"> {{ 'nomenclator.alt'|trans }}</span>
+                    </a>
+                    <ul class="submenu bg-palette3" style="display: none;">
+                        <li>
+                            <a href="{{ path('service_index') }}">
+                                <span class="submenu-label">{{ 'nomenclator.service.title'|transchoice(2) }}</span></a>
+                        </li>
+                        <li>
+                            <a href="{{ path('car_status_index') }}">
+                                <span class="submenu-label">{{ 'nomenclator.car_status.title'|transchoice(2) }}</span></a>
+                        </li>
+                        <li>
+                            <a href="{{ path('car_type_index') }}">
+                                <span class="submenu-label">{{ 'nomenclator.car_type.title'|transchoice(2) }}</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="bg-palette4">
+                    <a href="{{ path('planasignacion_index') }}">
+                        <span class="menu-content block">
+                            <span class="menu-icon"><i class="block fa fa-book fa-lg"></i></span>
+                            <span class="text m-left-sm">{{ 'assign.plan.title'|transchoice(2) }}</span>
+                        </span>
+                        <span class="menu-content-hover block"> {{ 'assign.plan.alt'|trans }}</span>
+                    </a>
+                </li>
+                <li class="bg-palette1">
+                    <a href="{{ path('solicitud_index') }}">
+                        <span class="menu-content block">
+                            <span class="menu-icon"><i class="block fa fa-sticky-note fa-lg"></i></span>
+                            <span class="text m-left-sm">{{ 'request.title'|transchoice(2) }}</span>
+                        </span>
+                        <span class="menu-content-hover block"> {{ 'request.alt'|trans }}</span>
+                    </a>
+                </li>
+                <li class="bg-palette2">
+                    <a href="{{ path('tarjeta_index') }}">
+                        <span class="menu-content block">
+                            <span class="menu-icon"><i class="block fa fa-credit-card fa-lg"></i></span>
+                            <span class="text m-left-sm">{{ 'card.title'|transchoice(2) }}</span>
+                        </span>
+                        <span class="menu-content-hover block"> {{ 'card.alt'|trans }}</span>
+                    </a>
+                </li>
+                <li class="openable bg-palette3">
+                    <a href="#">
+                        <span class="menu-content block">
+                            <span class="menu-icon"><i class="block fa fa-cogs fa-lg"></i></span>
+                            <span class="text m-left-sm">{{ 'system.menu.label'|transchoice(2) }}</span>
+                            <span class="submenu-icon"></span>
+                        </span>
+                        <span class="menu-content-hover block"> {{ 'system.menu.label'|transchoice(1) }}</span>
+                    </a>
+                    <ul class="submenu bg-palette1">
+                        <li>
+                            <a href="{{ path('user_index') }}">
+                                <span class="submenu-label">{{ 'user.title'|transchoice(2) }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="sidebar-fix-bottom clearfix">
+            <a href="{{ path('fos_user_security_logout') }}" class="pull-right font-18"
+               title="{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}"><i class="ion-log-out"></i></a>
+        </div>
+    </div><!-- sidebar-inner -->
+</aside>

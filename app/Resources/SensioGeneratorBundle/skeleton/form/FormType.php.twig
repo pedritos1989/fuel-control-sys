@@ -1,0 +1,115 @@
+<?php
+
+namespace {{ namespace }}\Form\Type{{ entity_namespace ? '\\' ~ entity_namespace : '' }};
+
+{% block use_statements %}
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+{% set types = [] %}
+{% for field, metadata in fields if metadata.id is not defined -%}
+{% set types = types|merge([metadata.type]) %}
+{% endfor %}
+{% if 'boolean' in types or 'bool' in types -%}
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+{% endif %}
+{% if 'string' in types %}
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+{% endif %}
+{% if 'text' in types %}
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+{% endif %}
+{% if 'decimal' in types or 'float' in types %}
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+{% endif %}
+{% if 'integer' in types %}
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+{% endif %}
+{% if 'date' in types %}
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+{% endif %}
+{% if 'datetime' in types %}
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+{% endif %}
+{% if associations|length > 0 %}
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+{% endif %}
+use Symfony\Component\OptionsResolver\OptionsResolver;
+{% endblock use_statements %}
+
+{% block class_definition %}
+class {{ form_class }} extends AbstractType
+{% endblock class_definition %}
+{
+{% block class_body %}
+    {%- if fields|length > 0 %}
+    /**
+     * {@inheritdoc}
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            {% for field, metadata in fields if metadata.id is not defined -%}
+                {% set fieldtype = 'TextType::class' -%}
+                {% if metadata.type in ['boolean', 'bool'] -%}
+                    {% set fieldtype = 'CheckboxType::class' -%}
+                {% elseif metadata.type in ['decimal', 'float'] %}
+                    {% set fieldtype = 'NumberType::class' -%}
+                {% elseif metadata.type == 'integer' %}
+                    {% set fieldtype = 'IntegerType::class' -%}
+                {% elseif metadata.type == 'date' %}
+                    {% set fieldtype = 'DateType::class' -%}
+                {% elseif metadata.type == 'datetime' %}
+                    {% set fieldtype = 'DateTimeType::class' -%}
+                {% elseif metadata.type == 'text' -%}
+                    {% set fieldtype = 'TextareaType::class' -%}
+                {% endif -%}
+            ->add('{{ field }}', {{ fieldtype }}, array(
+                {% if metadata.nullable -%}
+                'required' => false,
+                {% endif -%}
+                'label' => '{{ entity_class|lower ~ "." ~ field }}',
+            ))
+            {% endfor -%}
+            {% for field, metadata in associations if metadata.isOwningSide == true -%}
+            ->add('{{ field }}', EntityType::class, array(
+                'class' => '{{ metadata.targetEntity }}',
+                'required' => false,
+                'label' => '{{ entity_class|lower ~ "." ~ field }}',
+            ))
+            {% endfor %}
+
+        ;
+    }
+    {% endif %}
+
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => '{{ namespace }}\Entity{{ entity_namespace ? '\\' ~ entity_namespace : '' }}\{{ entity_class }}'
+        ));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
+    {
+        return '{{ form_type_name }}';
+    }
+
+{# BC with Symfony 2.7 #}
+{%- if get_name_required %}
+    /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return $this->getBlockPrefix();
+    }
+{% endif %}
+
+{% endblock class_body %}
+}

@@ -1,0 +1,78 @@
+{% block extends %}
+{{ "{% extends '::base.html.twig' %}" }}
+{% endblock extends %}
+
+{% block title %}
+{{ "{% block block('subheader') %}" }}
+{% endblock title %}
+
+{% block header  %}
+{{ "{% block header '" ~ entity|lower ~ ".label'|trans %}" }}
+{% endblock header %}
+
+{% block subheader %}
+{{ "{% block subheader '" ~ entity|lower ~ ".list'|trans %}" }}
+{% endblock subheader %}
+
+{% block body %}
+{{ "{% block container -%}" }}
+    {{ "{%- embed '_smart_widget.html.twig' %}" }}
+        {{ "{% set config, collapse, refresh, remove = true, true, false, false %}" }}
+        {{ "{% block widgetheader %}" }}
+            {{ "{{ '" ~ entity|lower ~ ".list'|trans }}" }}
+        {{ "{% endblock widgetheader %}" }}
+
+        {{ "{% block hidden_option_icon '<i class=\"fa fa-filter\"></i>' %}" }}
+
+        {{ "{% block hiddensection %}" }}
+            {{ "{% include '" ~ entity|lower ~ "/_form_filter.html.twig' with {'form': filterForm} %}" }}
+        {{ "{% endblock hiddensection %}" }}
+
+        {{ "{% block widgetbody %}" }}
+        <div class="row">
+            <div class="col-md-12">
+                {% if 'new' in actions %}
+                    <a class="btn btn-primary btn-sm" href="{{ "{{ path('" ~ route_name_prefix ~ "_new') }}" }}">
+                        <i class="fa fa-plus-circle"></i> {{ "{{ 'actions.add'|trans }}" }}
+                    </a>
+                {% endif %}
+            </div>
+            <div class="col-md-12">
+                {{ "{% include '" ~ entity|lower ~ "/_list.html.twig' %}" }}
+            </div>
+        </div>
+        {{ "{% endblock widgetbody %}" }}
+    {{ "{%- endembed %}" }}
+
+    <div id="{{ entity|lower }}_delete_modal" data-keyboard="false" data-backdrop="static" class="modal modal-darkorange" style="display: none;" aria-hidden="true"></div>
+{{ "{% endblock %}" }}
+
+{{ "{% block javascripts -%}" }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('a[href="#delete"]').on('click', function (e) {
+                e.preventDefault();
+
+                $(this).attr('disabled');
+
+                var id = $(this).data('target'),
+                    $modal, $form;
+
+                $.get(Routing.generate('{{ entity|lower }}_deletemodal', {id: id}), function (response) {
+                    $('div#{{ entity|lower }}_delete_modal').replaceWith(response);
+
+                    $modal = $('div#{{ entity|lower }}_delete_modal');
+                    $form = $modal.find('form');
+
+                    $modal.modal('show');
+                    $modal.find('a#btn_modal_delete').off('click').on('click', function (event) {
+                        event.preventDefault();
+
+                        $form.submit();
+                    });
+                });
+            });
+        });
+    </script>
+{{ "{% endblock %}" }}
+{% endblock body %}

@@ -1,0 +1,8 @@
+            {%- if ('edit' in actions) and (not hide_edit) -%}
+            <a class="btn btn-primary btn-sm" href="{{ "{{ path('" ~ route_name_prefix ~ "_edit', { 'id': " ~ entity_singularized ~ "."~ identifier ~" }) }}" }}" title="{{ "{{ 'actions.edit'|trans }}" }}">
+                        <i class="fa fa-edit"></i> {{ "{{ 'actions.edit'|trans }}" }}</a>
+            {% endif %}
+        <a class="btn btn-default btn-sm" href="{{ "{{ path('" ~ route_name_prefix ~ "') }}" }}" title="{{ "{{ 'actions.list'|trans }}" }}">
+                        <i class="fa fa-chevron-left"></i> {{ "{{ 'actions.list'|trans }}" }}</a>
+                    <a class="btn btn-danger btn-sm" href="#delete" data-action="{{ "{{ path('" ~ route_name_prefix ~ "_deletemodal', { 'id': " ~ entity_singularized ~ "."~ identifier ~" }) }}" }}" title="{{ "{{ 'actions.delete'|trans }}" }}" data-toggle="modal" data-target="#{{ entity|lower }}_delete_modal">
+                        <i class="fa fa-trash"></i> {{ "{{ 'actions.delete'|trans }}" }}</a>

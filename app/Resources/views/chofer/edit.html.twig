@@ -1,0 +1,29 @@
+{% extends '::base.html.twig' %}
+
+{% block block('subheader') %}
+
+{% block header 'driver.label'|trans %}
+
+{% block subheader 'driver.edit'|trans %}
+
+{% block container -%}
+    {% embed '_smart_widget.html.twig' %}
+        {% set config, collapse, refresh, remove = false, true, false, false %}
+        {% block widgetheader %}
+            {{ 'driver.edit'|trans }}
+        {% endblock widgetheader %}
+
+        {% block widgetbody %}
+            {% include 'chofer/_form.html.twig' with {'form': edit_form} %}
+        {% endblock widgetbody %}
+    {% endembed %}
+{% endblock -%}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        // $('.select2').select2();
+        // $('.datepicker').datetimepicker({
+        //     'format': 'D/M/Y H:m'
+        // });
+    </script>
+{% endblock %}

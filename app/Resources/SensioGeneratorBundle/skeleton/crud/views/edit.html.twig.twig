@@ -1,0 +1,31 @@
+{% block extends %}
+{{ "{% extends '::base.html.twig' %}" }}
+{% endblock extends %}
+
+{% block title %}
+{{ "{% block block('subheader') %}" }}
+{% endblock title %}
+
+{% block header  %}
+{{ "{% block header '" ~ entity|lower ~ ".label'|trans %}" }}
+{% endblock header %}
+
+{% block subheader %}
+{{ "{% block subheader '" ~ entity|lower ~ ".edit'|trans %}" }}
+{% endblock subheader %}
+
+{% block body %}
+{{ "{% block container -%}" }}
+    {{ "{% embed '_smart_widget.html.twig' %}" }}
+        {{ "{% set config, collapse, refresh, remove = false, true, false, false %}" }}
+        {{ "{% block widgetheader %}" }}
+            {{ "{{ '" ~ entity|lower ~ ".edit'|trans }}" }}
+        {{ "{% endblock widgetheader %}" }}
+
+        {{ "{% block widgetbody %}" }}
+            {{ "{% include '" ~ entity|lower ~ "/_form.html.twig' with {'form': editForm} %}" }}
+        {{ "{% endblock widgetbody %}" }}
+    {{ "{% endembed %}" }}
+{{ "{% endblock -%}" }}
+{% endblock body %}
+

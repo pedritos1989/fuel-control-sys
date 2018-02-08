@@ -1,0 +1,61 @@
+<div class="smart-widget">
+    <div class="smart-widget-header">
+        {% block widgetheader %}
+            {# define widget header #}
+        {% endblock widgetheader %}
+
+        {% block widgetoptions %}
+        <span class="smart-widget-option">
+            <span class="refresh-icon-animated">
+                <i class="fa fa-circle-o-notch fa-spin"></i>
+            </span>
+            {% if config is defined and config == true %}
+            <a href="#" class="widget-toggle-hidden-option">
+                {% block hidden_option_icon -%}<i class="fa fa-cog"></i>{% endblock hidden_option_icon %}
+            </a>
+            {% endif %}
+            {% if collapse is defined and collapse == true %}
+            <a href="#" class="widget-collapse-option" data-toggle="collapse">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+            {% endif %}
+            {% if refresh is defined and refresh == true %}
+            <a href="#" class="widget-refresh-option">
+                <i class="fa fa-refresh"></i>
+            </a>
+            {% endif %}
+            {% if remove is defined and remove == true %}
+            <a href="#" class="widget-remove-option">
+                <i class="fa fa-times"></i>
+            </a>
+            {% endif %}
+        </span>
+        {% endblock widgetoptions %}
+    </div>
+    <div class="smart-widget-inner">
+        {% if config is defined and config == true -%}
+        <div class="smart-widget-hidden-section">
+            {% block hiddensection -%}
+            <ul class="widget-color-list clearfix">
+                <li style="background-color:#20232b;" data-color="widget-dark"></li>
+                <li style="background-color:#4c5f70;" data-color="widget-dark-blue"></li>
+                <li style="background-color:#23b7e5;" data-color="widget-blue"></li>
+                <li style="background-color:#2baab1;" data-color="widget-green"></li>
+                <li style="background-color:#edbc6c;" data-color="widget-yellow"></li>
+                <li style="background-color:#fbc852;" data-color="widget-orange"></li>
+                <li style="background-color:#e36159;" data-color="widget-red"></li>
+                <li style="background-color:#7266ba;" data-color="widget-purple"></li>
+                <li style="background-color:#f5f5f5;" data-color="widget-light-grey"></li>
+                <li style="background-color:#fff;" data-color="reset"></li>
+            </ul>
+            {% endblock hiddensection %}
+        </div>
+        {% endif %}
+
+        <div class="smart-widget-body">
+            {% block widgetbody %}
+                {# define widget body #}
+            {% endblock widgetbody %}
+        </div>
+    </div>
+</div>

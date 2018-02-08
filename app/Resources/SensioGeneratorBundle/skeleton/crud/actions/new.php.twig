@@ -1,0 +1,49 @@
+
+    /**
+{% block phpdoc_method_header %}
+     * Creates a new {{ entity_singularized }} entity.
+{% endblock phpdoc_method_header %}
+     *
+{% block phpdoc_method_annotations %}
+{% if 'annotation' == format %}
+     * @Route("/new", name="{{ route_name_prefix }}_new")
+     * @Method({"GET", "POST"})
+{% endif %}
+{% endblock phpdoc_method_annotations %}
+     */
+{% block method_definition %}
+    public function newAction(Request $request)
+{% endblock method_definition %}
+    {
+{% block method_body %}
+        ${{ entity_singularized }} = new {{ entity_singularized|capitalize }}();
+
+        $form = $this->createForm('{{ namespace }}\Form\Type\{{ entity }}Type', ${{ entity_singularized }}, array(
+            'method' => 'POST',
+            'action' => $this->generateUrl('{{ route_name_prefix }}_new'),
+        ));
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->get('doctrine.orm.entity_manager');
+            try {
+                $em->persist(${{ entity_singularized }});
+                $em->flush(${{ entity_singularized }});
+
+                $this->addFlash('success', $this->get('translator')->trans('created.success'));
+
+                return $this->redirectToRoute('{{ route_name_prefix }}_show', array('id' => ${{ entity_singularized }}->getId()));
+            } catch (\Exception $e) {
+                ErrorHandler::handleError($e, 'An error occur creating {{ entity_singularized|capitalize }}.', $this->get('logger'), $this->get('kernel')->isDebug());
+                $this->addFlash('danger', $this->get('translator')->trans('created.error', array(), 'messages'));
+            }
+        }
+{% endblock method_body %}
+
+{% block method_return %}
+        return $this->render('{{ entity|lower|replace({'\\': '/'}) }}/new.html.twig', array(
+            '{{ entity_singularized }}' => ${{ entity_singularized }},
+            'form' => $form->createView(),
+        ));
+{% endblock method_return %}
+    }

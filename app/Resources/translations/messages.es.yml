@@ -1,0 +1,278 @@
+# SYSTEM
+Welcome to CB!: ¡Bienvenido a Control de Combustible!
+system:
+  title: Combustibles
+  icon: fa fa-tachometer
+  menu:
+    label: '[0,1] Sistema|[2,Inf] Sistemas'
+
+# GLOBALS
+home:
+  title: Inicio
+  alt: Inicio
+  page:
+    title: Página Principal
+    alt: Página Principal
+flash:
+  close: Cerrar
+header:
+  action: Acción
+layout:
+  profile: Perfil
+gender:
+  m: Masculino
+  f: Femenino
+  male: Masculino
+  female: Femenino
+workDays:
+  m: Lunes
+  t: Martes
+  w: Miércoles
+  th: Jueves
+  f: Viernes
+  s: Sábado
+  su: Domingo
+
+# MESSAGES
+'Oh snap!': '¡Oh cielos!'
+'Warning!': '¡Alerta!'
+'Heads up!': '¡Atención!'
+'Well done!': '¡Bien hecho!'
+delete.header: '¡Peligro!'
+delete.message: Está a punto de eliminar una instancia de "type" con valor "name". ¿Desea proseguir?
+delete.error.%key%: Ha ocurrido un error intentando eliminar los datos en "key".
+no_elements: No existen elementos que mostrar.
+no_results: No se encontraron resultados.
+unexpected_error: No es posible completar la operación, ha ocurrido un error inesperado. Consulte al administrador del sistema.
+are_you_sure_question: ¿Está seguro que desea continuar?
+created.success: Se han adicionado los datos de forma satisfactoria.
+created.error: Ha ocurrido un error al intentar adicionar los datos.
+updated.success: Se han modificado los datos de forma satisfactoria.
+updated.error: Ha ocurrido un error al intentar modificar los datos.
+deleted.success: Se han eliminado los datos de forma satisfactoria.
+deleted.error: Ha ocurrido un error al intentar eliminar los datos.
+request.error: Ha ocurrido un error al procesar la petición.
+upload.maxsize: No se puede importar, el archivo excede los 2 MB.
+invalid.extensionfile: No se puede importar, extensión de archivo inválida.
+
+# Ususarios
+user:
+  title: '[0,1] Usuario|[2,Inf] Usuarios'
+  alt: Usuario
+  label: Usuario
+  list: Listado de Usuarios
+  create: Adicionar Usuario
+  show: Ver Datos de Usuario
+  edit: Modificar Usuario
+  delete: Eliminar Usuario
+  username: Usuario
+  email: Correo
+  lastLogin: Última autenticación
+  active: Activo
+  isactive: ¿Activo?
+  project: Proyecto
+  rol: Rol(es)
+
+# Carros
+car:
+  title: '[0,1] Carro|[2, Inf] Carros'
+  alt: Carro
+  label: Carro
+  list: Listado de Carros
+  create: Adicionar Carro
+  edit: Modificar Carro
+  show: Ver Datos de Carro
+  delete: Eliminar Carro
+  brand: Modelo
+  type: Tipo
+  state: Estado
+  inspection: Inspección técnica
+  section: Área
+  driver: Chofer
+  code: Matrícula
+  consumn: Índice de consumo
+
+#client.uploadresource:
+#  title: '[0,1] Archivo|[2, Inf] Archivos'
+#  label: Archivo
+#  filename: Nombre del archivo
+#  attachmentName: Archivo a adjuntar
+#  status: Estado
+#  status.pending: Pendiente
+#  status.attached: Subido
+
+#credit.uploaddocument:
+#  title: '[0,1] Documento|[2, Inf] Documentos'
+#  label: Documentos
+#  filename: Nombre del documento
+#  attachmentName: Documento a adjuntar
+#  type: Tipo de Documento
+
+# Chips
+chip:
+  title: '[0,1] Chip|[2, Inf] Chips'
+  alt: Chip
+  label: Chip
+  list: Listado de Chips
+  create: Adicionar Chip
+  edit: Modificar Chip
+  show: Ver Datos de Chip
+  delete: Eliminar Chip
+  date: Fecha
+  card: Tarjeta
+  initialAmount: Saldo inicial
+  finalAmount: Saldo final
+  total: Cantidad
+
+# Choferes
+driver:
+  title: '[0,1] Chofer|[2, Inf] Choferes'
+  alt: Chofer
+  label: Chofer
+  list: Listado de Choferes
+  create: Adicionar Chofer
+  edit: Modificar Chofer
+  show: Ver Datos de Chofer
+  delete: Eliminar Chofer
+  identity: CI
+  name: Nombre(s)
+  surname: Apellidos
+  phone: Teléfono
+  address: Dirección
+  drivPerm: Licencia
+  fullName: Nombre completo
+
+# Distribuciones
+distribution:
+  title: '[0,1] Distribución|[2, Inf] Distribuciones'
+  alt: Distribución
+  label: Distribución
+  list: Listado de Distribuciones
+  create: Adicionar Distribución
+  edit: Modificar Distribución
+  show: Ver Datos de Distribución
+  delete: Eliminar Distribución
+  plan: Plan
+  asignation: Asignación
+  request: Solicitud(es)
+  card: Tarjeta(s)
+  asignPlan: Plan de asignación
+
+# Plan de asignación
+assign.plan:
+  title: '[0,1] Plan de Asignación|[2,Inf] Planes de Asignación'
+  alt: 'Plan de Asignación'
+  label: Plan de Asignación
+  list: Listado de Planes de Asignación
+  create: Adicionar Plan de Asignación
+  edit: Modificar Plan de Asignación
+  show: Ver Datos de Plan de Asignación
+  delete: Eliminar Plan de Asignación
+  date: Fecha
+  total: Cantidad de Combustible
+  service: Servicio
+
+# Solicitud
+request:
+  title: "[0,1] Solicitud|[2,Inf] Solicitudes"
+  alt: Solicitud
+  label: Solicitud
+  list: Listado de Solicitudes
+  create: Adicionar Solicitud
+  edit: Modificar Solicitud
+  delete: Eliminar Solicitud
+  show: Ver Datos de Solicitud
+  date:
+    out: Fecha de Salida
+    in: Fecha de Recepción
+  place: Lugar
+  reason: Motivo
+  people.count: Cantidad de personas
+  section: Área
+
+# Tarjeta
+card:
+  title: "[0,1] Tarjeta|[2, Inf] Tarjetas"
+  alt: Tarjeta
+  label: Tarjeta
+  list: Listado de Tarjetas
+  create: Adicionar Tarjeta
+  edit: Modificar Tarjeta
+  delete: Eliminar Tarjeta
+  show: Ver Datos de Tarjeta
+  number: Número
+  exp.date: Fecha de vencimiento
+  section: Área
+  service: Servicio
+  group: Lote
+  provide: Abastecimiento
+
+# ACTIONS
+actions:
+  label: Acciones
+  new: Adicionar
+  add: Adicionar
+  edit: Modificar
+  delete: Eliminar
+  show: Ver
+  search: Buscar
+  filter: Filtrar
+  restore: Restaurar
+  restart: Restaurar
+  hide: Ocultar
+  goback: Volver
+  list: Listado
+  confirm: Confirmar
+  cancel: Cancelar
+  up: Subir
+  down: Descargar
+  pay: Pagar
+  nextStep: Siguiente
+  previousStep: Anterior
+  details: Detalles
+
+# Nomenclador
+nomenclator:
+  title: '[0,1] Nomenclador|[2, Inf] Nomencladores'
+  alt: Nomenclador
+  service:
+    title: '[0,1] Servicio|[2, Inf] Servicios'
+    label: Servicio
+    alt: Servicio
+    list: Listado de Servicios
+    create: Adicionar Servicio
+    edit: Modificar Servicio
+    delete: Eliminar Servicio
+    show: Ver Datos de Servicio
+  car_status:
+    title: '[0,1] Estado de Auto|[2, Inf] Estados de Auto'
+    label: Estado de Auto
+    alt: Estado de Auto
+    list: Listado de Estados de Auto
+    create: Adicionar Estado de Auto
+    edit: Modificar Estado de Auto
+    delete: Eliminar Estado de Auto
+    show: Ver Datos de Estado de Auto
+  car_type:
+    title: '[0,1] Tipo de Auto|[2, Inf] Tipos de Auto'
+    label: Tipo de Auto
+    alt: Tipo de Auto
+    list: Listado de Tipos de Auto
+    create: Adicionar Tipo de Auto
+    edit: Modificar Tipo de Auto
+    delete: Eliminar Tipo de Auto
+    show: Ver Datos de Tipo de Auto
+  value: Definición
+
+# Área
+section:
+  title: '[0,1] Área|[2, Inf] Áreas'
+  alt: Área
+  label: Área
+  list: Listado de Áreas
+  create: Adicionar Área
+  edit: Modificar Área
+  delete: Eliminar Área
+  show: Ver Datos de Área
+  name: Nombre
+  manager: Responsable

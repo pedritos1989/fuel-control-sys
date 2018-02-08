@@ -1,0 +1,22 @@
+{% macro alink(type, route_name_prefix, entity_singularized, action, identifier, icon) -%}
+    {% set path = "{{ path('" ~ route_name_prefix ~ "_" ~ action ~ "', { 'id': " ~ entity_singularized ~ "."~ identifier ~" }) }}" %}
+    {% if action == 'delete' -%}
+        <a class="btn btn-{{ type }} btn-sm" href="#delete" title="{{ "{{ 'actions." ~ action ~ "'|trans }}" }}" data-target="{{ "{{ " ~ entity_singularized ~ "."~ identifier ~ " }}" }}">
+            <i class="fa fa-{{ icon }}"></i> {{ "{{ 'actions." ~ action ~ "'|trans }}" }}</a>
+    {% else -%}
+        <a class="btn btn-{{ type }} btn-sm" href="{{ action == 'delete' ? '#delete' : path }}" title="{{ "{{ 'actions." ~ action ~ "'|trans }}" }}">
+            <i class="fa fa-{{ icon }}"></i> {{ "{{ 'actions." ~ action ~ "'|trans }}" }}</a>
+    {% endif %}
+{%- endmacro %}
+
+{% from _self import alink -%}
+
+{% for action in record_actions %}
+{% if action == 'edit' %}
+    {{ alink('primary', route_name_prefix, entity_singularized, action, identifier, 'edit') }}
+{% elseif action == 'show' %}
+    {{ alink('default', route_name_prefix, entity_singularized, action, identifier, 'eye') }}
+{% elseif action == 'delete' %}
+    {{ alink('danger', route_name_prefix, entity_singularized, action, identifier, 'trash') }}
+{% endif %}
+{% endfor %}

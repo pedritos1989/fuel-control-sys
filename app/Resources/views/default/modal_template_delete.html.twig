@@ -1,0 +1,8 @@
+{{ form_start(delete_form) }}
+{{ form_end(delete_form) }}
+
+<div id="param1" val="{{ 'delete.header'|trans }}"></div>
+<div id="param2" val="{{ 'delete.message'|trans({'type': entity, 'name': value}) }}"></div>
+<div id="param3" val="{{ 'actions.cancel'|trans }}"></div>
+<div id="param4" val="{{ 'actions.delete'|trans }}"></div>
+<div id="param5" val="{{ index_route }}"></div>

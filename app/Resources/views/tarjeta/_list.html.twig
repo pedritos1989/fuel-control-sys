@@ -1,0 +1,40 @@
+<table class="table table-striped table-hover" id="table-datatable">
+    <thead>
+    <tr>
+        <th>{{ 'card.number'|trans }}</th>
+        <th>{{ 'card.exp.date'|trans }}</th>
+        <th>{{ 'card.group'|trans }}</th>
+        <th>{{ 'card.provide'|trans }}</th>
+        <th>{{ 'card.section'|trans }}</th>
+        <th>{{ 'card.service'|trans }}</th>
+        <th>{{ 'actions.label'|trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for tarjeta  in tarjetas %}
+        <tr>
+            <td>{{ tarjeta.numero|default('-') }}</td>
+            <td>{% if tarjeta.fechaVenc %}{{ tarjeta.fechaVenc|date('d/m/Y') }}{% else %}-{% endif %}</td>
+            <td>{{ tarjeta.lote|default('-') }}</td>
+            <td>{{ tarjeta.abastecimiento|default('-') }}</td>
+            <td>{{ tarjeta.area|default('-') }}</td>
+            <td>{{ tarjeta.servicio|default('-') }}</td>
+            <td>
+                <a class="btn btn-default btn-sm" href="{{ path('tarjeta_show', { 'id': tarjeta.id }) }}"
+                   title="{{ 'actions.show'|trans }}">
+                    <i class="fa fa-eye"></i> {{ 'actions.show'|trans }}</a>
+
+                <a class="btn btn-primary btn-sm" href="{{ path('tarjeta_edit', { 'id': tarjeta.id }) }}"
+                   title="{{ 'actions.edit'|trans }}">
+                    <i class="fa fa-edit"></i> {{ 'actions.edit'|trans }}</a>
+
+                <a data-id="{{ tarjeta.id }}" data-action="tarjeta_delete"
+                   href="javascript:;" class="btn btn-danger btn-sm tooltips delete-selection"
+                   data-container="body" title="{{ 'actions.delete'|trans }}">
+                    <i class="fa fa-trash-o"></i> {{ 'actions.delete'|trans }}</a>
+
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

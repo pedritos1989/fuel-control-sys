@@ -1,0 +1,64 @@
+{% extends '::base.html.twig' %}
+
+{% block block('subheader') %}
+
+{% block header 'card.label'|trans %}
+
+{% block subheader 'card.show'|trans %}
+
+{% block container -%}
+    {%- embed '_smart_widget.html.twig' %}
+        {% set config, collapse, refresh, remove = false, true, false, false %}
+        {% block widgetheader %}
+            {{ 'card.show'|trans }}
+        {% endblock widgetheader %}
+
+        {% block widgetbody %}
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-striped table-hover">
+                        <tbody>
+                        <tr>
+                            <th>{{ 'card.number'|trans }}</th>
+                            <td>{{ tarjeta.numero|default('-') }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'card.group'|trans }}</th>
+                            <td>{{ tarjeta.lote|default('-') }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'card.provide'|trans }}</th>
+                            <td>{{ tarjeta.abastecimiento|default('-') }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'card.exp.date'|trans }}</th>
+                            <td>{% if tarjeta.fechaVenc %}{{ tarjeta.fechaVenc|date('d/m/Y') }}{% else %}-{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'card.section'|trans }}</th>
+                            <td>{{ tarjeta.area|default('-') }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'card.service'|trans }}</th>
+                            <td>{{ tarjeta.servicio|default('-') }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-md-12" id="button_actions">
+                    <a class="btn btn-primary btn-sm" href="{{ path('tarjeta_edit', { 'id': tarjeta.id }) }}"
+                       title="{{ 'actions.edit'|trans }}">
+                        <i class="fa fa-edit"></i> {{ 'actions.edit'|trans }}</a>
+                    <a class="btn btn-default btn-sm" href="{{ path('tarjeta_index') }}"
+                       title="{{ 'actions.list'|trans }}">
+                        <i class="fa fa-chevron-left"></i> {{ 'actions.list'|trans }}</a>
+                    <a data-id="{{ tarjeta.id }}" data-action="tarjeta_delete"
+                       href="javascript:;" class="btn btn-danger btn-sm tooltips delete-selection"
+                       data-container="body" title="{{ 'actions.delete'|trans }}">
+                        <i class="fa fa-trash-o"></i> {{ 'actions.delete'|trans }}</a>
+                </div>
+            </div>
+        {% endblock widgetbody %}
+    {%- endembed %}
+{% endblock %}

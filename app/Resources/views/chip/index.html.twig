@@ -1,0 +1,77 @@
+{% extends '::base.html.twig' %}
+
+{% block block('subheader') %}
+
+{% block header 'chip.label'|trans %}
+
+{% block subheader 'chip.list'|trans %}
+
+{% block container -%}
+    {%- embed '_smart_widget.html.twig' %}
+        {% set config, collapse, refresh, remove = true, true, false, false %}
+        {% block widgetheader %}
+            {{ 'chip.list'|trans }}
+        {% endblock widgetheader %}
+
+        {% block hidden_option_icon '<i></i>' %}
+
+        {% block widgetbody %}
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="btn btn-primary btn-sm" href="{{ path('chip_new') }}">
+                        <i class="fa fa-plus-circle"></i> {{ 'actions.add'|trans }}
+                    </a>
+                </div>
+                <div class="col-md-12 separator-index">
+                    <table class="table table-striped table-hover" id="table-datatable">
+                        <thead>
+                        <tr>
+                            <th>{{ 'chip.date'|trans }}</th>
+                            <th>{{ 'chip.total'|trans }}</th>
+                            <th>{{ 'chip.initialAmount'|trans }}</th>
+                            <th>{{ 'chip.finalAmount'|trans }}</th>
+                            <th>{{ 'chip.card'|trans }}</th>
+                            <th>{{ 'actions.label'|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for chip in chips %}
+                            <tr>
+                                <td>
+                                    {{ chip.fecha|date('d/m/Y H:i')|default('-') }}
+                                </td>
+                                <td>{{ chip.cantcomb|default('-') }}</td>
+                                <td>{{ chip.saldoInicial|default('-') }}</td>
+                                <td>{{ chip.saldoFinal|default('-') }}</td>
+                                <td>{{ chip.tarjeta|default('-') }}</td>
+                                <td>
+                                    <a class="btn btn-default btn-sm"
+                                       href="{{ path('chip_show', { 'id': chip.id }) }}"
+                                       title="{{ 'actions.show'|trans }}">
+                                        <i class="fa fa-eye"></i> {{ 'actions.show'|trans }}</a>
+                                    <a class="btn btn-primary btn-sm"
+                                       href="{{ path('chip_edit', { 'id': chip.id }) }}"
+                                       title="{{ 'actions.edit'|trans }}">
+                                        <i class="fa fa-edit"></i> {{ 'actions.edit'|trans }}</a>
+                                    <a data-id="{{ chip.id }}" data-action="chip_delete"
+                                       href="javascript:;" class="btn btn-danger btn-sm tooltips delete-selection"
+                                       data-container="body" title="{{ 'actions.delete'|trans }}">
+                                        <i class="fa fa-trash-o"></i> {{ 'actions.delete'|trans }}</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endblock widgetbody %}
+    {%- endembed %}
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#table-datatable').DataTable();
+        });
+    </script>
+{% endblock %}

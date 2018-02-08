@@ -1,0 +1,25 @@
+{{ "{{ form_errors(form) }}" }}
+<form id="{{ '{{ form.vars.id }}' }}" name="{{ '{{ form.vars.full_name }}' }}" action="{{ '{{ form.vars.action }}' }}"
+      method="post" enctype="multipart/form-data">
+{{ "{% if form.vars.method == 'PUT' %}" }}
+    <input type="hidden" name="_method" value="PUT">
+    {{ "{% set editing = true %}" }}
+{{ "{% endif %}" }}
+
+    <div class="row">
+    {% for field, metadata in fields if metadata.id is not defined %}
+    <div class="col-md-12">
+            {{ "{{ form_row(form." ~ field|replace({'_': ''})|lower ~ ") }}" }}
+        </div>
+    {% endfor -%}
+
+        {{ "    {{ form_widget(form._token) }}" }}
+
+        <div id="button_actions" class="col-md-12">
+            {{ '<button type="submit" class="btn btn-primary btn-sm" title="{{ (editing is not defined ? "actions.new" : "actions.edit")|trans }}">
+                <i class="fa {{ editing is not defined ? "fa-save" : "fa-edit"}}"></i> {{ (editing is not defined ? "actions.new" : "actions.edit")|trans }}</button>' }}
+            {{ '<a class="btn btn-default btn-sm" href="{{ path("' ~ route_name_prefix ~ '") }}" title="{{ (editing is not defined ? "actions.cancel" : "actions.list")|trans }}">
+                <i class="fa {{ editing is not defined ? " fa-remove" : " fa-chevron-left"}}"></i> {{ (editing is not defined ? "actions.cancel" : "actions.list")|trans }}</a>' }}
+        </div>
+    </div>
+</form>

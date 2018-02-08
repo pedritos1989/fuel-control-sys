@@ -1,0 +1,38 @@
+<div id="{% block modal_id %}{% endblock %}" data-keyboard="false" data-backdrop="static" class="modal {% block modal_class %}{% endblock %}"
+     style="display: none;" aria-hidden="true">
+    <div class="modal-dialog {% block modal_size %}{% endblock %}">
+        <div class="modal-content">
+            {% block modal_content %}
+            <div class="modal-header clearfix {% block modal_header_class %}{% endblock %}">
+            {% block modal_header %}
+                <div class="modal-title">
+                    <h3 style="margin: 10px;">{% block modal_title %}awesome header title{% endblock %}</h3>
+                </div>
+                {% block modal_close_button %}
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                {% endblock %}
+            {% endblock %}
+            </div>
+
+            <div class="modal-body">
+            {% block modal_mody %}
+                <p>awesome modal body</p>
+            {% endblock %}
+            </div>
+            <div class="modal-footer">
+            {% block modal_footer %}
+                <form name="{{ deleteForm.vars.full_name }}" id="{{ deleteForm.vars.id }}" action="{{ deleteForm.vars.action }}"
+                      method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="_method" value="DELETE"/>
+                    {{ form_widget(deleteForm._token) }}
+                </form>
+                <a id="btn_modal_cancel" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class="fa fa-remove"></i> {{ 'actions.cancel' | trans }}</a>
+                <button id="btn_modal_delete" class="btn btn-danger btn-sm" form="{{ deleteForm.vars.id }}" type="submit">
+                    <i class="fa fa-trash"></i> {{ 'actions.confirm' | trans }}</button>
+            {% endblock %}
+            </div>
+        {% endblock %}
+        </div>
+    </div>
+</div>

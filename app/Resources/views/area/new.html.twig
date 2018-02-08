@@ -1,0 +1,26 @@
+{% extends '::base.html.twig' %}
+
+{% block block('subheader') %}
+
+{% block header 'section.label'|trans %}
+
+{% block subheader 'section.create'|trans %}
+
+{% block container -%}
+    {% embed '_smart_widget.html.twig' %}
+        {% set config, collapse, refresh, remove = false, true, false, false %}
+        {% block widgetheader %}
+            {{ 'section.create'|trans }}
+        {% endblock widgetheader %}
+
+        {% block widgetbody %}
+            {% include 'area/_form.html.twig' %}
+        {% endblock widgetbody %}
+    {% endembed %}
+{% endblock -%}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        // $('select').select2();
+    </script>
+{% endblock %}

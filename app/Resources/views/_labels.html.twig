@@ -1,0 +1,26 @@
+{%- set label -%}
+    {% spaceless %}
+        {% block label %}
+            {# Must change #}
+        {% endblock %}
+    {% endspaceless %}
+{%- endset -%}
+
+{% set title %}
+    {% spaceless %}
+        {% block title %}
+            {{ block('value') }}
+        {% endblock %}
+    {% endspaceless %}
+{% endset %}
+
+{%- set value -%}
+    {% spaceless %}
+        {% block value %}
+            {{ ('estado.' ~ status)  | trans({}, translationDomain) }}
+        {% endblock %}
+    {% endspaceless %}
+{%- endset -%}
+
+<span class="label label-{{ label }}" data-toggle="tooltip" data-placement="left"
+      title="{{ title }}"> {{ value | upper }}</span>

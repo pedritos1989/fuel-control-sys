@@ -1,0 +1,28 @@
+
+    /**
+{% block phpdoc_method_header %}
+     * Gets Delete Modal {{ entity_singularized }} entity.
+{% endblock phpdoc_method_header %}
+     *
+{% block phpdoc_method_annotations %}
+{% if 'annotation' == format %}
+     * @Route("/{id}/delete", name="{{ route_name_prefix }}_deletemodal", options={"expose": true})
+     * @Method("GET")
+{% endif %}
+{% endblock phpdoc_method_annotations %}
+     */
+{% block method_definition %}
+    public function deleteModalAction({{ entity_class }} ${{ entity_singularized }})
+{% endblock method_definition %}
+    {
+{% block method_body %}
+        $deleteForm = $this->createDeleteForm(${{ entity_singularized }});
+{% endblock method_body %}
+
+{% block method_return %}
+        return $this->render('{{ entity|lower|replace({'\\': '/'}) }}/_delete_modal.html.twig', array(
+            'deleteForm' => $deleteForm->createView(),
+            '{{ entity_singularized }}' => ${{ entity_singularized }}
+        ));
+{% endblock method_return %}
+    }

@@ -1,0 +1,38 @@
+<table class="table table-striped table-hover" id="table-datatable">
+    <thead>
+    <tr>
+        <th>{{ 'request.date.out'|trans }}</th>
+        <th>{{ 'request.date.in'|trans }}</th>
+        <th>{{ 'request.place'|trans }}</th>
+        <th>{{ 'request.reason'|trans }}</th>
+        <th>{{ 'request.people.count'|trans }}</th>
+        <th>{{ 'actions.label'|trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for solicitud  in solicituds %}
+        <tr>
+            <td>{% if solicitud.fechaHoraS %}{{ solicitud.fechaHoraS|date('d/m/Y H:i') }}{% endif %}</td>
+            <td>{% if solicitud.fechaHoraR %}{{ solicitud.fechaHoraR|date('d/m/Y H:i') }}{% endif %}</td>
+            <td>{{ solicitud.lugar }}</td>
+            <td>{{ solicitud.motivo }}</td>
+            <td>{{ solicitud.cantpersona }}</td>
+            <td>
+                <a class="btn btn-default btn-sm" href="{{ path('solicitud_show', { 'id': solicitud.id }) }}"
+                   title="{{ 'actions.show'|trans }}">
+                    <i class="fa fa-eye"></i> {{ 'actions.show'|trans }}</a>
+
+                <a class="btn btn-primary btn-sm" href="{{ path('solicitud_edit', { 'id': solicitud.id }) }}"
+                   title="{{ 'actions.edit'|trans }}">
+                    <i class="fa fa-edit"></i> {{ 'actions.edit'|trans }}</a>
+
+                <a data-id="{{ solicitud.id }}" data-action="solicitud_delete"
+                   href="javascript:;" class="btn btn-danger btn-sm tooltips delete-selection"
+                   data-container="body" title="{{ 'actions.delete'|trans }}">
+                    <i class="fa fa-trash-o"></i> {{ 'actions.delete'|trans }}</a>
+
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

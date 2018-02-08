@@ -1,0 +1,17 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+    {{ include('FOSUserBundle:Security:login_content.html.twig') }}
+{% endblock fos_user_content %}
+
+{% block javascripts -%}
+<script type="text/javascript">
+    $(document).ready(function (){
+        $('a[href="#signin"]').on('click', function (e) {
+            e.preventDefault();
+
+            $('form').submit();
+        });
+    });
+</script>
+{% endblock -%}
