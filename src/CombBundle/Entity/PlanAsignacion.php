@@ -3,13 +3,15 @@
 namespace CombBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use NomencladorBundle\Entity\Servicio;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * PlanAsignacion
  *
  * @ORM\Table(name="s_plan_asignacion")
  * @ORM\Entity(repositoryClass="CombBundle\Repository\PlanAsignacionRepository")
+ * @UniqueEntity({"area","asignacionMensual"})
  */
 class PlanAsignacion
 {
@@ -26,28 +28,41 @@ class PlanAsignacion
      * @var \DateTime
      *
      * @ORM\Column(name="fecha", type="date")
+     * @Assert\Date()
+     * @Assert\NotBlank()
      */
     private $fecha;
 
     /**
-     * @var int
+     * @var Area
      *
-     * @ORM\Column(name="cantcomb", type="integer")
+     * @ORM\ManyToOne(targetEntity="CombBundle\Entity\Area")
      */
-    private $cantcomb;
+    private $area;
 
     /**
-     * @var Servicio
-     *
-     * @ORM\ManyToOne(targetEntity="NomencladorBundle\Entity\Servicio")
+     * @ORM\ManyToOne(targetEntity="CombBundle\Entity\AsignacionMensual", inversedBy="plan")
      */
-    private $servicio;
+    private $asignacionMensual;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CombBundle\Entity\CantidadXPlan", mappedBy="plan")
+     */
+    private $cantidades;
 
 
     public function __toString()
     {
         // TODO: Implement __toString() method.
-        return sprintf('%s -> %s', $this->getCantcomb(), $this->getFecha()->format('d/m/Y'));
+        return sprintf('%s', $this->getFecha()->format('d/m/Y'));
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->cantidades = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -84,48 +99,81 @@ class PlanAsignacion
     }
 
     /**
-     * Set cantcomb
+     * Set area
      *
-     * @param integer $cantcomb
+     * @param \CombBundle\Entity\Area $area
      * @return PlanAsignacion
      */
-    public function setCantcomb($cantcomb)
+    public function setArea(\CombBundle\Entity\Area $area = null)
     {
-        $this->cantcomb = $cantcomb;
+        $this->area = $area;
 
         return $this;
     }
 
     /**
-     * Get cantcomb
+     * Get area
      *
-     * @return integer
+     * @return \CombBundle\Entity\Area
      */
-    public function getCantcomb()
+    public function getArea()
     {
-        return $this->cantcomb;
+        return $this->area;
     }
 
     /**
-     * Set servicio
+     * Set asignacionMensual
      *
-     * @param \NomencladorBundle\Entity\Servicio $servicio
+     * @param \CombBundle\Entity\AsignacionMensual $asignacionMensual
      * @return PlanAsignacion
      */
-    public function setServicio(\NomencladorBundle\Entity\Servicio $servicio = null)
+    public function setAsignacionMensual(\CombBundle\Entity\AsignacionMensual $asignacionMensual = null)
     {
-        $this->servicio = $servicio;
+        $this->asignacionMensual = $asignacionMensual;
 
         return $this;
     }
 
     /**
-     * Get servicio
+     * Get asignacionMensual
      *
-     * @return \NomencladorBundle\Entity\Servicio
+     * @return \CombBundle\Entity\AsignacionMensual
      */
-    public function getServicio()
+    public function getAsignacionMensual()
     {
-        return $this->servicio;
+        return $this->asignacionMensual;
+    }
+
+    /**
+     * Add cantidades
+     *
+     * @param \CombBundle\Entity\CantidadXPlan $cantidades
+     * @return PlanAsignacion
+     */
+    public function addCantidade(\CombBundle\Entity\CantidadXPlan $cantidades)
+    {
+        $this->cantidades[] = $cantidades;
+
+        return $this;
+    }
+
+    /**
+     * Remove cantidades
+     *
+     * @param \CombBundle\Entity\CantidadXPlan $cantidades
+     */
+    public function removeCantidade(\CombBundle\Entity\CantidadXPlan $cantidades)
+    {
+        $this->cantidades->removeElement($cantidades);
+    }
+
+    /**
+     * Get cantidades
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCantidades()
+    {
+        return $this->cantidades;
     }
 }

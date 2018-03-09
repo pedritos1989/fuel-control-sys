@@ -5,7 +5,6 @@ namespace CombBundle\Form\Type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,13 +21,14 @@ class PlanAsignacionType extends AbstractType
                 'widget' => 'single_text',
                 'format' => 'd/M/y',
             ))
-            ->add('cantcomb', IntegerType::class, array(
-                'label' => 'assign.plan.total',
-            ))
-            ->add('servicio', EntityType::class, array(
-                'class' => 'NomencladorBundle\Entity\Servicio',
+            ->add('area', EntityType::class, array(
+                'class' => 'CombBundle\Entity\Area',
                 'required' => false,
-                'label' => 'assign.plan.service',
+                'label' => 'assign.plan.section',
+            ))
+            ->add('asignacionMensual', EntityType::class, array(
+                'label' => 'assign.plan.monthly.asign',
+                'class' => 'CombBundle\Entity\AsignacionMensual',
             ));
     }
 
@@ -38,7 +38,7 @@ class PlanAsignacionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CombBundle\Entity\PlanAsignacion'
+            'data_class' => 'CombBundle\Entity\PlanAsignacion',
         ));
     }
 

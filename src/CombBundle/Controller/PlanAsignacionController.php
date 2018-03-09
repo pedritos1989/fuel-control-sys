@@ -16,7 +16,7 @@ use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
  *
  * @Route("planasignacion")
  * @Breadcrumb("home.title", route= {"name"= "homepage"}, attributes={"icon": "fa fa-home"})
- * @Breadcrumb("assign.plan.list", route={"name"= "planasignacion_index"})
+ * @Breadcrumb("monthly.assign.list", route={"name"= "planasignacion_index"})
  */
 class PlanAsignacionController extends Controller
 {

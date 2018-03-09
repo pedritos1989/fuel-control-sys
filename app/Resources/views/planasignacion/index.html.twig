@@ -27,8 +27,8 @@
                         <thead>
                         <tr>
                             <th>{{ 'assign.plan.date'|trans }}</th>
-                            <th>{{ 'assign.plan.total'|trans }}</th>
-                            <th>{{ 'assign.plan.service'|trans }}</th>
+                            <th>{{ 'assign.plan.section'|trans }}</th>
+                            <th>{{ 'assign.plan.monthly.asign'|trans }}</th>
                             <th>{{ 'actions.label'|trans }}</th>
                         </tr>
                         </thead>
@@ -38,8 +38,8 @@
                                 <td>
                                     {{ plan.fecha|date('d/m/Y')|default('-') }}
                                 </td>
-                                <td>{{ plan.cantcomb|default('-') }}</td>
-                                <td>{{ plan.servicio|default('-') }}</td>
+                                <td>{{ plan.area|default('-') }}</td>
+                                <td>{{ plan.asignacionMensual|default('-') }}</td>
                                 <td>
                                     <a class="btn btn-default btn-sm"
                                        href="{{ path('planasignacion_show', { 'id': plan.id }) }}"
