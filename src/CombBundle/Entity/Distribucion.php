@@ -61,6 +61,17 @@ class Distribucion
      */
     private $tarjetas;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="NomencladorBundle\Entity\Servicio")
+     */
+    private $servicio;
+
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return sprintf('%s -> %s', $this->getPlan(), $this->getAsignacion());
+    }
 
     /**
      * Constructor
@@ -216,10 +227,26 @@ class Distribucion
         return $this->tarjetas;
     }
 
-    public function __toString()
+    /**
+     * Set servicio
+     *
+     * @param \NomencladorBundle\Entity\Servicio $servicio
+     * @return Distribucion
+     */
+    public function setServicio(\NomencladorBundle\Entity\Servicio $servicio = null)
     {
-        // TODO: Implement __toString() method.
-        return sprintf('%s -> %s', $this->getPlan(), $this->getAsignacion());
+        $this->servicio = $servicio;
+
+        return $this;
     }
 
+    /**
+     * Get servicio
+     *
+     * @return \NomencladorBundle\Entity\Servicio
+     */
+    public function getServicio()
+    {
+        return $this->servicio;
+    }
 }
