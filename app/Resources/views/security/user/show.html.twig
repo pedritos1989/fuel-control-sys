@@ -36,6 +36,15 @@
                                 <i class="fa {{ user.enabled ? 'fa-check text-success' : 'fa-remove text-danger' }}"></i>
                             </td>
                         </tr>
+                        <tr>
+                            <th>{{ 'user.rol.label'|trans }}</th>
+                            <td>
+                                {% for rol in user.roles %}
+                                    {{ ('user.rol.' ~ rol|lower)|trans }}
+                                    <br>
+                                {% endfor %}
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

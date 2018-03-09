@@ -7,8 +7,13 @@ security:
         Symfony\Component\Security\Core\User\User: bcrypt
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_USER:           ROLE_USER
+        ROLE_ADMIN:          [ROLE_ADMIN,ROLE_USER]
+        ROLE_SUPER_ADMIN:    [ROLE_SUPER_ADMIN,ROLE_USER]
+        CAJERO:              [CAJERO,ROLE_USER]
+        DIRECTOR_TRANSPORTE: [DIRECTOR_TRANSPORTE,ROLE_USER]
+        JEFE_AREA:           [JEFE_AREA,ROLE_USER]
+        TECNICO_TRANSPORTE:  [TECNICO_TRANSPORTE,ROLE_USER]
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:

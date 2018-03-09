@@ -22,9 +22,14 @@ class UserRegistrationType extends AbstractType
                 'required' => false,
             ))
             ->add('roles', 'choice', array(
-                'choices' => array('ROLE_SUPER_ADMIN' => 'ROLE_SUPER_ADMIN', 'ROLE_USER' => 'ROLE_USER'),
+                'choices' => array(
+                    'DIRECTOR_TRANSPORTE' => 'Director(a) de Transporte',
+                    'JEFE_AREA' => 'Jefe(a) de Área',
+                    'TECNICO_TRANSPORTE' => 'Técnico(a) de Transporte',
+                    'CAJERO' => 'Cajero(a)',
+                ),
                 'multiple' => true,
-                'label' => 'user.rol',
+                'label' => 'user.rol.label',
                 'attr' => array(
                     'style' => 'width:100%',
                 ),
