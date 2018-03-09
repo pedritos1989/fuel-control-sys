@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e5879cf5618f68f0330847ac36bffaf",
+    "content-hash": "d580d84a62d0d348283eaf105803d61c",
     "packages": [
         {
             "name": "apy/breadcrumbtrail-bundle",
@@ -1114,97 +1114,6 @@
             "time": "2014-11-20T16:49:30+00:00"
         },
         {
-            "name": "javiereguiluz/easyadmin-bundle",
-            "version": "v1.16.10",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/javiereguiluz/EasyAdminBundle.git",
-                "reference": "ce8b7e7549673be06b11154b4a24720b21389db2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/javiereguiluz/EasyAdminBundle/zipball/ce8b7e7549673be06b11154b4a24720b21389db2",
-                "reference": "ce8b7e7549673be06b11154b4a24720b21389db2",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/cache": "~1.5",
-                "doctrine/common": "^2.4.0",
-                "doctrine/doctrine-bundle": "~1.2",
-                "doctrine/orm": "~2.3",
-                "pagerfanta/pagerfanta": "~1.0,>=1.0.1",
-                "php": ">=5.3.0",
-                "sensio/framework-extra-bundle": "~2.3|~3.0,>=3.0.2",
-                "symfony/asset": "~2.3|~3.0",
-                "symfony/config": "~2.3|~3.0",
-                "symfony/dependency-injection": "~2.3|~3.0",
-                "symfony/doctrine-bridge": "~2.3|~3.0",
-                "symfony/event-dispatcher": "~2.3|~3.0",
-                "symfony/form": "~2.3|~3.0",
-                "symfony/framework-bundle": "~2.3|~3.0",
-                "symfony/http-foundation": "~2.3|~3.0",
-                "symfony/http-kernel": "~2.3|~3.0",
-                "symfony/polyfill-mbstring": "^1.0",
-                "symfony/property-access": "~2.3|~3.0",
-                "symfony/security-bundle": "~2.3|~3.0",
-                "symfony/translation": "~2.3|~3.0",
-                "symfony/twig-bridge": "^2.3.4|~3.0",
-                "symfony/twig-bundle": "~2.3|~3.0",
-                "symfony/validator": "~2.3|~3.0",
-                "twig/extensions": "~1.0",
-                "twig/twig": "~1.14,>=1.14.2|~2.0"
-            },
-            "require-dev": {
-                "doctrine/doctrine-fixtures-bundle": "~2.2",
-                "phpunit/phpunit": "~4.4",
-                "psr/log": "~1.0",
-                "symfony/browser-kit": "~2.3|~3.0",
-                "symfony/console": "~2.3|~3.0",
-                "symfony/css-selector": "~2.3|~3.0",
-                "symfony/dom-crawler": "~2.3|~3.0",
-                "symfony/finder": "~2.3|~3.0",
-                "symfony/phpunit-bridge": "^2.7",
-                "symfony/var-dumper": "~2.3|~3.0",
-                "symfony/yaml": "~2.3|~3.0"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.16.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "JavierEguiluz\\Bundle\\EasyAdminBundle\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Javier Eguiluz",
-                    "email": "javiereguiluz@gmail.com"
-                },
-                {
-                    "name": "Project Contributors",
-                    "homepage": "http://github.com/javiereguiluz/easyadmin/blob/master/CONTRIBUTORS.md"
-                }
-            ],
-            "description": "Admin generator for Symfony applications",
-            "homepage": "https://github.com/javiereguiluz/EasyAdminBundle",
-            "keywords": [
-                "admin",
-                "backend",
-                "generator"
-            ],
-            "time": "2017-05-29T19:24:46+00:00"
-        },
-        {
             "name": "jdorn/sql-formatter",
             "version": "v1.2.17",
             "source": {
@@ -1399,75 +1308,6 @@
             "time": "2017-06-19T01:22:40+00:00"
         },
         {
-            "name": "pagerfanta/pagerfanta",
-            "version": "v1.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/whiteoctober/Pagerfanta.git",
-                "reference": "29aade64addfdfb12c05aabf160f09d1aea6b143"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/whiteoctober/Pagerfanta/zipball/29aade64addfdfb12c05aabf160f09d1aea6b143",
-                "reference": "29aade64addfdfb12c05aabf160f09d1aea6b143",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "doctrine/orm": "~2.3",
-                "doctrine/phpcr-odm": "1.*",
-                "jackalope/jackalope-doctrine-dbal": "1.*",
-                "jmikola/geojson": "~1.0",
-                "mandango/mandango": "~1.0@dev",
-                "mandango/mondator": "~1.0@dev",
-                "phpunit/phpunit": "~4 | ~5",
-                "propel/propel": "~2.0@dev",
-                "propel/propel1": "~1.6",
-                "ruflin/elastica": "~1.3",
-                "solarium/solarium": "~3.1"
-            },
-            "suggest": {
-                "doctrine/mongodb-odm": "To use the DoctrineODMMongoDBAdapter.",
-                "doctrine/orm": "To use the DoctrineORMAdapter.",
-                "doctrine/phpcr-odm": "To use the DoctrineODMPhpcrAdapter. >= 1.1.0",
-                "mandango/mandango": "To use the MandangoAdapter.",
-                "propel/propel": "To use the Propel2Adapter",
-                "propel/propel1": "To use the PropelAdapter",
-                "solarium/solarium": "To use the SolariumAdapter."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Pagerfanta\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Pablo Díez",
-                    "email": "pablodip@gmail.com"
-                }
-            ],
-            "description": "Pagination for PHP 5.3",
-            "keywords": [
-                "page",
-                "pagination",
-                "paginator",
-                "paging"
-            ],
-            "time": "2017-03-20T13:46:15+00:00"
-        },
-        {
             "name": "paragonie/random_compat",
             "version": "v2.0.10",
             "source": {
@@ -1514,6 +1354,98 @@
                 "random"
             ],
             "time": "2017-03-13T16:27:32+00:00"
+        },
+        {
+            "name": "pclzip/pclzip",
+            "version": "2.8.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ivanlanin/pclzip.git",
+                "reference": "19dd1de9d3f5fc4d7d70175b4c344dee329f45fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ivanlanin/pclzip/zipball/19dd1de9d3f5fc4d7d70175b4c344dee329f45fd",
+                "reference": "19dd1de9d3f5fc4d7d70175b4c344dee329f45fd",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "pclzip.lib.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1"
+            ],
+            "authors": [
+                {
+                    "name": "Vincent Blavet"
+                }
+            ],
+            "description": "A PHP library that offers compression and extraction functions for Zip formatted archives",
+            "homepage": "http://www.phpconcept.net/pclzip",
+            "keywords": [
+                "php",
+                "zip"
+            ],
+            "time": "2014-06-05T11:42:24+00:00"
+        },
+        {
+            "name": "phpoffice/common",
+            "version": "0.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPOffice/Common.git",
+                "reference": "d5992c95f199842fa8ba6329bb15d02716265d5b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPOffice/Common/zipball/d5992c95f199842fa8ba6329bb15d02716265d5b",
+                "reference": "d5992c95f199842fa8ba6329bb15d02716265d5b",
+                "shasum": ""
+            },
+            "require": {
+                "pclzip/pclzip": "^2.8",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpdocumentor/phpdocumentor": "2.*",
+                "phploc/phploc": "2.*",
+                "phpmd/phpmd": "2.*",
+                "phpunit/phpunit": "3.7.*",
+                "sebastian/phpcpd": "2.*",
+                "squizlabs/php_codesniffer": "2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PhpOffice\\Common\\": "src/Common/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Baker"
+                },
+                {
+                    "name": "Franck Lefevre",
+                    "homepage": "http://rootslabs.net"
+                }
+            ],
+            "description": "PHPOffice Common",
+            "homepage": "http://phpoffice.github.io",
+            "keywords": [
+                "common",
+                "component",
+                "office",
+                "php"
+            ],
+            "time": "2017-11-23T14:13:25+00:00"
         },
         {
             "name": "phpoffice/phpexcel",
@@ -1570,7 +1502,111 @@
                 "xls",
                 "xlsx"
             ],
+            "abandoned": "phpoffice/phpspreadsheet",
             "time": "2015-05-01T07:00:55+00:00"
+        },
+        {
+            "name": "phpoffice/phpword",
+            "version": "v0.14.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPOffice/PHPWord.git",
+                "reference": "b614497ae6dd44280be1c2dda56772198bcd25ae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPOffice/PHPWord/zipball/b614497ae6dd44280be1c2dda56772198bcd25ae",
+                "reference": "b614497ae6dd44280be1c2dda56772198bcd25ae",
+                "shasum": ""
+            },
+            "require": {
+                "ext-xml": "*",
+                "php": "^5.3.3 || ^7.0",
+                "phpoffice/common": "^0.2",
+                "zendframework/zend-escaper": "^2.2",
+                "zendframework/zend-stdlib": "^2.2 || ^3.0"
+            },
+            "require-dev": {
+                "dompdf/dompdf": "0.8.*",
+                "friendsofphp/php-cs-fixer": "^2.0",
+                "mpdf/mpdf": "5.* || 6.* || 7.*",
+                "phpdocumentor/phpdocumentor": "2.*",
+                "phploc/phploc": "2.* || 3.* || 4.*",
+                "phpmd/phpmd": "2.*",
+                "phpunit/phpunit": "^4.8.36 || ^5.0",
+                "squizlabs/php_codesniffer": "^2.7",
+                "tecnickcom/tcpdf": "6.*"
+            },
+            "suggest": {
+                "dompdf/dompdf": "Allows writing PDF",
+                "ext-gd2": "Allows adding images",
+                "ext-xmlwriter": "Allows writing OOXML and ODF",
+                "ext-xsl": "Allows applying XSL style sheet to headers, to main document part, and to footers of an OOXML template",
+                "ext-zip": "Allows writing OOXML and ODF"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PhpOffice\\PhpWord\\": "src/PhpWord"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Baker"
+                },
+                {
+                    "name": "Gabriel Bull",
+                    "email": "me@gabrielbull.com",
+                    "homepage": "http://gabrielbull.com/"
+                },
+                {
+                    "name": "Ivan Lanin",
+                    "homepage": "http://ivan.lanin.org"
+                },
+                {
+                    "name": "Roman Syroeshko",
+                    "homepage": "http://ru.linkedin.com/pub/roman-syroeshko/34/a53/994/"
+                },
+                {
+                    "name": "Franck Lefevre",
+                    "homepage": "https://rootslabs.net/blog/"
+                },
+                {
+                    "name": "Antoine de Troostembergh"
+                }
+            ],
+            "description": "PHPWord - A pure PHP library for reading and writing word processing documents (OOXML, ODF, RTF, HTML, PDF)",
+            "homepage": "http://phpoffice.github.io",
+            "keywords": [
+                "ISO IEC 29500",
+                "OOXML",
+                "Office Open XML",
+                "OpenDocument",
+                "OpenXML",
+                "PhpOffice",
+                "PhpWord",
+                "Rich Text Format",
+                "WordprocessingML",
+                "doc",
+                "docx",
+                "html",
+                "odf",
+                "odt",
+                "office",
+                "pdf",
+                "php",
+                "reader",
+                "rtf",
+                "template",
+                "template processor",
+                "word",
+                "writer"
+            ],
+            "time": "2017-12-29T01:30:53+00:00"
         },
         {
             "name": "psr/log",
@@ -1618,344 +1654,6 @@
                 "psr-3"
             ],
             "time": "2016-10-10T12:19:37+00:00"
-        },
-        {
-            "name": "ptachoire/cssembed",
-            "version": "v1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/krichprollsch/phpCssEmbed.git",
-                "reference": "406c6d5b846cafa9186f9944a6210d0e6fed154b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/krichprollsch/phpCssEmbed/zipball/406c6d5b846cafa9186f9944a6210d0e6fed154b",
-                "reference": "406c6d5b846cafa9186f9944a6210d0e6fed154b",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "CssEmbed": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Pierre Tachoire",
-                    "email": "pierre.tachoire@gmail.com"
-                }
-            ],
-            "description": "Css url embed library.",
-            "homepage": "https://github.com/krichprollsch/phpCssEmbed",
-            "keywords": [
-                "css",
-                "url"
-            ],
-            "time": "2013-07-22T20:01:48+00:00"
-        },
-        {
-            "name": "raulfraile/ladybug",
-            "version": "v1.0.13",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/raulfraile/ladybug.git",
-                "reference": "40a15f3d1c2644d7dcc3721c7609a32401494a9f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/raulfraile/ladybug/zipball/40a15f3d1c2644d7dcc3721c7609a32401494a9f",
-                "reference": "40a15f3d1c2644d7dcc3721c7609a32401494a9f",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.9",
-                "ptachoire/cssembed": "v1.0.2",
-                "raulfraile/ladybug-plugin-extra": "~1.0.0",
-                "raulfraile/ladybug-theme-modern": ">=1.0.7,<2.0",
-                "symfony/config": ">=2.0",
-                "symfony/console": ">=2.0",
-                "symfony/dependency-injection": ">=2.0",
-                "symfony/finder": ">=2.0",
-                "twig/twig": ">=1.7.0"
-            },
-            "require-dev": {
-                "jms/serializer": ">=0.11.0",
-                "mockery/mockery": "0.9.1",
-                "phpdocumentor/reflection-docblock": "2.0.0",
-                "phpunit/phpunit": "~4.0",
-                "symfony/dom-crawler": ">=2.0.4"
-            },
-            "suggest": {
-                "jms/serializer": "Required to serialize data to XML and JSON",
-                "phpdocumentor/reflection-docblock": "Required to display object methods description",
-                "symfony/yaml": "Required to serialize data to YAML format"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Ladybug\\Theme": [
-                        "../ladybug-themes",
-                        "data/themes"
-                    ],
-                    "Ladybug\\Plugin": [
-                        "../ladybug-plugins",
-                        "data/plugins"
-                    ],
-                    "Ladybug": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Raul Fraile",
-                    "email": "raulfraile@gmail.com",
-                    "homepage": "http://www.raulfb.com/",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Simple and Extensible PHP Dumper",
-            "homepage": "https://github.com/raulfraile/ladybug",
-            "keywords": [
-                "dump",
-                "dumper",
-                "ladybug",
-                "print_r",
-                "var_dump"
-            ],
-            "time": "2015-12-23T08:33:11+00:00"
-        },
-        {
-            "name": "raulfraile/ladybug-bundle",
-            "version": "v1.0.6",
-            "target-dir": "RaulFraile/Bundle/LadybugBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/raulfraile/LadybugBundle.git",
-                "reference": "0a3171f1d15194aadaba12fd9c81c11707c6b1c3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/raulfraile/LadybugBundle/zipball/0a3171f1d15194aadaba12fd9c81c11707c6b1c3",
-                "reference": "0a3171f1d15194aadaba12fd9c81c11707c6b1c3",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2",
-                "raulfraile/ladybug": "~1.0.0",
-                "raulfraile/ladybug-plugin-symfony2": "~1.0.0",
-                "symfony/framework-bundle": ">=2.0.0"
-            },
-            "replace": {
-                "raulfraile/ladybugbundle": "dev-master"
-            },
-            "require-dev": {
-                "mockery/mockery": "@stable",
-                "phpunit/phpunit": "@stable"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-0": {
-                    "RaulFraile\\Bundle\\LadybugBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Raul Fraile",
-                    "email": "raulfraile@gmail.com",
-                    "homepage": "http://www.raulfrailebeneyto.com/"
-                }
-            ],
-            "description": "Symfony2 bundle for Ladybug library (Simple and Extensible PHP Dumper)",
-            "homepage": "https://github.com/raulfraile/LadybugBundle",
-            "keywords": [
-                "dump",
-                "ladybug",
-                "tree",
-                "twig"
-            ],
-            "time": "2014-10-10T06:09:15+00:00"
-        },
-        {
-            "name": "raulfraile/ladybug-installer",
-            "version": "v1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/raulfraile/ladybug-installer.git",
-                "reference": "04f38f50cac673d3ca93de9c0805889e37804b33"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/raulfraile/ladybug-installer/zipball/04f38f50cac673d3ca93de9c0805889e37804b33",
-                "reference": "04f38f50cac673d3ca93de9c0805889e37804b33",
-                "shasum": ""
-            },
-            "require": {
-                "composer-plugin-api": "*"
-            },
-            "require-dev": {
-                "composer/composer": "1.*",
-                "mockery/mockery": "0.8.0"
-            },
-            "type": "composer-plugin",
-            "extra": {
-                "class": "\\Ladybug\\LadybugPlugin"
-            },
-            "autoload": {
-                "psr-0": {
-                    "Ladybug": [
-                        "src/"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Unified installer for ladybug addons",
-            "keywords": [
-                "installer",
-                "ladybug",
-                "plugins",
-                "themes"
-            ],
-            "time": "2013-09-21T23:28:23+00:00"
-        },
-        {
-            "name": "raulfraile/ladybug-plugin-extra",
-            "version": "v1.0.1",
-            "target-dir": "Ladybug/Plugin/Extra",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/raulfraile/ladybug-plugin-extra.git",
-                "reference": "d240770a4c610e26657e5edc0edaace6d07187b2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/raulfraile/ladybug-plugin-extra/zipball/d240770a4c610e26657e5edc0edaace6d07187b2",
-                "reference": "d240770a4c610e26657e5edc0edaace6d07187b2",
-                "shasum": ""
-            },
-            "require": {
-                "raulfraile/ladybug-installer": "~1.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "0.8.0",
-                "raulfraile/ladybug": "~1.0.0"
-            },
-            "type": "ladybug-plugin",
-            "extra": {
-                "ladybug_name": "Extra"
-            },
-            "autoload": {
-                "psr-0": {
-                    "Ladybug\\Plugin\\Extra\\": ""
-                },
-                "files": [
-                    "Resources/php/helpers.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Extra plugin for ladybug",
-            "keywords": [
-                "ladybug",
-                "plugin"
-            ],
-            "time": "2013-09-29T10:19:08+00:00"
-        },
-        {
-            "name": "raulfraile/ladybug-plugin-symfony2",
-            "version": "v1.0.1",
-            "target-dir": "Ladybug/Plugin/Symfony2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/raulfraile/ladybug-plugin-symfony2.git",
-                "reference": "81a50bdcf966ccf51e9dbf07494fdb3a4bf69b84"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/raulfraile/ladybug-plugin-symfony2/zipball/81a50bdcf966ccf51e9dbf07494fdb3a4bf69b84",
-                "reference": "81a50bdcf966ccf51e9dbf07494fdb3a4bf69b84",
-                "shasum": ""
-            },
-            "require": {
-                "raulfraile/ladybug-installer": "~1.0.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "0.8.0",
-                "raulfraile/ladybug": "~1.0.0",
-                "symfony/http-foundation": "*"
-            },
-            "type": "ladybug-plugin",
-            "extra": {
-                "ladybug_name": "Symfony2"
-            },
-            "autoload": {
-                "psr-0": {
-                    "Ladybug\\Plugin\\Symfony2\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Symfony2 plugin for ladybug",
-            "keywords": [
-                "ladybug",
-                "plugin"
-            ],
-            "time": "2013-09-29T09:17:09+00:00"
-        },
-        {
-            "name": "raulfraile/ladybug-theme-modern",
-            "version": "v1.0.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/raulfraile/ladybug-theme-modern.git",
-                "reference": "0271ed62bc45397be9e346c9c19a0ae0d811ef8e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/raulfraile/ladybug-theme-modern/zipball/0271ed62bc45397be9e346c9c19a0ae0d811ef8e",
-                "reference": "0271ed62bc45397be9e346c9c19a0ae0d811ef8e",
-                "shasum": ""
-            },
-            "require": {
-                "raulfraile/ladybug-installer": "~1.0.0"
-            },
-            "type": "ladybug-theme",
-            "extra": {
-                "ladybug_name": "Modern"
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Theme 'modern' for ladybug",
-            "keywords": [
-                "dump",
-                "ladybug",
-                "print_r",
-                "theme",
-                "var_dump"
-            ],
-            "time": "2014-08-21T08:27:46+00:00"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -2358,16 +2056,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.4.0",
+            "version": "v1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "f29dca382a6485c3cbe6379f0c61230167681937"
+                "reference": "78be803ce01e55d3491c1397cf1c64beb9c1b63b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/f29dca382a6485c3cbe6379f0c61230167681937",
-                "reference": "f29dca382a6485c3cbe6379f0c61230167681937",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/78be803ce01e55d3491c1397cf1c64beb9c1b63b",
+                "reference": "78be803ce01e55d3491c1397cf1c64beb9c1b63b",
                 "shasum": ""
             },
             "require": {
@@ -2379,7 +2077,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.4-dev"
+                    "dev-master": "1.7-dev"
                 }
             },
             "autoload": {
@@ -2413,7 +2111,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2017-06-09T14:24:12+00:00"
+            "time": "2018-01-30T19:27:44+00:00"
         },
         {
             "name": "symfony/polyfill-php54",
@@ -2954,62 +2652,6 @@
             "time": "2017-07-05T08:53:15+00:00"
         },
         {
-            "name": "twig/extensions",
-            "version": "v1.5.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/twigphp/Twig-extensions.git",
-                "reference": "d188c76168b853481cc75879ea045bf93d718e9c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/d188c76168b853481cc75879ea045bf93d718e9c",
-                "reference": "d188c76168b853481cc75879ea045bf93d718e9c",
-                "shasum": ""
-            },
-            "require": {
-                "twig/twig": "~1.27|~2.0"
-            },
-            "require-dev": {
-                "symfony/phpunit-bridge": "~3.3@dev",
-                "symfony/translation": "~2.3|~3.0"
-            },
-            "suggest": {
-                "symfony/translation": "Allow the time_diff output to be translated"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.5-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Twig_Extensions_": "lib/"
-                },
-                "psr-4": {
-                    "Twig\\Extensions\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                }
-            ],
-            "description": "Common additional features for Twig that do not directly belong in core",
-            "homepage": "http://twig.sensiolabs.org/doc/extensions/index.html",
-            "keywords": [
-                "i18n",
-                "text"
-            ],
-            "time": "2017-06-08T18:19:53+00:00"
-        },
-        {
             "name": "twig/twig",
             "version": "v1.34.4",
             "source": {
@@ -3175,6 +2817,106 @@
             ],
             "description": "JSONP callback validator.",
             "time": "2014-01-20T22:35:06+00:00"
+        },
+        {
+            "name": "zendframework/zend-escaper",
+            "version": "2.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/zend-escaper.git",
+                "reference": "a4b227d8a477f4e7e9073f8e0a7ae7dbd3104a73"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/zend-escaper/zipball/a4b227d8a477f4e7e9073f8e0a7ae7dbd3104a73",
+                "reference": "a4b227d8a477f4e7e9073f8e0a7ae7dbd3104a73",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.23"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "1.7.*",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5-dev",
+                    "dev-develop": "2.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zend\\Escaper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "homepage": "https://github.com/zendframework/zend-escaper",
+            "keywords": [
+                "escaper",
+                "zf2"
+            ],
+            "time": "2015-06-03T14:05:37+00:00"
+        },
+        {
+            "name": "zendframework/zend-stdlib",
+            "version": "2.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/zend-stdlib.git",
+                "reference": "cc8e90a60dd5d44b9730b77d07b97550091da1ae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/zend-stdlib/zipball/cc8e90a60dd5d44b9730b77d07b97550091da1ae",
+                "reference": "cc8e90a60dd5d44b9730b77d07b97550091da1ae",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.23"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "1.7.*",
+                "phpunit/phpunit": "~4.0",
+                "zendframework/zend-config": "~2.5",
+                "zendframework/zend-eventmanager": "~2.5",
+                "zendframework/zend-filter": "~2.5",
+                "zendframework/zend-inputfilter": "~2.5",
+                "zendframework/zend-serializer": "~2.5",
+                "zendframework/zend-servicemanager": "~2.5"
+            },
+            "suggest": {
+                "zendframework/zend-eventmanager": "To support aggregate hydrator usage",
+                "zendframework/zend-filter": "To support naming strategy hydrator usage",
+                "zendframework/zend-serializer": "Zend\\Serializer component",
+                "zendframework/zend-servicemanager": "To support hydrator plugin manager usage"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5-dev",
+                    "dev-develop": "2.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zend\\Stdlib\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "homepage": "https://github.com/zendframework/zend-stdlib",
+            "keywords": [
+                "stdlib",
+                "zf2"
+            ],
+            "time": "2015-06-03T15:32:03+00:00"
         }
     ],
     "packages-dev": [
