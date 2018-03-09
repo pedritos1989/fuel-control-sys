@@ -3,6 +3,7 @@
 namespace CombBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -10,6 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="s_chofer")
  * @ORM\Entity(repositoryClass="CombBundle\Repository\ChoferRepository")
+ * @UniqueEntity({"ci"})
+ * @UniqueEntity({"licencia"})
  */
 class Chofer
 {

@@ -54,6 +54,8 @@ deleted.error: Ha ocurrido un error al intentar eliminar los datos.
 request.error: Ha ocurrido un error al procesar la petición.
 upload.maxsize: No se puede importar, el archivo excede los 2 MB.
 invalid.extensionfile: No se puede importar, extensión de archivo inválida.
+manage.section:
+  title: Gestión
 
 # Ususarios
 user:
@@ -71,7 +73,10 @@ user:
   active: Activo
   isactive: ¿Activo?
   project: Proyecto
-  rol: Rol(es)
+  rol:
+    label: Rol(es)
+    director_transporte: Director(a) de Transporte
+    role_user: Usuario registrado
 
 # Carros
 car:
@@ -91,6 +96,7 @@ car:
   driver: Chofer
   code: Matrícula
   consumn: Índice de consumo
+  card: Tarjeta
 
 #client.uploadresource:
 #  title: '[0,1] Archivo|[2, Inf] Archivos'
@@ -169,26 +175,69 @@ assign.plan:
   show: Ver Datos de Plan de Asignación
   delete: Eliminar Plan de Asignación
   date: Fecha
-  total: Cantidad de Combustible
+  section: Área
+  monthly.asign: Asignación mensual
+
+# Asignación mensual
+monthly.assign:
+  title: '[0,1] Asignación Mensual|[2,Inf] Asignaciones Mensuales'
+  alt: 'Asignación Mensual'
+  label: Asignación Mensual
+  list: Listado de Asignaciones Mensuales
+  create: Adicionar Asignación Mensual
+  edit: Modificar Asignación Mensual
+  show: Ver Datos de Asignación Mensual
+  delete: Eliminar Asignación Mensual
+  date: Fecha
+  number: Número
+  plan: Plan
+  amounts:
+    manage: Gestionar asignación mensual
+    amount: Cantidad (Litros)
+
+# Asignacion X Servicio
+service.assign:
+  title: '[0,1] Gestionar Asignación|[2, Inf] Gestionar Asignaciones'
+  label: Gestionar Asignación
   service: Servicio
+  amount: Cantidad (Litros)
+  assign: Asignación mensual
+  new: Insertar asignación mensual
+  delete: Eliminar asignación mensual
+
+# Cantidad X Plan
+plan.amount:
+  title: '[0,1] Gestionar Asignación por Plan|[2, Inf] Gestionar Asignaciones por Planes'
+  label: Gestionar Asignación por Plan
+  service: Servicio
+  amount: Cantidad
+  plan: Plan de Asignación
+  new: Insertar asignación por plan
+  delete: Eliminar asignación por plan
+  total: Total de la asignación
+  available: Disponible
+  insertion.bad: La cantidad insertada no debe superar la disponible.
 
 # Solicitud
 request:
-  title: "[0,1] Solicitud|[2,Inf] Solicitudes"
-  alt: Solicitud
-  label: Solicitud
-  list: Listado de Solicitudes
-  create: Adicionar Solicitud
-  edit: Modificar Solicitud
-  delete: Eliminar Solicitud
-  show: Ver Datos de Solicitud
+  global: Solicitudes
+  title: "[0,1] Solicitud de Transporte|[2,Inf] Solicitudes de Transporte"
+  alt: Solicitud de Transporte
+  label: Solicitud de Transporte
+  list: Listado de Solicitudes de Transporte
+  create: Adicionar Solicitud de Transporte
+  edit: Modificar Solicitud de Transporte
+  delete: Eliminar Solicitud de Transporte
+  show: Ver Datos de Solicitud de Transporte
   date:
     out: Fecha de Salida
-    in: Fecha de Recepción
+    in: Fecha de Regreso
   place: Lugar
   reason: Motivo
   people.count: Cantidad de personas
   section: Área
+  card:
+    title: "[0,1] Solicitud de Tarjeta|[2,Inf] Solicitudes de Tarjeta"
 
 # Tarjeta
 card:
@@ -206,6 +255,7 @@ card:
   service: Servicio
   group: Lote
   provide: Abastecimiento
+  cars: Carro(s)
 
 # ACTIONS
 actions:
