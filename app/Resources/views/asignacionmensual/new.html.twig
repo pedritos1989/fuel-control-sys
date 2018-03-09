@@ -1,0 +1,28 @@
+{% extends '::base.html.twig' %}
+
+{% block block('subheader') %}
+
+{% block header 'monthly.assign.label'|trans %}
+
+{% block subheader 'monthly.assign.create'|trans %}
+
+{% block container -%}
+    {% embed '_smart_widget.html.twig' %}
+        {% set config, collapse, refresh, remove = false, true, false, false %}
+        {% block widgetheader %}
+            {{ 'monthly.assign.create'|trans }}
+        {% endblock widgetheader %}
+
+        {% block widgetbody %}
+            {% include 'asignacionmensual/_form.html.twig' %}
+        {% endblock widgetbody %}
+    {% endembed %}
+{% endblock -%}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $('.datepicker').datetimepicker({
+            'format': 'D/M/Y'
+        });
+    </script>
+{% endblock %}
