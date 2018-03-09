@@ -42,6 +42,14 @@
                             <th>{{ 'card.service'|trans }}</th>
                             <td>{{ tarjeta.servicio|default('-') }}</td>
                         </tr>
+                        <tr>
+                            <th>{{ 'card.cars'|trans }}</th>
+                            <td>
+                                {% for carro in tarjeta.carros %}
+                                    {{ carro }}<br>
+                                {% endfor %}
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

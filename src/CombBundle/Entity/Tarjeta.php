@@ -70,6 +70,11 @@ class Tarjeta
      */
     private $servicio;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CombBundle\Entity\Carro", mappedBy="tarjeta", cascade={"all"})
+     */
+    private $carros;
+
 
     public function __toString()
     {
@@ -83,6 +88,7 @@ class Tarjeta
     public function __construct()
     {
         $this->distribuciones = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->carros = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -264,5 +270,39 @@ class Tarjeta
     public function getServicio()
     {
         return $this->servicio;
+    }
+
+    /**
+     * Add carro
+     *
+     * @param \CombBundle\Entity\Carro $carro
+     * @return Tarjeta
+     */
+    public function addCarro(\CombBundle\Entity\Carro $carro)
+    {
+        $carro->setTarjeta($this);
+        $this->carros[] = $carro;
+
+        return $this;
+    }
+
+    /**
+     * Remove carros
+     *
+     * @param \CombBundle\Entity\Carro $carros
+     */
+    public function removeCarro(\CombBundle\Entity\Carro $carros)
+    {
+        $this->carros->removeElement($carros);
+    }
+
+    /**
+     * Get carros
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCarros()
+    {
+        return $this->carros;
     }
 }

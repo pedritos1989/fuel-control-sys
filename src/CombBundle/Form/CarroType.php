@@ -44,6 +44,10 @@ class CarroType extends AbstractType
             ->add('tipo', EntityType::class, array(
                 'label' => 'car.type',
                 'class' => 'NomencladorBundle\Entity\TipoCarro',
+            ))
+            ->add('tarjeta', EntityType::class, array(
+                'label' => 'car.card',
+                'class' => 'CombBundle\Entity\Tarjeta',
             ));
     }
 

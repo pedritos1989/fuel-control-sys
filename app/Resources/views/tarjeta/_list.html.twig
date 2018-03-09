@@ -7,6 +7,7 @@
         <th>{{ 'card.provide'|trans }}</th>
         <th>{{ 'card.section'|trans }}</th>
         <th>{{ 'card.service'|trans }}</th>
+        <th>{{ 'card.cars'|trans }}</th>
         <th>{{ 'actions.label'|trans }}</th>
     </tr>
     </thead>
@@ -19,6 +20,11 @@
             <td>{{ tarjeta.abastecimiento|default('-') }}</td>
             <td>{{ tarjeta.area|default('-') }}</td>
             <td>{{ tarjeta.servicio|default('-') }}</td>
+            <td>
+                {% for carro in tarjeta.carros %}
+                    {{ carro }}<br>
+                {% endfor %}
+            </td>
             <td>
                 <a class="btn btn-default btn-sm" href="{{ path('tarjeta_show', { 'id': tarjeta.id }) }}"
                    title="{{ 'actions.show'|trans }}">

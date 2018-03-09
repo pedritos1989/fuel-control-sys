@@ -11,7 +11,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="s_carro")
  * @ORM\Entity(repositoryClass="CombBundle\Repository\CarroRepository")
- * @UniqueEntity({"chofer", "matricula"})
+ * @UniqueEntity({"chofer"})
+ * @UniqueEntity({"matricula"})
  */
 class Carro
 {
@@ -29,6 +30,7 @@ class Carro
      *
      * @ORM\Column(name="matricula", type="string", length=10)
      * @Assert\NotBlank()
+     * @Assert\Length(max="6")
      */
     private $matricula;
 
@@ -81,6 +83,11 @@ class Carro
      * @ORM\ManyToOne(targetEntity="NomencladorBundle\Entity\TipoCarro")
      */
     private $tipo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="CombBundle\Entity\Tarjeta", inversedBy="carros")
+     */
+    private $tarjeta;
 
 
     public function __toString()
@@ -281,6 +288,29 @@ class Carro
     public function getTipo()
     {
         return $this->tipo;
+    }
+
+    /**
+     * Set tarjeta
+     *
+     * @param \CombBundle\Entity\Tarjeta $tarjeta
+     * @return Carro
+     */
+    public function setTarjeta(\CombBundle\Entity\Tarjeta $tarjeta = null)
+    {
+        $this->tarjeta = $tarjeta;
+
+        return $this;
+    }
+
+    /**
+     * Get tarjeta
+     *
+     * @return \CombBundle\Entity\Tarjeta
+     */
+    public function getTarjeta()
+    {
+        return $this->tarjeta;
     }
 
 }

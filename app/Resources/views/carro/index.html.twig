@@ -33,6 +33,7 @@
                             <th>{{ 'car.state'|trans }}</th>
                             <th>{{ 'car.section'|trans }}</th>
                             <th>{{ 'car.driver'|trans }}</th>
+                            <th>{{ 'car.card'|trans }}</th>
                             <th>{{ 'actions.label'|trans }}</th>
                         </tr>
                         </thead>
@@ -48,6 +49,7 @@
                                 <td>{{ carro.estado|default('-') }}</td>
                                 <td>{{ carro.area|default('-') }}</td>
                                 <td>{{ carro.chofer|default('-') }}</td>
+                                <td>{{ carro.tarjeta|default('-') }}</td>
                                 <td>
                                     <a class="btn btn-default btn-sm"
                                        href="{{ path('carro_show', { 'id': carro.id }) }}"
