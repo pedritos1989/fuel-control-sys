@@ -1,0 +1,28 @@
+{{ form_errors(form) }}
+<form name="{{ form.vars.full_name }}" id="{{ form.vars.id }}" action="{{ form.vars.action }}" method="post"
+      enctype="multipart/form-data">
+
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row(form.servicio) }}
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="total-asignado" class="control-label">{{ 'plan.amount.total'|trans }}</label>
+                <input id="total-asignado" class="form-control" readonly/>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="total-disponible" class="control-label">{{ 'plan.amount.available'|trans }}</label>
+                <input id="total-disponible" class="form-control" readonly/>
+            </div>
+        </div>
+        <div class="col-md-12">
+            {{ form_row(form.cantidad) }}
+        </div>
+
+        {{ form_widget(form._token) }}
+    </div>
+
+</form>
