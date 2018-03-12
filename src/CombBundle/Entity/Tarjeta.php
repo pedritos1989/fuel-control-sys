@@ -40,9 +40,23 @@ class Tarjeta
     /**
      * @var int
      *
-     * @ORM\Column(name="abastecimiento", type="integer")
+     * @ORM\Column(name="abastecimiento", type="integer", nullable=true)
      */
     private $abastecimiento;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="saldo_inicial", type="integer", nullable=true)
+     */
+    private $saldoInicial;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="saldo_final", type="integer", nullable=true)
+     */
+    private $saldoFinal;
 
     /**
      * @var \DateTime
@@ -168,6 +182,52 @@ class Tarjeta
     public function getAbastecimiento()
     {
         return $this->abastecimiento;
+    }
+
+    /**
+     * Set saldoInicial
+     *
+     * @param integer $saldoInicial
+     * @return Tarjeta
+     */
+    public function setSaldoInicial($saldoInicial)
+    {
+        $this->saldoInicial = $saldoInicial;
+
+        return $this;
+    }
+
+    /**
+     * Get saldoInicial
+     *
+     * @return integer
+     */
+    public function getSaldoInicial()
+    {
+        return $this->saldoInicial;
+    }
+
+    /**
+     * Set saldoFinal
+     *
+     * @param integer $saldoFinal
+     * @return Tarjeta
+     */
+    public function setSaldoFinal($saldoFinal)
+    {
+        $this->saldoFinal = $saldoFinal;
+
+        return $this;
+    }
+
+    /**
+     * Get saldoFinal
+     *
+     * @return integer
+     */
+    public function getSaldoFinal()
+    {
+        return $this->saldoFinal;
     }
 
     /**
