@@ -27,6 +27,10 @@
                     </a>
                     <ul class="submenu bg-palette3" style="display: none;">
                         <li>
+                            <a href="{{ path('client_uploadresource') }}">
+                                <span class="submenu-label">{{ 'client.uploadresource.title'|transchoice(2) }}</span></a>
+                        </li>
+                        <li>
                             <a href="{{ path('area_index') }}">
                                 <span class="submenu-label">{{ 'section.title'|transchoice(2) }}</span></a>
                         </li>
@@ -94,7 +98,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="openable bg-palette3">
+                <li class="openable bg-palette4">
                     <a href="#">
                         <span class="menu-content block">
                             <span class="menu-icon"><i class="block fa fa-sticky-note fa-lg"></i></span>
@@ -109,15 +113,32 @@
                                 <span class="submenu-label">{{ 'request.title'|transchoice(2) }}</span></a>
                         </li>
                         <li>
-                            <a href="javascript:;">
+                            <a href="{{ path('recargue_index') }}">
                                 <span class="submenu-label">{{ 'request.card.title'|transchoice(2) }}</span></a>
                         </li>
                     </ul>
                 </li>
-                <li class="openable bg-palette3">
+                <li class="openable bg-palette1">
                     <a href="#">
                         <span class="menu-content block">
-                            <span class="menu-icon"><i class="block fa fa-cogs fa-lg"></i></span>
+                            <span class="menu-icon"><i class="block fa fa-table fa-lg"></i></span>
+                            <span class="text m-left-sm">{{ 'report.label'|transchoice(2) }}</span>
+                            <span class="submenu-icon"></span>
+                        </span>
+                        <span class="menu-content-hover block"> {{ 'report.label'|transchoice(1) }}</span>
+                    </a>
+                    <ul class="submenu bg-palette1">
+                        <li>
+                            <a href="{{ path('rep_sol_trnsp_index') }}">
+                                <span class="submenu-label">{{ 'report.card.request.list'|trans }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="openable bg-palette2">
+                    <a href="#">
+                        <span class="menu-content block">
+                            <span class="menu-icon"><i class="block fa fa-desktop fa-lg"></i></span>
                             <span class="text m-left-sm">{{ 'system.menu.label'|transchoice(2) }}</span>
                             <span class="submenu-icon"></span>
                         </span>

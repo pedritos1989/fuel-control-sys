@@ -55,7 +55,7 @@ class AsignacionMensual
     public function __toString()
     {
         // TODO: Implement __toString() method.
-        return sprintf('%s - %s', $this->fecha->format('d/m/Y'), $this->consecutivo);
+        return sprintf('Fecha: %s - Orden: %s', $this->fecha->format('d/m/Y'), $this->consecutivo);
     }
 
     /**

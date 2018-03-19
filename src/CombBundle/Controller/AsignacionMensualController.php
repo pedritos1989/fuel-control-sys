@@ -33,7 +33,7 @@ class AsignacionMensualController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
 
-        $asignacionMensuals = $em->getRepository('CombBundle:AsignacionMensual')->findAll();
+        $asignacionMensuals = $em->getRepository('CombBundle:AsignacionMensual')->filter();
 
         return $this->render('asignacionmensual/index.html.twig', array(
             'asignacionMensuals' => $asignacionMensuals,

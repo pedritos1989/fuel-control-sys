@@ -25,9 +25,9 @@ class AsignacionXServicio
     private $id;
 
     /**
-     * @var float
+     * @var int
      *
-     * @ORM\Column(name="cantidad", type="float")
+     * @ORM\Column(name="cantidad", type="integer")
      * @Assert\NotBlank()
      */
     private $cantidad;
@@ -56,7 +56,7 @@ class AsignacionXServicio
     /**
      * Set cantidad
      *
-     * @param float $cantidad
+     * @param integer $cantidad
      * @return AsignacionXServicio
      */
     public function setCantidad($cantidad)
@@ -69,7 +69,7 @@ class AsignacionXServicio
     /**
      * Get cantidad
      *
-     * @return float
+     * @return integer
      */
     public function getCantidad()
     {

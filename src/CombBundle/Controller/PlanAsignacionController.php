@@ -30,7 +30,7 @@ class PlanAsignacionController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
 
-        $planAsignacions = $em->getRepository('CombBundle:PlanAsignacion')->findAll();
+        $planAsignacions = $em->getRepository('CombBundle:PlanAsignacion')->filter();
 
         return $this->render('planasignacion/index.html.twig', array(
             'planAsignacions' => $planAsignacions,

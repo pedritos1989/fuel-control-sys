@@ -50,6 +50,14 @@
                                 {% endfor %}
                             </td>
                         </tr>
+                        <tr>
+                            <th>{{ 'card.initialAmount'|trans }}</th>
+                            <td>{{ tarjeta.saldoInicial|default('-') }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'card.finalAmount'|trans }}</th>
+                            <td>{{ tarjeta.saldoFinal|default('-') }}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

@@ -2,6 +2,7 @@
 
 namespace CombBundle\Entity;
 
+use CombBundle\Model\AreaInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -14,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity({"chofer"})
  * @UniqueEntity({"matricula"})
  */
-class Carro
+class Carro implements AreaInterface
 {
     /**
      * @var int

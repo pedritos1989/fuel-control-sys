@@ -12,4 +12,24 @@ use Doctrine\ORM\EntityRepository;
  */
 class AsignacionMensualRepository extends EntityRepository
 {
+    /**
+     * @return array
+     */
+    public function filter()
+    {
+        $firstDay = date('Y') . '-' . date('m') . '-' . '1';
+        $lastDay = date('Y') . '-' . date('m') . '-' . date('t');
+
+        $qb = $this->createQueryBuilder('a');
+
+        $qb->andWhere($qb->expr()->gte('a.fecha', ':firstDay'))
+            ->setParameter('firstDay', $firstDay);
+
+        $qb->andWhere($qb->expr()->lte('a.fecha', ':lastDay'))
+            ->setParameter('lastDay', $lastDay);
+
+        $qb->orderBy('a.id', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
 }

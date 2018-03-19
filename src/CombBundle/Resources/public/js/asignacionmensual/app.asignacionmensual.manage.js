@@ -129,6 +129,7 @@ CombustiblesApp.namespace('AsignacionMensual.Manage');
     Manage.prototype.always = function () {
         var $selector = $('select');
         $selector.select2();
+        $('div.bootbox').find('.select2-container').attr('style', 'width: 100%');
         [].forEach.call($selector, function (el) {
             if ($(el).parent().hasClass('has-error')) {
                 $(el).parent().children('span').children('span').children('span').attr('style', 'border-color: #d02d2d');

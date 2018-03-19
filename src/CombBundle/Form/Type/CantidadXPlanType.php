@@ -4,7 +4,7 @@ namespace CombBundle\Form\Type;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,7 +18,7 @@ class CantidadXPlanType extends AbstractType
                 'class' => 'NomencladorBundle\Entity\Servicio',
                 'required' => false,
             ))
-            ->add('cantidad', NumberType::class, array(
+            ->add('cantidad', IntegerType::class, array(
                 'label' => 'service.assign.amount',
             ));
     }

@@ -2,6 +2,7 @@
 
 namespace CombBundle\Entity;
 
+use CombBundle\Model\AreaInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -13,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="CombBundle\Repository\PlanAsignacionRepository")
  * @UniqueEntity({"area","asignacionMensual"})
  */
-class PlanAsignacion
+class PlanAsignacion implements AreaInterface
 {
     /**
      * @var int
@@ -54,7 +55,7 @@ class PlanAsignacion
     public function __toString()
     {
         // TODO: Implement __toString() method.
-        return sprintf('%s', $this->getFecha()->format('d/m/Y'));
+        return sprintf('Fecha de asignación: %s - Área: %s', $this->getFecha()->format('d/m/Y'), $this->getArea());
     }
 
     /**

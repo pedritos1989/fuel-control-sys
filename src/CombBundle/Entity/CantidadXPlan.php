@@ -27,9 +27,9 @@ class CantidadXPlan
     private $id;
 
     /**
-     * @var float
+     * @var int
      *
-     * @ORM\Column(name="cantidad", type="float")
+     * @ORM\Column(name="cantidad", type="integer")
      * @Assert\NotBlank()
      */
     private $cantidad;
@@ -59,7 +59,7 @@ class CantidadXPlan
     /**
      * Set cantidad
      *
-     * @param float $cantidad
+     * @param integer $cantidad
      * @return CantidadXPlan
      */
     public function setCantidad($cantidad)
@@ -72,7 +72,7 @@ class CantidadXPlan
     /**
      * Get cantidad
      *
-     * @return float
+     * @return integer
      */
     public function getCantidad()
     {
@@ -147,7 +147,7 @@ class CantidadXPlan
             }
         }
         if ($consumido + $this->getCantidad() > $total) {
-            $context->addViolationAt('cantidad', 'amounts.mismatch', array(), null);
+            $context->addViolationAt('cantidad', 'amounts.mismatch');
             return;
         }
     }

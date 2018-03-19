@@ -2,6 +2,7 @@
 
 namespace CombBundle\Entity;
 
+use CombBundle\Model\AreaInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -11,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="s_tarjeta")
  * @ORM\Entity(repositoryClass="CombBundle\Repository\TarjetaRepository")
  */
-class Tarjeta
+class Tarjeta implements AreaInterface
 {
     /**
      * @var int
@@ -66,7 +67,7 @@ class Tarjeta
     private $fechaVenc;
 
     /**
-     * @ORM\ManyToMany(targetEntity="CombBundle\Entity\Distribucion", mappedBy="tarjetas")
+     * @ORM\OneToMany(targetEntity="CombBundle\Entity\DistribucionXTarjeta", mappedBy="tarjeta")
      */
     private $distribuciones;
 
@@ -97,12 +98,38 @@ class Tarjeta
     }
 
     /**
+     * Set area
+     *
+     * @param \CombBundle\Entity\Area $area
+     * @return Tarjeta
+     */
+    public function setArea(\CombBundle\Entity\Area $area = null)
+    {
+        $this->area = $area;
+
+        return $this;
+    }
+
+    /**
+     * Get area
+     *
+     * @return \CombBundle\Entity\Area
+     */
+    public function getArea()
+    {
+        return $this->area;
+    }
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->distribuciones = new \Doctrine\Common\Collections\ArrayCollection();
         $this->carros = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->saldoFinal = 0;
+        $this->saldoInicial = 0;
+        $this->abastecimiento = 0;
     }
 
     /**
@@ -256,10 +283,10 @@ class Tarjeta
     /**
      * Add distribuciones
      *
-     * @param \CombBundle\Entity\Distribucion $distribuciones
+     * @param \CombBundle\Entity\DistribucionXTarjeta $distribuciones
      * @return Tarjeta
      */
-    public function addDistribucione(\CombBundle\Entity\Distribucion $distribuciones)
+    public function addDistribucione(\CombBundle\Entity\DistribucionXTarjeta $distribuciones)
     {
         $this->distribuciones[] = $distribuciones;
 
@@ -269,9 +296,9 @@ class Tarjeta
     /**
      * Remove distribuciones
      *
-     * @param \CombBundle\Entity\Distribucion $distribuciones
+     * @param \CombBundle\Entity\DistribucionXTarjeta $distribuciones
      */
-    public function removeDistribucione(\CombBundle\Entity\Distribucion $distribuciones)
+    public function removeDistribucione(\CombBundle\Entity\DistribucionXTarjeta $distribuciones)
     {
         $this->distribuciones->removeElement($distribuciones);
     }
@@ -284,29 +311,6 @@ class Tarjeta
     public function getDistribuciones()
     {
         return $this->distribuciones;
-    }
-
-    /**
-     * Set area
-     *
-     * @param \CombBundle\Entity\Area $area
-     * @return Tarjeta
-     */
-    public function setArea(\CombBundle\Entity\Area $area = null)
-    {
-        $this->area = $area;
-
-        return $this;
-    }
-
-    /**
-     * Get area
-     *
-     * @return \CombBundle\Entity\Area
-     */
-    public function getArea()
-    {
-        return $this->area;
     }
 
     /**
@@ -333,15 +337,14 @@ class Tarjeta
     }
 
     /**
-     * Add carro
+     * Add carros
      *
-     * @param \CombBundle\Entity\Carro $carro
+     * @param \CombBundle\Entity\Carro $carros
      * @return Tarjeta
      */
-    public function addCarro(\CombBundle\Entity\Carro $carro)
+    public function addCarro(\CombBundle\Entity\Carro $carros)
     {
-        $carro->setTarjeta($this);
-        $this->carros[] = $carro;
+        $this->carros[] = $carros;
 
         return $this;
     }

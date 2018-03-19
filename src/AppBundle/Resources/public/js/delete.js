@@ -36,10 +36,6 @@ $(function () {
                 title: arr[1],
                 message: arr[2] + response,
                 buttons: {
-                    cancel: {
-                        label: '<i class="fa fa-remove"></i> ' + arr[3],
-                        className: "btn-primary btn-sm"
-                    },
                     delete: {
                         label: '<i class="fa fa-trash-o"></i> ' + arr[4],
                         className: "btn-danger btn-sm",
@@ -56,6 +52,10 @@ $(function () {
                                 }, data.time + 1000);
                             });
                         }
+                    },
+                    cancel: {
+                        label: '<i class="fa fa-remove"></i> ' + arr[3],
+                        className: "btn-default btn-sm"
                     }
                 }
             });
