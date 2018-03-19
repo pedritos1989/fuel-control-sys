@@ -27,10 +27,7 @@
                         <thead>
                         <tr>
                             <th>{{ 'distribution.plan'|trans }}</th>
-                            <th>{{ 'distribution.asignation'|trans }}</th>
-                            <th>{{ 'distribution.request'|trans }}</th>
-                            <th>{{ 'distribution.asignPlan'|trans }}</th>
-                            <th>{{ 'distribution.card'|trans }}</th>
+                            <th>{{ 'distribution.date'|trans }}</th>
                             <th>{{ 'actions.label'|trans }}</th>
                         </tr>
                         </thead>
@@ -38,21 +35,9 @@
                         {% for distribucion in distribucions %}
                             <tr>
                                 <td>
-                                    {{ distribucion.plan|default('-') }}
+                                    {{ distribucion.planAsignacion|default('-') }}
                                 </td>
-                                <td>{{ distribucion.asignacion|default('-') }}</td>
-                                <td>
-                                    {% for solicitud in distribucion.solicitudes %}
-                                        <span class="label label-primary block"
-                                              style="margin-bottom: 1%">{{ solicitud|upper }}</span>
-                                    {% endfor %}
-                                </td>
-                                <td>{{ distribucion.planAsignacion|default('-') }}</td>
-                                <td>
-                                    {% for tarjeta in distribucion.tarjetas %}
-                                        {{ tarjeta }}<br>
-                                    {% endfor %}
-                                </td>
+                                <td>{{ distribucion.fecha|date('d/m/Y')|default('-') }}</td>
                                 <td>
                                     <a class="btn btn-default btn-sm"
                                        href="{{ path('distribucion_show', { 'id': distribucion.id }) }}"

@@ -1,0 +1,43 @@
+{{ form_errors(form) }}
+<form name="{{ form.vars.full_name }}" id="{{ form.vars.id }}" action="{{ form.vars.action }}" method="post"
+      enctype="multipart/form-data">
+
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row(form.tarjeta, {'attr': {'class': 'select2'}}) }}
+            <span id="helpBlock" class="help-block text-muted"><i
+                        class="fa fa-exclamation-triangle text-info"></i> {{ 'card.dist.info.card'|trans }}</span>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="servicio-tarjeta" class="control-label">{{ 'card.dist.service'|trans }}</label>
+                <input id="servicio-tarjeta" class="form-control" readonly/>
+                <span id="helpBlock" class="help-block text-muted"><i
+                            class="fa fa-exclamation-triangle text-info"></i> {{ 'card.dist.info.service'|trans }}</span>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="asignado-plan" class="control-label">{{ 'card.dist.total'|trans }}</label>
+                <input id="asignado-plan" class="form-control" readonly/>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="disponible-plan" class="control-label">{{ 'card.dist.available'|trans }}</label>
+                <input id="disponible-plan" class="form-control" readonly/>
+            </div>
+        </div>
+        <div class="col-md-12">
+            {{ form_row(form.asignacion) }}
+        </div>
+        <div class="col-md-12">
+            {{ form_row(form.solicitudes, {'attr': {'class': 'select2'}}) }}
+            <span id="helpBlock" class="help-block text-muted"><i
+                        class="fa fa-exclamation-triangle text-info"></i> {{ 'card.dist.info.request'|trans }}</span>
+        </div>
+
+        {{ form_widget(form._token) }}
+    </div>
+
+</form>

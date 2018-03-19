@@ -8,19 +8,10 @@
 
     <div class="row">
         <div class="col-md-12">
-            {{ form_row(form.plan) }}
-        </div>
-        <div class="col-md-12">
-            {{ form_row(form.asignacion) }}
-        </div>
-        <div class="col-md-12">
-            {{ form_row(form.solicitudes, {'attr': {'class': 'select2'}}) }}
-        </div>
-        <div class="col-md-12">
             {{ form_row(form.planAsignacion, {'attr': {'class': 'select2'}}) }}
         </div>
         <div class="col-md-12">
-            {{ form_row(form.tarjetas, {'attr': {'class': 'select2'}}) }}
+            {{ form_row(form.fecha, {'attr': {'class': 'datepicker'}}) }}
         </div>
 
         {{ form_widget(form._token) }}

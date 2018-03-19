@@ -16,35 +16,34 @@
         {% block widgetbody %}
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table table-striped table-hover">
-                        <tbody>
-                        <tr>
-                            <th>{{ 'distribution.plan'|trans }}</th>
-                            <td>{{ distribucion.plan|default('-') }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ 'distribution.asignation'|trans }}</th>
-                            <td>{{ distribucion.asignacion|default('-') }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ 'distribution.request'|trans }}</th>
-                            <td class="col-md-6">{% for solicitud in distribucion.solicitudes %}
-                                    <span class="label label-primary block"
-                                          style="margin-bottom: 1%">{{ solicitud|upper }}</span>
-                                {% endfor %}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ 'distribution.asignPlan'|trans }}</th>
-                            <td>{{ distribucion.planAsignacion|default('-') }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ 'distribution.card'|trans }}</th>
-                            <td>{% for tarjeta in distribucion.tarjetas %}
-                                    {{ tarjeta }}<br>
-                                {% endfor %}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#showdata" aria-controls="formdata" role="tab"
+                               data-toggle="tab">{{ 'distribution.title'|transchoice(1) }}</a></li>
+                        <li role="presentation">
+                            <a href="#uploadresources" aria-controls="uploadresources" role="tab"
+                               data-toggle="tab">{{ 'distribution.manage'|transchoice(2) }}</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active padding-upper-md padding-bottom-md"
+                             id="showdata">
+                            <table class="table table-striped table-hover">
+                                <tbody>
+                                <tr>
+                                    <th>{{ 'distribution.plan'|trans }}</th>
+                                    <td>{{ distribucion.planAsignacion|default('-') }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'distribution.date'|trans }}</th>
+                                    <td>{{ distribucion.fecha|date('d/m/Y')|default('-') }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade padding-upper-md padding-bottom-md"
+                             id="uploadresources">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-md-12" id="button_actions">
@@ -62,4 +61,17 @@
             </div>
         {% endblock widgetbody %}
     {%- endembed %}
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript"
+            src="{{ asset('bundles/comb/js/distribucion/app.distribucion.show.js') }}"></script>
+    <script src="{{ url('bazinga_jstranslation_js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('bundles/comb/js/distribucion/app.distribucion.manage.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var distribucion = new CombustiblesApp.Distribucion.Show({{ distribucion.id }});
+        });
+    </script>
 {% endblock %}
