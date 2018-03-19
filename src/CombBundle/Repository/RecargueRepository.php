@@ -12,4 +12,24 @@ use Doctrine\ORM\EntityRepository;
  */
 class RecargueRepository extends EntityRepository
 {
+    /**
+     * @return array
+     */
+    public function filter()
+    {
+        $firstDay = date('Y') . '-' . date('m') . '-' . '1 00:00:00';
+        $lastDay = date('Y') . '-' . date('m') . '-' . date('t') . ' 23:59:59';
+
+        $qb = $this->createQueryBuilder('r');
+
+        $qb->andWhere($qb->expr()->gte('r.fecha', ':firstDay'))
+            ->setParameter('firstDay', $firstDay);
+
+        $qb->andWhere($qb->expr()->lte('r.fecha', ':lastDay'))
+            ->setParameter('lastDay', $lastDay);
+
+        $qb->orderBy('r.id', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
 }

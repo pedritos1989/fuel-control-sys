@@ -76,6 +76,7 @@ user:
   rol:
     label: Rol(es)
     director_transporte: Director(a) de Transporte
+    cajero: Cajero
     role_user: Usuario registrado
 
 # Carros
@@ -98,14 +99,18 @@ car:
   consumn: Índice de consumo
   card: Tarjeta
 
-#client.uploadresource:
-#  title: '[0,1] Archivo|[2, Inf] Archivos'
-#  label: Archivo
-#  filename: Nombre del archivo
-#  attachmentName: Archivo a adjuntar
-#  status: Estado
-#  status.pending: Pendiente
-#  status.attached: Subido
+client.uploadresource:
+  title: '[0,1] Archivo|[2, Inf] Archivos'
+  label: Archivo
+  list: Listado de Archivos
+  filename: Nombre del archivo
+  attachmentName: Archivo a adjuntar
+  status: Estado
+  status.pending: Pendiente
+  status.attached: Subido
+
+client:
+  avatar: Foto de perfil
 
 #credit.uploaddocument:
 #  title: '[0,1] Documento|[2, Inf] Documentos'
@@ -158,11 +163,15 @@ distribution:
   edit: Modificar Distribución
   show: Ver Datos de Distribución
   delete: Eliminar Distribución
-  plan: Plan
+  plan: Plan de Asignación
+  date: Fecha
   asignation: Asignación
   request: Solicitud(es)
   card: Tarjeta(s)
-  asignPlan: Plan de asignación
+  area:
+    selection: Seleccionar Área
+    label: Seleccione el Área para la que se realizará la Distribución
+  manage: Gestionar distribución
 
 # Plan de asignación
 assign.plan:
@@ -218,6 +227,24 @@ plan.amount:
   available: Disponible
   insertion.bad: La cantidad insertada no debe superar la disponible.
 
+# Distribucion X Tarjeta
+card.dist:
+  title: '[0,1] Gestionar Distribución por Tarjeta|[2, Inf] Gestionar Distribuciones por Tarjetas'
+  label: Gestionar Distribución por Tarjeta
+  card: Tarjeta
+  value: Cantidad asignada (Litros)
+  requests: Solicitud(es)
+  section: Área
+  new: Insertar distribución por tarjeta
+  delete: Eliminar distribución por tarjeta
+  info:
+    card: La(s) Tarjeta(s) mostrada(s) corresponde(n) al Área definida en el Plan de Asignación
+    request: La(s) Solicitud(es) mostrada(s) corresponde(n) al Área definida en el Plan de Asignación
+    service: El Servicio mostrado es el asociado a la Tarjeta seleccionada
+  service: Servicio
+  total: Total del Plan
+  available: Disponible
+
 # Solicitud
 request:
   global: Solicitudes
@@ -236,8 +263,28 @@ request:
   reason: Motivo
   people.count: Cantidad de personas
   section: Área
+  month: Mes
   card:
     title: "[0,1] Solicitud de Tarjeta|[2,Inf] Solicitudes de Tarjeta"
+    alt: Solicitud de Tarjeta
+    label: Solicitud de Tarjeta
+    list: Listado de Solicitudes de Tarjeta
+    create: Adicionar Solicitud de Tarjeta
+    edit: Modificar Solicitud de Tarjeta
+    delete: Eliminar Solicitud de Tarjeta
+    show: Ver Datos de Solicitud de Tarjeta
+    card: Tarjeta
+    date: Fecha
+    manager: Responsable
+    dist.card: Distribución correspondiente
+    status: Estado
+    status.on: Cargada
+    status.off: Sin cargar
+    change: Establecer estado
+    check:
+      label: ¿Carga confirmada?
+      yes: Sí
+      no: No
 
 # Tarjeta
 card:
@@ -256,6 +303,8 @@ card:
   group: Lote
   provide: Abastecimiento
   cars: Carro(s)
+  initialAmount: Saldo inicial
+  finalAmount: Saldo final
 
 # ACTIONS
 actions:
@@ -280,6 +329,7 @@ actions:
   nextStep: Siguiente
   previousStep: Anterior
   details: Detalles
+  report: Generar reporte
 
 # Nomenclador
 nomenclator:
@@ -326,3 +376,10 @@ section:
   show: Ver Datos de Área
   name: Nombre
   manager: Responsable
+
+report:
+  title: '[0,1] Reporte|[2,Inf] Reportes'
+  alt: Reporte
+  label: '[0,1] Reporte|[2,Inf] Reportes'
+  card.request:
+    list: Reporte de Solicitudes de Transporte

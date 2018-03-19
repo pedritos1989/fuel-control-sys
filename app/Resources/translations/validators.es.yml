@@ -1,3 +1,4 @@
 not_valid_mimetype_archive: No es un tipo de archivo válido.
 
-amounts.mismatch: La cantidad insertada no puede sobrepasar a la disponible.
+amounts.mismatch: El valor insertado no puede sobrepasar al disponible.
+amounts.exceed: El valor insertado no puede sobrepasar al aceptado por la Tarjeta.
