@@ -26,5 +26,12 @@
         $(document).ready(function () {
             $('.select2').select2();
         });
+        $(function () {
+            $('a.thumbnail').on('click', function (e) {
+                e.preventDefault();
+
+                $('input[id$="_avatar_file"]').trigger('click');
+            });
+        });
     </script>
 {% endblock %}

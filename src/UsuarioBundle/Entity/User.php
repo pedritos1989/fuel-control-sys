@@ -42,10 +42,40 @@ class User extends BaseUser
      */
     protected $groups;
 
+    /**
+     * @ORM\OneToOne(targetEntity="UsuarioBundle\Entity\ClientAvatar", mappedBy="client", cascade={"persist","remove"})
+     */
+    private $avatar;
+
+
     public function __construct()
     {
         parent::__construct();
         // your own logic
     }
 
+    /**
+     * Set avatar
+     *
+     * @param \UsuarioBundle\Entity\ClientAvatar $avatar
+     *
+     * @return User
+     */
+    public function setAvatar(\UsuarioBundle\Entity\ClientAvatar $avatar = null)
+    {
+        $avatar->setClient($this);
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return \UsuarioBundle\Entity\ClientAvatar
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
 }

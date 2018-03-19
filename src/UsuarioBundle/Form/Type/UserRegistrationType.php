@@ -33,6 +33,13 @@ class UserRegistrationType extends AbstractType
                 'attr' => array(
                     'style' => 'width:100%',
                 ),
+            ))
+            ->add('avatar', ClientAvatarType::class, array(
+                'required' => false,
+                'label' => 'client.avatar',
+                'attr' => array(
+                    'class' => 'hidden',
+                ),
             ));
     }
 

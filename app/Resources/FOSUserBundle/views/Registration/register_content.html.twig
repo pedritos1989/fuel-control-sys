@@ -17,6 +17,19 @@
     <div class="col-md-12">
         {{ form_row(form.enabled) }}
     </div>
+    <div class="col-md-2">
+        {{ form_label(form.avatar) }}
+        <a href="#" class="thumbnail">
+            {% if user.avatar is defined and user.avatar.getWebPath is defined %}
+                <img
+                        src="data:image/png;base64,{{ user.avatar.getWebPath }}"
+                        alt="{{ 'client.avatar'|trans({}, 'messages') }}" {#width="152" height="120"#}/>
+            {% else %}
+                <img src="{{ asset('bundles/app/images/default.png') }}" alt="{{ 'client.avatar'|trans({}, 'messages') }}"/>
+            {% endif %}
+        </a>
+        {{ form_widget(form.avatar) }}
+    </div>
     {{ form_widget(form._token) }}
 
     <div id="button_actions" class="col-md-12">
