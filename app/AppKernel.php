@@ -25,6 +25,8 @@ class AppKernel extends Kernel
             new NomencladorBundle\NomencladorBundle(),
             new AppBundle\AppBundle(),
             new UsuarioBundle\UsuarioBundle(),
+            new ReporteBundle\ReporteBundle(),
+            new Dundivet\UploadBundle\DundivetUploadBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

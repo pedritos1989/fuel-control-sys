@@ -1,0 +1,5 @@
+services:
+    dundivet.upload_resource_aware:
+        class: Dundivet\UploadBundle\Doctrine\UploadEventsSubscriber
+        tags:
+            - { name: doctrine.event_subscriber }
