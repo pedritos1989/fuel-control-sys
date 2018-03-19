@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services">
+
+    <services>
+        <service id="error_handler" class="AppBundle\Exceptions\ErrorHandler">
+            <argument type="service" id="logger"/>
+            <argument type="service" id="kernel"/>
+        </service>
+
+    </services>
+</container>
