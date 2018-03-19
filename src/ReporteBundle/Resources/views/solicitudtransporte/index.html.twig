@@ -1,0 +1,32 @@
+{% extends '::base.html.twig' %}
+
+{% block block('subheader') %}
+
+{% block header 'report.card.request.list'|trans %}
+
+{% block subheader 'report.card.request.list'|trans %}
+
+{% block container -%}
+    {%- embed '_smart_widget.html.twig' %}
+        {% set config, collapse, refresh, remove = true, true, false, false %}
+        {% block widgetheader %}
+            {{ 'card.list'|trans }}
+        {% endblock widgetheader %}
+
+        {% block hidden_option_icon '<i></i>' %}
+
+        {% block widgetbody %}
+            <div class="row">
+
+            </div>
+        {% endblock widgetbody %}
+    {%- endembed %}
+{% endblock %}
+
+{% block javascripts %}
+    {#<script type="text/javascript">#}
+        {#$(document).ready(function () {#}
+            {#$('#table-datatable').DataTable();#}
+        {#});#}
+    {#</script>#}
+{% endblock %}

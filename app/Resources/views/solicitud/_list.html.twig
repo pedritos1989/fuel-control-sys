@@ -6,6 +6,7 @@
         <th>{{ 'request.reason'|trans }}</th>
         <th>{{ 'request.people.count'|trans }}</th>
         <th>{{ 'request.date.in'|trans }}</th>
+        <th>{{ 'request.section'|trans }}</th>
         <th>{{ 'actions.label'|trans }}</th>
     </tr>
     </thead>
@@ -13,10 +14,11 @@
     {% for solicitud  in solicituds %}
         <tr>
             <td>{% if solicitud.fechaHoraS %}{{ solicitud.fechaHoraS|date('d/m/Y H:i') }}{% endif %}</td>
-            <td>{{ solicitud.lugar }}</td>
-            <td>{{ solicitud.motivo }}</td>
-            <td>{{ solicitud.cantpersona }}</td>
-            <td>{% if solicitud.fechaHoraR %}{{ solicitud.fechaHoraR|date('d/m/Y H:i') }}{% endif %}</td>
+            <td>{{ solicitud.lugar|default('-') }}</td>
+            <td>{{ solicitud.motivo|default('-') }}</td>
+            <td>{{ solicitud.cantpersona|default('-') }}</td>
+            <td>{% if solicitud.fechaHoraR %}{{ solicitud.fechaHoraR|date('d/m/Y H:i') }}{% else %}-{% endif %}</td>
+            <td>{{ solicitud.area|default('-') }}</td>
             <td>
                 <a class="btn btn-default btn-sm" href="{{ path('solicitud_show', { 'id': solicitud.id }) }}"
                    title="{{ 'actions.show'|trans }}">

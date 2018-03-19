@@ -12,4 +12,24 @@ use Doctrine\ORM\EntityRepository;
  */
 class SolicitudRepository extends EntityRepository
 {
+    /**
+     * @return array
+     */
+    public function filter()
+    {
+        $firstDay = date('Y') . '-' . date('m') . '-' . '1 00:00:00';
+        $lastDay = date('Y') . '-' . date('m') . '-' . date('t') . ' 23:59:59';
+
+        $qb = $this->createQueryBuilder('s');
+
+        $qb->andWhere($qb->expr()->gte('s.fechaHoraS', ':firstDay'))
+            ->setParameter('firstDay', $firstDay);
+
+        $qb->andWhere($qb->expr()->lte('s.fechaHoraS', ':lastDay'))
+            ->setParameter('lastDay', $lastDay);
+
+        $qb->orderBy('s.id', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
 }

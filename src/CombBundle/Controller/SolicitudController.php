@@ -3,10 +3,14 @@
 namespace CombBundle\Controller;
 
 use AppBundle\Exceptions\ErrorHandler;
+use CombBundle\Entity\Area;
 use CombBundle\Entity\Solicitud;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
@@ -27,15 +31,57 @@ class SolicitudController extends Controller
      * @Route("/", name="solicitud_index", options={"expose"=true})
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->get('doctrine.orm.entity_manager');
+
+        $reportForm = $this->createReportForm();
+
+        $reportForm->handleRequest($request);
+        if ($reportForm->isSubmitted() && $reportForm->isValid()) {
+            $submitted = $reportForm->getData();
+            $area = $submitted['area'];
+            $report = array();
+            $report['area'] = isset($area) ? $area->getId() : '';
+            $report['mes'] = $submitted['mes'] ?? '';
+
+            return $this->redirectToRoute('rep_sol_trnsp_index', array(
+                'parameters' => $report,
+            ));
+        }
 
         $solicituds = $em->getRepository('CombBundle:Solicitud')->findAll();
 
         return $this->render('solicitud/index.html.twig', array(
             'solicituds' => $solicituds,
+            'reportForm' => $reportForm->createView(),
         ));
+    }
+
+    public function createReportForm()
+    {
+        $form = $this->get('form.factory')
+            ->createNamedBuilder('request_report')
+            ->setAction($this->generateUrl('solicitud_index'))
+            ->setMethod('GET');
+
+        $form
+            ->add('area', EntityType::class, array(
+                'label' => 'request.section',
+                'required' => false,
+                'class' => Area::class,
+            ))
+            ->add('mes', DateType::class, array(
+                'label' => 'request.month',
+                'widget' => 'single_text',
+                'format' => 'M/y',
+                'required' => false,
+            ))
+            ->add('report', SubmitType::class, array(
+                'label' => 'actions.report',
+            ));
+
+        return $form->getForm();
     }
 
     /**

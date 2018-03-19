@@ -2,6 +2,7 @@
 
 namespace CombBundle\Entity;
 
+use CombBundle\Model\AreaInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="s_solicitud")
  * @ORM\Entity(repositoryClass="CombBundle\Repository\SolicitudRepository")
  */
-class Solicitud
+class Solicitud implements AreaInterface
 {
     /**
      * @var int
@@ -57,7 +58,7 @@ class Solicitud
     private $cantpersona;
 
     /**
-     * @ORM\ManyToMany(targetEntity="CombBundle\Entity\Distribucion", mappedBy="solicitudes")
+     * @ORM\ManyToMany(targetEntity="CombBundle\Entity\DistribucionXTarjeta", mappedBy="solicitudes")
      */
     private $distribuciones;
 
@@ -73,6 +74,37 @@ class Solicitud
     {
         // TODO: Implement __toString() method.
         return sprintf('%s -> %s', $this->getLugar(), $this->getMotivo());
+    }
+
+    /**
+     * Set area
+     *
+     * @param \CombBundle\Entity\Area $area
+     * @return Solicitud
+     */
+    public function setArea(\CombBundle\Entity\Area $area = null)
+    {
+        $this->area = $area;
+
+        return $this;
+    }
+
+    /**
+     * Get area
+     *
+     * @return \CombBundle\Entity\Area
+     */
+    public function getArea()
+    {
+        return $this->area;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->distribuciones = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -199,21 +231,14 @@ class Solicitud
     {
         return $this->cantpersona;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->distribuciones = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add distribuciones
      *
-     * @param \CombBundle\Entity\Distribucion $distribuciones
+     * @param \CombBundle\Entity\DistribucionXTarjeta $distribuciones
      * @return Solicitud
      */
-    public function addDistribucione(\CombBundle\Entity\Distribucion $distribuciones)
+    public function addDistribucione(\CombBundle\Entity\DistribucionXTarjeta $distribuciones)
     {
         $this->distribuciones[] = $distribuciones;
 
@@ -223,9 +248,9 @@ class Solicitud
     /**
      * Remove distribuciones
      *
-     * @param \CombBundle\Entity\Distribucion $distribuciones
+     * @param \CombBundle\Entity\DistribucionXTarjeta $distribuciones
      */
-    public function removeDistribucione(\CombBundle\Entity\Distribucion $distribuciones)
+    public function removeDistribucione(\CombBundle\Entity\DistribucionXTarjeta $distribuciones)
     {
         $this->distribuciones->removeElement($distribuciones);
     }
@@ -233,33 +258,10 @@ class Solicitud
     /**
      * Get distribuciones
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getDistribuciones()
     {
         return $this->distribuciones;
-    }
-
-    /**
-     * Set area
-     *
-     * @param \CombBundle\Entity\Area $area
-     * @return Solicitud
-     */
-    public function setArea(\CombBundle\Entity\Area $area = null)
-    {
-        $this->area = $area;
-
-        return $this;
-    }
-
-    /**
-     * Get area
-     *
-     * @return \CombBundle\Entity\Area 
-     */
-    public function getArea()
-    {
-        return $this->area;
     }
 }
