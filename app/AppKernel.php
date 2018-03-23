@@ -25,7 +25,6 @@ class AppKernel extends Kernel
             new NomencladorBundle\NomencladorBundle(),
             new AppBundle\AppBundle(),
             new UsuarioBundle\UsuarioBundle(),
-            new ReporteBundle\ReporteBundle(),
             new Dundivet\UploadBundle\DundivetUploadBundle(),
         );
 
