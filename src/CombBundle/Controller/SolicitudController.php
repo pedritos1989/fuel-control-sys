@@ -3,10 +3,14 @@
 namespace CombBundle\Controller;
 
 use AppBundle\Exceptions\ErrorHandler;
+use CombBundle\Entity\Area;
 use CombBundle\Entity\Solicitud;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
@@ -27,15 +31,53 @@ class SolicitudController extends Controller
      * @Route("/", name="solicitud_index", options={"expose"=true})
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->get('doctrine.orm.entity_manager');
 
-        $solicituds = $em->getRepository('CombBundle:Solicitud')->findAll();
+        $reportForm = $this->createReportForm();
+
+        $reportForm->handleRequest($request);
+        if ($reportForm->isSubmitted() && $reportForm->isValid()) {
+            $submitted = $reportForm->getData();
+            return $this->get('solicitudes.report.manager')->designReport($submitted);
+        }
+
+        $solicituds = $em->getRepository('CombBundle:Solicitud')->filter();
 
         return $this->render('solicitud/index.html.twig', array(
             'solicituds' => $solicituds,
+            'reportForm' => $reportForm->createView(),
         ));
+    }
+
+    /**
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    public function createReportForm()
+    {
+        $form = $this->get('form.factory')
+            ->createNamedBuilder('request_report')
+            ->setAction($this->generateUrl('solicitud_index'))
+            ->setMethod('GET');
+
+        $form
+            ->add('area', EntityType::class, array(
+                'label' => 'request.section',
+                'required' => false,
+                'class' => Area::class,
+            ))
+            ->add('mes', DateType::class, array(
+                'label' => 'request.month',
+                'widget' => 'single_text',
+                'format' => 'M/y',
+                'required' => false,
+            ))
+            ->add('report', SubmitType::class, array(
+                'label' => 'actions.report',
+            ));
+
+        return $form->getForm();
     }
 
     /**
@@ -197,12 +239,11 @@ class SolicitudController extends Controller
      *
      * @param Solicitud $solicitud The solicitud entity
      *
-     * @return \Symfony\Component\Form\Form The delete form
+     * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm(Solicitud $solicitud)
     {
-        return $this->get('form.factory')
-            ->createNamedBuilder('solicitud_delete')
+        return $this->createFormBuilder()
             ->setAction($this->generateUrl('solicitud_delete', array('id' => $solicitud->getId())))
             ->setMethod('DELETE')
             ->getForm();

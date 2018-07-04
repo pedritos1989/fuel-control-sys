@@ -54,8 +54,10 @@ deleted.error: Ha ocurrido un error al intentar eliminar los datos.
 request.error: Ha ocurrido un error al procesar la petición.
 upload.maxsize: No se puede importar, el archivo excede los 2 MB.
 invalid.extensionfile: No se puede importar, extensión de archivo inválida.
+manage.section:
+  title: Gestión
 
-# Ususarios
+# Usuarios
 user:
   title: '[0,1] Usuario|[2,Inf] Usuarios'
   alt: Usuario
@@ -71,7 +73,13 @@ user:
   active: Activo
   isactive: ¿Activo?
   project: Proyecto
-  rol: Rol(es)
+  rol:
+    label: Rol(es)
+    role_director: Director(a) de Transporte
+    role_cajero: Cajero(a)
+    role_jefe: Jefe(a) de Área
+    role_user: Usuario registrado
+    role_tecnico: Técnico(a) de Transporte
 
 # Carros
 car:
@@ -79,6 +87,11 @@ car:
   alt: Carro
   label: Carro
   list: Listado de Carros
+  report:
+    alt: Reportes de Vehículos
+    label: '[0,1] Reporte de Vehiculos por Areas|[2, Inf] Reporte de Vehículos por Áreas'
+    deprecated: No tiene (Vencida)
+    status.label: Reporte de Parque Automotor UNISS
   create: Adicionar Carro
   edit: Modificar Carro
   show: Ver Datos de Carro
@@ -91,22 +104,22 @@ car:
   driver: Chofer
   code: Matrícula
   consumn: Índice de consumo
+  card: Tarjeta
 
-#client.uploadresource:
-#  title: '[0,1] Archivo|[2, Inf] Archivos'
-#  label: Archivo
-#  filename: Nombre del archivo
-#  attachmentName: Archivo a adjuntar
-#  status: Estado
-#  status.pending: Pendiente
-#  status.attached: Subido
+# Archivos
+client.uploadresource:
+  title: '[0,1] Archivo|[2, Inf] Archivos'
+  label: Archivo
+  list: Listado de Archivos
+  filename: Nombre del archivo
+  attachmentName: Archivo a adjuntar
+  status: Estado
+  status.pending: Pendiente
+  status.attached: Subido
 
-#credit.uploaddocument:
-#  title: '[0,1] Documento|[2, Inf] Documentos'
-#  label: Documentos
-#  filename: Nombre del documento
-#  attachmentName: Documento a adjuntar
-#  type: Tipo de Documento
+# Avatar
+client:
+  avatar: Foto de perfil
 
 # Chips
 chip:
@@ -152,11 +165,25 @@ distribution:
   edit: Modificar Distribución
   show: Ver Datos de Distribución
   delete: Eliminar Distribución
-  plan: Plan
+  plan: Plan de Asignación
+  date: Fecha
+  month: Mes
   asignation: Asignación
   request: Solicitud(es)
+  report:
+    label: Reporte de Asignaciones y Distribuciones de Combustible
+    total:
+      asign: Totales asignados
+      free: Totales liberados MES
+    write.name: Elaborado por:
+    charge: Cargo:
+    aprove.name: Aprobado por:
+    review.name: Revisado por:
   card: Tarjeta(s)
-  asignPlan: Plan de asignación
+  area:
+    selection: Seleccionar Área
+    label: Seleccione el Área para la que se realizará la Distribución
+  manage: Gestionar distribución
 
 # Plan de asignación
 assign.plan:
@@ -168,27 +195,123 @@ assign.plan:
   edit: Modificar Plan de Asignación
   show: Ver Datos de Plan de Asignación
   delete: Eliminar Plan de Asignación
+  manage: Gestionar Plan de Asignación
   date: Fecha
-  total: Cantidad de Combustible
+  section: Área
+  month: Mes
+  report:
+    label: Reporte de Plan de Asignaciones
+    total:
+      asign: Totales asignados
+      free: Totales liberados MES
+    write.name: Elaborado por:
+    charge: Cargo:
+    aprove.name: Aprobado por:
+  monthly.asign: Plan Operativo Mensual del Combustible
+
+# Asignación mensual
+monthly.assign:
+  title: '[0,1] Plan Operativo Mensual del Combustible|[2,Inf] Planes Operativos Mensuales de los Combustibles'
+  alt: 'Plan Operativo Mensual del Combustible'
+  label: Plan Operativo Mensual del Combustible
+  list: Listado de Planes Operativos Mensuales de los Combustibles
+  create: Adicionar Plan Operativo Mensual del Combustible
+  edit: Modificar Plan Operativo Mensual del Combustible
+  show: Ver Datos de Plan Operativo Mensual del Combustible
+  delete: Eliminar Plan Operativo Mensual del Combustible
+  date: Fecha
+  number: Número
+  plan: Plan
+  amounts:
+    manage: Gestionar Plan Operativo Mensual del Combustible
+    amount: Cantidad (Litros)
+
+# Asignacion X Servicio
+service.assign:
+  title: '[0,1] Gestionar Plan Operativo Mensual del Combustible|[2, Inf] Gestionar Planes Operativos Mensuales de los Combustibles'
+  label: Gestionar Plan Operativo Mensual del Combustible
   service: Servicio
+  amount: Cantidad (Litros)
+  assign: Plan Operativo Mensual del Combustible
+  new: Insertar Plan Operativo Mensual del Combustible
+  delete: Eliminar Plan Operativo Mensual del Combustible
+
+# Cantidad X Plan
+plan.amount:
+  title: '[0,1] Gestionar Asignación por Plan|[2, Inf] Gestionar Asignaciones por Planes'
+  label: Gestionar Asignación por Plan
+  service: Servicio
+  section: Área
+  amount: Cantidad
+  plan: Plan de Asignación
+  new: Insertar asignación por plan
+  delete: Eliminar asignación por plan
+  total: Total de la asignación
+  available: Disponible
+  insertion.bad: La cantidad insertada no debe superar la disponible.
+
+# Distribucion X Tarjeta
+card.dist:
+  title: '[0,1] Gestionar Distribución por Tarjeta|[2, Inf] Gestionar Distribuciones por Tarjetas'
+  label: Gestionar Distribución por Tarjeta
+  card: Tarjeta
+  value: Cantidad asignada (Litros)
+  requests: Solicitud(es)
+  section: Área
+  new: Insertar distribución por tarjeta
+  delete: Eliminar distribución por tarjeta
+  info:
+    card: La(s) Tarjeta(s) mostrada(s) corresponde(n) al Área definida en el Plan de Asignación
+    request: La(s) Solicitud(es) mostrada(s) corresponde(n) al Área definida en el Plan de Asignación
+    service: El Servicio mostrado es el asociado a la Tarjeta seleccionada
+  service: Servicio
+  total: Total del Plan
+  available: Disponible
 
 # Solicitud
 request:
-  title: "[0,1] Solicitud|[2,Inf] Solicitudes"
-  alt: Solicitud
-  label: Solicitud
-  list: Listado de Solicitudes
-  create: Adicionar Solicitud
-  edit: Modificar Solicitud
-  delete: Eliminar Solicitud
-  show: Ver Datos de Solicitud
+  global: Solicitudes
+  title: "[0,1] Solicitud de Transporte|[2,Inf] Solicitudes de Transporte"
+  alt: Solicitud de Transporte
+  label: Solicitud de Transporte
+  list: Listado de Solicitudes de Transporte
+  create: Adicionar Solicitud de Transporte
+  edit: Modificar Solicitud de Transporte
+  delete: Eliminar Solicitud de Transporte
+  show: Ver Datos de Solicitud de Transporte
+  report: Reporte de Solicitudes de Transporte
   date:
     out: Fecha de Salida
-    in: Fecha de Recepción
+    in: Fecha de Regreso
   place: Lugar
   reason: Motivo
   people.count: Cantidad de personas
   section: Área
+  month: Mes
+  card:
+    title: "[0,1] Solicitud de Tarjeta|[2,Inf] Solicitudes de Tarjeta"
+    alt: Solicitud de Tarjeta
+    label: Solicitud de Tarjeta
+    list: Listado de Solicitudes de Tarjeta
+    create: Adicionar Solicitud de Tarjeta
+    edit: Modificar Solicitud de Tarjeta
+    delete: Eliminar Solicitud de Tarjeta
+    show: Ver Datos de Solicitud de Tarjeta
+    card: Tarjeta
+    month: Mes
+    date: Fecha
+    report:
+      label: Reporte de Solicitudes de Recargue
+    manager: Responsable
+    dist.card: Distribución correspondiente
+    status: Estado
+    status.on: Cargada
+    status.off: Sin cargar
+    change: Establecer estado
+    check:
+      label: ¿Carga confirmada?
+      yes: Sí
+      no: No
 
 # Tarjeta
 card:
@@ -206,6 +329,9 @@ card:
   service: Servicio
   group: Lote
   provide: Abastecimiento
+  cars: Carro(s)
+  initialAmount: Saldo inicial
+  finalAmount: Saldo final
 
 # ACTIONS
 actions:
@@ -218,7 +344,7 @@ actions:
   search: Buscar
   filter: Filtrar
   restore: Restaurar
-  restart: Restaurar
+  restart: Reiniciar
   hide: Ocultar
   goback: Volver
   list: Listado
@@ -230,6 +356,7 @@ actions:
   nextStep: Siguiente
   previousStep: Anterior
   details: Detalles
+  report: Generar reporte
 
 # Nomenclador
 nomenclator:
@@ -244,6 +371,24 @@ nomenclator:
     edit: Modificar Servicio
     delete: Eliminar Servicio
     show: Ver Datos de Servicio
+  brand:
+    title: '[0,1] Fabricante|[2, Inf] Fabricantes'
+    label: Fabricante
+    alt: Fabricante
+    list: Listado de Fabricantes
+    create: Adicionar Fabricante
+    edit: Modificar Fabricante
+    delete: Eliminar Fabricante
+    show: Ver Datos de Fabricante
+  people:
+    title: '[0,1] Persona|[2, Inf] Personas'
+    label: Persona
+    alt: Persona
+    list: Listado de Personas
+    create: Adicionar Persona
+    edit: Modificar Persona
+    delete: Eliminar Persona
+    show: Ver Datos de Persona
   car_status:
     title: '[0,1] Estado de Auto|[2, Inf] Estados de Auto'
     label: Estado de Auto
@@ -276,3 +421,17 @@ section:
   show: Ver Datos de Área
   name: Nombre
   manager: Responsable
+
+# Notificaciones
+notification:
+  card.label: Usted tiene __length__ notificación(es) sobre Tarjetas en vencimiento
+  car.label: Usted tiene __length__ notificación(es) sobre Inspecciones técnicas en vencimiento
+  card.expire: Tarjeta "card" - Área "section"
+  car.expire: Auto "card" - Área "section"
+
+# Reportes de Combustibles
+fuel.report:
+  label: Combustibles
+  monthly: Controles Mensuales del Combustible
+  by.car: Desagregaciones del Combustible por Carro
+  year: Resumen de Consumo de Combustible

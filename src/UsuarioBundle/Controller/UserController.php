@@ -60,6 +60,7 @@ class UserController extends Controller
 
         return $this->render('FOSUserBundle:Registration:register.html.twig', array(
             'form' => $form->createView(),
+            'user' => $user,
         ));
     }
 
@@ -108,6 +109,7 @@ class UserController extends Controller
 
         return $this->render('FOSUserBundle:Profile:edit.html.twig', array(
             'form' => $editForm->createView(),
+            'user' => $user,
         ));
     }
 

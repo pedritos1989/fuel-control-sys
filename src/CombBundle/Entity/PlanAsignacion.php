@@ -2,16 +2,19 @@
 
 namespace CombBundle\Entity;
 
+use CombBundle\Model\AreaInterface;
 use Doctrine\ORM\Mapping as ORM;
-use NomencladorBundle\Entity\Servicio;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * PlanAsignacion
  *
  * @ORM\Table(name="s_plan_asignacion")
  * @ORM\Entity(repositoryClass="CombBundle\Repository\PlanAsignacionRepository")
+ * @UniqueEntity({"area","asignacionMensual"})
  */
-class PlanAsignacion
+class PlanAsignacion implements AreaInterface
 {
     /**
      * @var int
@@ -26,28 +29,70 @@ class PlanAsignacion
      * @var \DateTime
      *
      * @ORM\Column(name="fecha", type="date")
+     * @Assert\Date()
+     * @Assert\NotBlank()
      */
     private $fecha;
 
     /**
-     * @var int
+     * @var Area
      *
-     * @ORM\Column(name="cantcomb", type="integer")
+     * @ORM\ManyToOne(targetEntity="CombBundle\Entity\Area")
      */
-    private $cantcomb;
+    private $area;
 
     /**
-     * @var Servicio
-     *
-     * @ORM\ManyToOne(targetEntity="NomencladorBundle\Entity\Servicio")
+     * @ORM\ManyToOne(targetEntity="CombBundle\Entity\AsignacionMensual", inversedBy="plan")
      */
-    private $servicio;
+    private $asignacionMensual;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CombBundle\Entity\CantidadXPlan", mappedBy="plan", cascade="all")
+     */
+    private $cantidades;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CombBundle\Entity\Distribucion", mappedBy="planAsignacion")
+     */
+    private $distribuciones;
 
 
     public function __toString()
     {
         // TODO: Implement __toString() method.
-        return sprintf('%s -> %s', $this->getCantcomb(), $this->getFecha()->format('d/m/Y'));
+        return sprintf('Fecha de asignación: %s - Área: %s', $this->getFecha()->format('d/m/Y'), $this->getArea());
+    }
+
+    /**
+     * Set area
+     *
+     * @param \CombBundle\Entity\Area $area
+     * @return PlanAsignacion
+     */
+    public function setArea(\CombBundle\Entity\Area $area = null)
+    {
+        $this->area = $area;
+
+        return $this;
+    }
+
+    /**
+     * Get area
+     *
+     * @return \CombBundle\Entity\Area
+     */
+    public function getArea()
+    {
+        return $this->area;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->cantidades = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->distribuciones = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -64,6 +109,7 @@ class PlanAsignacion
      * Set fecha
      *
      * @param \DateTime $fecha
+     *
      * @return PlanAsignacion
      */
     public function setFecha($fecha)
@@ -84,48 +130,94 @@ class PlanAsignacion
     }
 
     /**
-     * Set cantcomb
+     * Set asignacionMensual
      *
-     * @param integer $cantcomb
+     * @param \CombBundle\Entity\AsignacionMensual $asignacionMensual
+     *
      * @return PlanAsignacion
      */
-    public function setCantcomb($cantcomb)
+    public function setAsignacionMensual(\CombBundle\Entity\AsignacionMensual $asignacionMensual = null)
     {
-        $this->cantcomb = $cantcomb;
+        $this->asignacionMensual = $asignacionMensual;
 
         return $this;
     }
 
     /**
-     * Get cantcomb
+     * Get asignacionMensual
      *
-     * @return integer
+     * @return \CombBundle\Entity\AsignacionMensual
      */
-    public function getCantcomb()
+    public function getAsignacionMensual()
     {
-        return $this->cantcomb;
+        return $this->asignacionMensual;
     }
 
     /**
-     * Set servicio
+     * Add cantidade
      *
-     * @param \NomencladorBundle\Entity\Servicio $servicio
+     * @param \CombBundle\Entity\CantidadXPlan $cantidade
+     *
      * @return PlanAsignacion
      */
-    public function setServicio(\NomencladorBundle\Entity\Servicio $servicio = null)
+    public function addCantidade(\CombBundle\Entity\CantidadXPlan $cantidade)
     {
-        $this->servicio = $servicio;
+        $this->cantidades[] = $cantidade;
 
         return $this;
     }
 
     /**
-     * Get servicio
+     * Remove cantidade
      *
-     * @return \NomencladorBundle\Entity\Servicio
+     * @param \CombBundle\Entity\CantidadXPlan $cantidade
      */
-    public function getServicio()
+    public function removeCantidade(\CombBundle\Entity\CantidadXPlan $cantidade)
     {
-        return $this->servicio;
+        $this->cantidades->removeElement($cantidade);
+    }
+
+    /**
+     * Get cantidades
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCantidades()
+    {
+        return $this->cantidades;
+    }
+
+    /**
+     * Add distribucione
+     *
+     * @param \CombBundle\Entity\Distribucion $distribucione
+     *
+     * @return PlanAsignacion
+     */
+    public function addDistribucione(\CombBundle\Entity\Distribucion $distribucione)
+    {
+        $this->distribuciones[] = $distribucione;
+
+        return $this;
+    }
+
+    /**
+     * Remove distribucione
+     *
+     * @param \CombBundle\Entity\Distribucion $distribucione
+     */
+    public function removeDistribucione(\CombBundle\Entity\Distribucion $distribucione)
+    {
+        $this->distribuciones->removeElement($distribucione);
+    }
+
+    /**
+     * Get distribuciones
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDistribuciones()
+    {
+        return $this->distribuciones;
     }
 }

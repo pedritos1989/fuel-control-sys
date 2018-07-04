@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-md-12">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#reportVehicle" aria-controls="reportVehicle" role="tab"
+                   data-toggle="tab">{{ 'car.report.label'|transchoice(2) }}</a></li>
+            <li role="presentation">
+                <a href="#reportStatus" aria-controls="reportStatus" role="tab"
+                   data-toggle="tab">{{ 'car.report.status.label'|trans }}</a></li>
+        </ul>
+        <div class="tab-content">
+            <div style="margin-top: 1%" role="tabpanel"
+                 class="tab-pane fade in active padding-upper-md padding-bottom-md"
+                 id="reportVehicle">
+                {{ form_errors(formVehicle) }}
+                <form id="{{ formVehicle.vars.id }}" name="{{ formVehicle.vars.full_name }}"
+                      action="{{ formVehicle.vars.action }}"
+                      method="get">
+                    <div class="row">
+
+                        <div class="col-md-3 col-sm-12">
+                            {{ form_row(formVehicle.area, {'attr': {'class': 'select2'}}) }}
+                        </div>
+
+                        {{ form_widget(formVehicle._token) }}
+
+                        <div id="button_reports" class="col-md-12">
+                            <button type="submit" id="{{ formVehicle.vars.id ~ '_report' }}"
+                                    name="{{ formVehicle.vars.full_name ~ '[report]' }}"
+                                    class="btn btn-success btn-sm">
+                                <i class="fa fa-table"></i> {{ 'actions.report'|trans }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div style="margin-top: 1%" role="tabpanel" class="tab-pane fade padding-upper-md padding-bottom-md"
+                 id="reportStatus">
+                {{ form_errors(formStatus) }}
+                <form id="{{ formStatus.vars.id }}" name="{{ formStatus.vars.full_name }}"
+                      action="{{ formStatus.vars.action }}"
+                      method="get">
+                    <div class="row">
+
+                        {{ form_widget(formStatus._token) }}
+
+                        <div id="button_reports" class="col-md-12">
+                            <button type="submit" id="{{ formStatus.vars.id ~ '_report' }}"
+                                    name="{{ formStatus.vars.full_name ~ '[report]' }}"
+                                    class="btn btn-success btn-sm">
+                                <i class="fa fa-table"></i> {{ 'actions.report'|trans }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,6 +2,7 @@
 
 namespace CombBundle\Entity;
 
+use CombBundle\Model\AreaInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -11,9 +12,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="s_carro")
  * @ORM\Entity(repositoryClass="CombBundle\Repository\CarroRepository")
- * @UniqueEntity({"chofer", "matricula"})
+ * @UniqueEntity({"chofer"})
+ * @UniqueEntity({"matricula"})
+ * @UniqueEntity({"tarjeta"})
  */
-class Carro
+class Carro implements AreaInterface
 {
     /**
      * @var int
@@ -29,21 +32,23 @@ class Carro
      *
      * @ORM\Column(name="matricula", type="string", length=10)
      * @Assert\NotBlank()
+     * @Assert\Length(max="7")
      */
     private $matricula;
 
     /**
-     * @var string
+     * @var \NomencladorBundle\Entity\Marca
      *
-     * @ORM\Column(name="modelo", type="string", length=255)
-     * @Assert\NotBlank()
+     * @ORM\ManyToOne(targetEntity="NomencladorBundle\Entity\Marca")
+     * @Assert\NotNull()
      */
-    private $modelo;
+    private $marca;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="insptecn", type="string", length=255)
+     * @ORM\Column(name="insptecn", type="date", length=255)
+     * @Assert\Date()
      */
     private $insptecn;
 
@@ -58,6 +63,7 @@ class Carro
      * @var \CombBundle\Entity\Area
      *
      * @ORM\ManyToOne(targetEntity="CombBundle\Entity\Area")
+     * @Assert\NotBlank()
      */
     private $area;
 
@@ -72,123 +78,28 @@ class Carro
      * @var \NomencladorBundle\Entity\EstadoCarro
      *
      * @ORM\ManyToOne(targetEntity="NomencladorBundle\Entity\EstadoCarro")
+     * @Assert\NotNull()
      */
     private $estado;
 
     /**
      * @var \NomencladorBundle\Entity\TipoCarro
      *
-     * @ORM\ManyToOne(targetEntity="NomencladorBundle\Entity\TipoCarro")
+     * @ORM\ManyToOne(targetEntity="NomencladorBundle\Entity\TipoCarro", inversedBy="carros")
      */
     private $tipo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="CombBundle\Entity\Tarjeta", inversedBy="carros")
+     * @Assert\NotNull()
+     */
+    private $tarjeta;
 
 
     public function __toString()
     {
         // TODO: Implement __toString() method.
         return sprintf('%s', $this->getMatricula());
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set matricula
-     *
-     * @param string $matricula
-     * @return Carro
-     */
-    public function setMatricula($matricula)
-    {
-        $this->matricula = $matricula;
-
-        return $this;
-    }
-
-    /**
-     * Get matricula
-     *
-     * @return string
-     */
-    public function getMatricula()
-    {
-        return $this->matricula;
-    }
-
-    /**
-     * Set modelo
-     *
-     * @param string $modelo
-     * @return Carro
-     */
-    public function setModelo($modelo)
-    {
-        $this->modelo = $modelo;
-
-        return $this;
-    }
-
-    /**
-     * Get modelo
-     *
-     * @return string
-     */
-    public function getModelo()
-    {
-        return $this->modelo;
-    }
-
-    /**
-     * Set insptecn
-     *
-     * @param string $insptecn
-     * @return Carro
-     */
-    public function setInsptecn($insptecn)
-    {
-        $this->insptecn = $insptecn;
-
-        return $this;
-    }
-
-    /**
-     * Get insptecn
-     *
-     * @return string
-     */
-    public function getInsptecn()
-    {
-        return $this->insptecn;
-    }
-
-    /**
-     * Set indcons
-     *
-     * @param float $indcons
-     * @return Carro
-     */
-    public function setIndcons($indcons)
-    {
-        $this->indcons = $indcons;
-
-        return $this;
-    }
-
-    /**
-     * Get indcons
-     *
-     * @return float
-     */
-    public function getIndcons()
-    {
-        return $this->indcons;
     }
 
     /**
@@ -215,9 +126,116 @@ class Carro
     }
 
     /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set matricula
+     *
+     * @param string $matricula
+     *
+     * @return Carro
+     */
+    public function setMatricula($matricula)
+    {
+        $this->matricula = $matricula;
+
+        return $this;
+    }
+
+    /**
+     * Get matricula
+     *
+     * @return string
+     */
+    public function getMatricula()
+    {
+        return $this->matricula;
+    }
+
+    /**
+     * Set insptecn
+     *
+     * @param \DateTime $insptecn
+     *
+     * @return Carro
+     */
+    public function setInsptecn($insptecn)
+    {
+        $this->insptecn = $insptecn;
+
+        return $this;
+    }
+
+    /**
+     * Get insptecn
+     *
+     * @return \DateTime
+     */
+    public function getInsptecn()
+    {
+        return $this->insptecn;
+    }
+
+    /**
+     * Set indcons
+     *
+     * @param float $indcons
+     *
+     * @return Carro
+     */
+    public function setIndcons($indcons)
+    {
+        $this->indcons = $indcons;
+
+        return $this;
+    }
+
+    /**
+     * Get indcons
+     *
+     * @return float
+     */
+    public function getIndcons()
+    {
+        return $this->indcons;
+    }
+
+    /**
+     * Set marca
+     *
+     * @param \NomencladorBundle\Entity\Marca $marca
+     *
+     * @return Carro
+     */
+    public function setMarca(\NomencladorBundle\Entity\Marca $marca = null)
+    {
+        $this->marca = $marca;
+
+        return $this;
+    }
+
+    /**
+     * Get marca
+     *
+     * @return \NomencladorBundle\Entity\Marca
+     */
+    public function getMarca()
+    {
+        return $this->marca;
+    }
+
+    /**
      * Set chofer
      *
      * @param \CombBundle\Entity\Chofer $chofer
+     *
      * @return Carro
      */
     public function setChofer(\CombBundle\Entity\Chofer $chofer = null)
@@ -241,6 +259,7 @@ class Carro
      * Set estado
      *
      * @param \NomencladorBundle\Entity\EstadoCarro $estado
+     *
      * @return Carro
      */
     public function setEstado(\NomencladorBundle\Entity\EstadoCarro $estado = null)
@@ -264,6 +283,7 @@ class Carro
      * Set tipo
      *
      * @param \NomencladorBundle\Entity\TipoCarro $tipo
+     *
      * @return Carro
      */
     public function setTipo(\NomencladorBundle\Entity\TipoCarro $tipo = null)
@@ -281,6 +301,30 @@ class Carro
     public function getTipo()
     {
         return $this->tipo;
+    }
+
+    /**
+     * Set tarjeta
+     *
+     * @param \CombBundle\Entity\Tarjeta $tarjeta
+     *
+     * @return Carro
+     */
+    public function setTarjeta(\CombBundle\Entity\Tarjeta $tarjeta = null)
+    {
+        $this->tarjeta = $tarjeta;
+
+        return $this;
+    }
+
+    /**
+     * Get tarjeta
+     *
+     * @return \CombBundle\Entity\Tarjeta
+     */
+    public function getTarjeta()
+    {
+        return $this->tarjeta;
     }
 
 }

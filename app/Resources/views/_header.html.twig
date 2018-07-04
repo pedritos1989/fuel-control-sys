@@ -51,7 +51,9 @@
 
             {# Brand stuff #}
             <a href="{{ path('homepage') }}" class="brand">
-                <i class="{{ 'system.icon'|trans }} fa-lg"></i><span class="brand-name">{{ 'system.title'|trans|upper }}</span>
+                <img src="{{ asset('images/Imagen1.png') }}">
+                {#<i class="{{ 'system.icon'|trans }} fa-lg"></i><span
+                        class="brand-name">{{ 'system.title'|trans|upper }}</span>#}
             </a>
             {# END Brand stuff #}
         </div>
@@ -62,23 +64,30 @@
                 <span class="icon-bar"></span>
             </button>
             {# Notifications #}
-            <ul class="nav-notification">
-                <li class="search-list">
-                    <div class="search-input-wrapper">
-                        <div class="search-input">
-                            <input type="text" class="form-control input-sm inline-block">
-                            <a href="#" class="input-icon text-normal"><i class="ion-ios-search-strong"></i></a>
-                        </div>
-                    </div>
-                </li>
-            </ul>
+            {#<ul class="nav-notification">#}
+            {#<li class="search-list">#}
+            {#<div class="search-input-wrapper">#}
+            {#<div class="search-input">#}
+            {#<input type="text" class="form-control input-sm inline-block">#}
+            {#<a href="#" class="input-icon text-normal"><i class="ion-ios-search-strong"></i></a>#}
+            {#</div>#}
+            {#</div>#}
+            {#</li>#}
+            {#</ul>#}
             {# END Notifications #}
 
             <div class="pull-right m-right-sm">
                 {# User Profile Menu #}
                 <div class="user-block hidden-xs">
                     <a href="#" id="userToggle" data-toggle="dropdown">
-                        {#<img src="images/profile/profile1.jpg" alt="" class="img-circle inline-block user-profile-pic">#}
+                        {% if app.user.avatar is defined and app.user.avatar is not null and app.user.avatar.getWebPath is defined %}
+                            {{ app.session.set('photo', app.user.avatar.getWebPath) }}
+                            <img src="data:image/png;base64,{{ app.session.get('photo') }}"
+                                 alt="{{ 'client.avatar'|trans }}" class="img-circle inline-block user-profile-pic"/>
+                        {% else %}
+                            <img src="{{ asset('bundles/app/images/default.png') }}" alt="{{ 'client.avatar'|trans }}"
+                                 class="img-circle inline-block user-profile-pic"/>
+                        {% endif %}
                         <div class="user-detail inline-block">
                             {{ app.user is not null ? app.user.username }}
                             <i class="fa fa-angle-down"></i>
@@ -89,18 +98,20 @@
                             <ul>
                                 <li>
                                     <a href="{{ path('fos_user_profile_show') }}">
-                                        <i class="fa fa-edit fa-lg"></i><span class="m-left-xs">{{ 'layout.profile'|trans({}, 'messages') }}</span>
+                                        <i class="fa fa-edit fa-lg"></i><span
+                                                class="m-left-xs">{{ 'layout.profile'|trans({}, 'messages') }}</span>
                                     </a>
                                 </li>
-                                {#<li>#}
-                                    {#<a href="inbox.html">#}
-                                        {#<i class="fa fa-inbox fa-lg"></i><span class="m-left-xs">Inboxes</span>#}
-                                        {#<span class="badge badge-danger bounceIn animation-delay3">2</span>#}
-                                    {#</a>#}
-                                {#</li>#}
+                                <li>
+                                    <a href="{{ path('fos_user_change_password') }}">
+                                        <i class="fa fa-key fa-lg"></i><span
+                                                class="m-left-xs">{{ 'change_password.submit'|trans({}, 'FOSUserBundle') }}</span>
+                                    </a>
+                                </li>
                                 <li>
                                     <a href="{{ path('fos_user_security_logout') }}">
-                                        <i class="fa fa-power-off fa-lg"></i><span class="m-left-xs">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</span>
+                                        <i class="fa fa-power-off fa-lg"></i><span
+                                                class="m-left-xs">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</span>
                                     </a>
                                 </li>
                             </ul>
@@ -109,125 +120,80 @@
                 </div>
                 {# END User Profile Menu #}
 
-                {#<ul class="nav-notification">#}
+                <ul class="nav-notification">
                     {#<li>#}
-                        {#<a href="#" data-toggle="dropdown"><i class="fa fa-envelope fa-lg"></i></a>#}
-                        {#<span class="badge badge-purple bounceIn animation-delay5 active">2</span>#}
-                        {#<ul class="dropdown-menu message pull-right">#}
-                            {#<li><a>You have 4 new unread messages</a></li>#}
-                            {#<li>#}
-                                {#<a class="clearfix" href="#">#}
-                                    {#<img src="images/profile/profile2.jpg" alt="User Avatar">#}
-                                    {#<div class="detail">#}
-                                        {#<strong>John Doe</strong>#}
-                                        {#<p class="no-margin">#}
-                                            {#Lorem ipsum dolor sit amet...#}
-                                        {#</p>#}
-                                        {#<small class="text-muted"><i class="fa fa-check text-success"></i> 27m ago</small>#}
-                                    {#</div>#}
-                                {#</a>#}
-                            {#</li>#}
-                            {#<li>#}
-                                {#<a class="clearfix" href="#">#}
-                                    {#<img src="images/profile/profile3.jpg" alt="User Avatar">#}
-                                    {#<div class="detail">#}
-                                        {#<strong>Jane Doe</strong>#}
-                                        {#<p class="no-margin">#}
-                                            {#Lorem ipsum dolor sit amet...#}
-                                        {#</p>#}
-                                        {#<small class="text-muted"><i class="fa fa-check text-success"></i> 5hr ago</small>#}
-                                    {#</div>#}
-                                {#</a>#}
-                            {#</li>#}
-                            {#<li>#}
-                                {#<a class="clearfix" href="#">#}
-                                    {#<img src="images/profile/profile4.jpg" alt="User Avatar">#}
-                                    {#<div class="detail m-left-sm">#}
-                                        {#<strong>Bill Doe</strong>#}
-                                        {#<p class="no-margin">#}
-                                            {#Lorem ipsum dolor sit amet...#}
-                                        {#</p>#}
-                                        {#<small class="text-muted"><i class="fa fa-reply"></i> Yesterday</small>#}
-                                    {#</div>#}
-                                {#</a>#}
-                            {#</li>#}
-                            {#<li>#}
-                                {#<a class="clearfix" href="#">#}
-                                    {#<img src="images/profile/profile5.jpg" alt="User Avatar">#}
-                                    {#<div class="detail">#}
-                                        {#<strong>Baby Doe</strong>#}
-                                        {#<p class="no-margin">#}
-                                            {#Lorem ipsum dolor sit amet...#}
-                                        {#</p>#}
-                                        {#<small class="text-muted"><i class="fa fa-reply"></i> 9 Feb 2013</small>#}
-                                    {#</div>#}
-                                {#</a>#}
-                            {#</li>#}
-                            {#<li><a href="#">View all messages</a></li>#}
-                        {#</ul>#}
+                    {#<a href="#" data-toggle="dropdown"><i class="fa fa-envelope fa-lg"></i></a>#}
+                    {#<span class="badge badge-purple bounceIn animation-delay5 active">2</span>#}
+                    {#<ul class="dropdown-menu message pull-right">#}
+                    {#<li><a>You have 4 new unread messages</a></li>#}
+                    {#<li>#}
+                    {#<a class="clearfix" href="#">#}
+                    {#<img src="images/profile/profile2.jpg" alt="User Avatar">#}
+                    {#<div class="detail">#}
+                    {#<strong>John Doe</strong>#}
+                    {#<p class="no-margin">#}
+                    {#Lorem ipsum dolor sit amet...#}
+                    {#</p>#}
+                    {#<small class="text-muted"><i class="fa fa-check text-success"></i> 27m ago#}
+                    {#</small>#}
+                    {#</div>#}
+                    {#</a>#}
                     {#</li>#}
                     {#<li>#}
-                        {#<a href="#" data-toggle="dropdown"><i class="fa fa-bell fa-lg"></i></a>#}
-                        {#<span class="badge badge-info bounceIn animation-delay6 active">4</span>#}
-                        {#<ul class="dropdown-menu notification dropdown-3 pull-right">#}
-                            {#<li><a href="#">You have 5 new notifications</a></li>#}
-                            {#<li>#}
-                                {#<a href="#">#}
-                                    {#<span class="notification-icon bg-warning">#}
-                                        {#<i class="fa fa-warning"></i>#}
-                                    {#</span>#}
-                                    {#<span class="m-left-xs">Server #2 not responding.</span>#}
-                                    {#<span class="time text-muted">Just now</span>#}
-                                {#</a>#}
-                            {#</li>#}
-                            {#<li>#}
-                                {#<a href="#">#}
-                                    {#<span class="notification-icon bg-success">#}
-                                        {#<i class="fa fa-plus"></i>#}
-                                    {#</span>#}
-                                    {#<span class="m-left-xs">New user registration.</span>#}
-                                    {#<span class="time text-muted">2m ago</span>#}
-                                {#</a>#}
-                            {#</li>#}
-                            {#<li>#}
-                                {#<a href="#">#}
-                                    {#<span class="notification-icon bg-danger">#}
-                                        {#<i class="fa fa-bolt"></i>#}
-                                    {#</span>#}
-                                    {#<span class="m-left-xs">Application error.</span>#}
-                                    {#<span class="time text-muted">5m ago</span>#}
-                                {#</a>#}
-                            {#</li>#}
-                            {#<li>#}
-                                {#<a href="#">#}
-                                    {#<span class="notification-icon bg-success">#}
-                                        {#<i class="fa fa-usd"></i>#}
-                                    {#</span>#}
-                                    {#<span class="m-left-xs">2 items sold.</span>#}
-                                    {#<span class="time text-muted">1hr ago</span>#}
-                                {#</a>#}
-                            {#</li>#}
-                            {#<li>#}
-                                {#<a href="#">#}
-                                    {#<span class="notification-icon bg-success">#}
-                                        {#<i class="fa fa-plus"></i>#}
-                                    {#</span>#}
-                                    {#<span class="m-left-xs">New user registration.</span>#}
-                                    {#<span class="time text-muted">1hr ago</span>#}
-                                {#</a>#}
-                            {#</li>#}
-                            {#<li><a href="#">View all notifications</a></li>#}
-                        {#</ul>#}
+                    {#<a class="clearfix" href="#">#}
+                    {#<img src="images/profile/profile3.jpg" alt="User Avatar">#}
+                    {#<div class="detail">#}
+                    {#<strong>Jane Doe</strong>#}
+                    {#<p class="no-margin">#}
+                    {#Lorem ipsum dolor sit amet...#}
+                    {#</p>#}
+                    {#<small class="text-muted"><i class="fa fa-check text-success"></i> 5hr ago#}
+                    {#</small>#}
+                    {#</div>#}
+                    {#</a>#}
                     {#</li>#}
+                    {#<li>#}
+                    {#<a class="clearfix" href="#">#}
+                    {#<img src="images/profile/profile4.jpg" alt="User Avatar">#}
+                    {#<div class="detail m-left-sm">#}
+                    {#<strong>Bill Doe</strong>#}
+                    {#<p class="no-margin">#}
+                    {#Lorem ipsum dolor sit amet...#}
+                    {#</p>#}
+                    {#<small class="text-muted"><i class="fa fa-reply"></i> Yesterday</small>#}
+                    {#</div>#}
+                    {#</a>#}
+                    {#</li>#}
+                    {#<li>#}
+                    {#<a class="clearfix" href="#">#}
+                    {#<img src="images/profile/profile5.jpg" alt="User Avatar">#}
+                    {#<div class="detail">#}
+                    {#<strong>Baby Doe</strong>#}
+                    {#<p class="no-margin">#}
+                    {#Lorem ipsum dolor sit amet...#}
+                    {#</p>#}
+                    {#<small class="text-muted"><i class="fa fa-reply"></i> 9 Feb 2013</small>#}
+                    {#</div>#}
+                    {#</a>#}
+                    {#</li>#}
+                    {#<li><a href="#">View all messages</a></li>#}
+                    {#</ul>#}
+                    {#</li>#}
+                    <li id="card_expiration_alert">
+                        <a href="javascript:;" data-toggle="dropdown"><i class="fa fa-credit-card-alt fa-lg"></i></a>
+                    </li>
+                    <li id="car_expiration_alert">
+                        <a href="javascript:;" data-toggle="dropdown"><i class="fa fa-car fa-lg"></i></a>
+                    </li>
                     {#<li class="chat-notification">#}
-                        {#<a href="#" class="sidebarRight-toggle"><i class="fa fa-comments fa-lg"></i></a>#}
-                        {#<span class="badge badge-danger bounceIn">1</span>#}
+                    {#<a href="#" class="sidebarRight-toggle"><i class="fa fa-comments fa-lg"></i></a>#}
+                    {#<span class="badge badge-danger bounceIn">1</span>#}
 
-                        {#<div class="chat-alert">#}
-                            {#Hello, Are you there?#}
-                        {#</div>#}
+                    {#<div class="chat-alert">#}
+                    {#Hello, Are you there?#}
+                    {#</div>#}
                     {#</li>#}
-                {#</ul>#}
+                </ul>
             </div>
         </div>
     </div><!-- ./top-nav-inner -->

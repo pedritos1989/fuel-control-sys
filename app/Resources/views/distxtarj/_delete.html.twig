@@ -1,0 +1,6 @@
+<strong>{{ 'are_you_sure_question'|trans }}</strong>
+<form id="{{ form.vars.id }}" name="{{ form.vars.full_name }}" action="{{ form.vars.action }}" method="post"
+      enctype="multipart/form-data">
+    <input type="hidden" name="_method" value="DELETE">
+    {{ form_widget(form) }}
+</form>

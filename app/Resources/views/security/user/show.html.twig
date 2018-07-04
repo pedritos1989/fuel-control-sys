@@ -31,9 +31,40 @@
                             <td>{{ user.lastLogin ? user.lastLogin | date('d/m/Y h:i a') : '-' }}</td>
                         </tr>
                         <tr>
+                            <th>{{ 'nomenclator.people.label'|trans }}</th>
+                            <td>{{ user.persona|default('-') }}</td>
+                        </tr>
+                        <tr>
                             <th>{{ 'user.isactive'|trans }}</th>
                             <td>
                                 <i class="fa {{ user.enabled ? 'fa-check text-success' : 'fa-remove text-danger' }}"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'user.rol.label'|trans }}</th>
+                            <td>
+                                {% for rol in user.roles %}
+                                    {{ ('user.rol.' ~ rol|lower)|trans }}
+                                    <br>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'client.avatar'|trans }}</th>
+                            <td>
+                                {% if user.avatar is defined and user.avatar is not null and user.avatar.getWebPath is defined %}
+                                    <img src="data:image/png;base64,
+                                    {% if user == app.user %}
+                                        {{ app.session.get('photo') }}
+                                    {% else %}
+                                        {{ user.avatar.getWebPath }}
+                                    {% endif %}
+                                    "
+                                         alt="{{ 'client.avatar'|trans }}" width="15%"/>
+                                {% else %}
+                                    <img src="{{ asset('bundles/app/images/default.png') }}"
+                                         alt="{{ 'client.avatar'|trans }}" width="15%"/>
+                                {% endif %}
                             </td>
                         </tr>
                         </tbody>

@@ -3,18 +3,19 @@
 {% block bodyclass parent() ~ ' light-background' -%}
 
 {% block body -%}
-<div class="wrapper no-navigation preload">
-    <div class="sign-in-wrapper">
-        <div class="sign-in-inner">
-            <div class="login-brand text-center">
-                <i class="{{ 'system.icon'|trans }} m-right-xs"></i> <strong class="text-skin">{{ 'system.title'|trans }}</strong>
-            </div>
+    <div class="wrapper no-navigation preload">
+        <div class="sign-in-wrapper">
+            <div class="sign-in-inner">
+                <div class="login-brand text-center">
+                    <i class="{{ 'system.icon'|trans }} m-right-xs"></i> <strong
+                            class="text-skin">{{ 'system.title'|trans }}</strong>
+                </div>
 
-            {% block fos_user_content %}
-            {% endblock fos_user_content %}
-        </div><!-- ./sign-in-inner -->
-    </div><!-- ./sign-in-wrapper -->
-</div><!-- /wrapper -->
+                {% block fos_user_content %}
+                {% endblock fos_user_content %}
+            </div><!-- ./sign-in-inner -->
+        </div><!-- ./sign-in-wrapper -->
+    </div><!-- /wrapper -->
 {% endblock body -%}
 
 {% block javascripts %}

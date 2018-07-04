@@ -3,13 +3,16 @@
 namespace CombBundle\Controller;
 
 use AppBundle\Exceptions\ErrorHandler;
+use CombBundle\Entity\Area;
 use CombBundle\Entity\Tarjeta;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
+use Symfony\Component\HttpFoundation\Response;
 
 
 /**
@@ -80,7 +83,7 @@ class TarjetaController extends Controller
     /**
      * Finds and displays a tarjeta entity.
      *
-     * @Route("/{id}", name="tarjeta_show", requirements={
+     * @Route("/{id}", name="tarjeta_show", options={"expose"=true}, requirements={
      *     "id": "\d+"
      * })
      * @Method("GET")
@@ -206,4 +209,33 @@ class TarjetaController extends Controller
             ->setMethod('DELETE')
             ->getForm();
     }
+
+    /**
+     * @param Area $section
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     *
+     * @Route("/{section}/option", name="selection_card", options={"expose": true}, requirements={
+     *     "section":"\d+"
+     * })
+     * @ParamConverter("section", class="CombBundle\Entity\Area", options={"mappgin":{"section":"id"}})
+     * @Method("GET")
+     */
+    public function changeAction(Area $section)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $tarjetas = $em->getRepository('CombBundle:Tarjeta')
+            ->findBy(array('area' => $section), array('servicio' => 'ASC'));
+        $trans = $this->get('translator');
+        $exportData = array();
+        foreach ($tarjetas as $tarjeta) {
+            $exportData[] = array(
+                'id' => $tarjeta->getId(),
+                'name' => $tarjeta->getNumero(),
+                'service' => $trans->trans('card.service') . ': ' . $tarjeta->getServicio(),
+            );
+        }
+
+        return new JsonResponse($exportData, Response::HTTP_OK);
+    }
+
 }

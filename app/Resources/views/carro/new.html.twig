@@ -20,7 +20,13 @@
 {% endblock -%}
 
 {% block javascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/comb/js/carro/app.carro.manage.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/comb/js/carro/app.carro.card.js') }}"></script>
     <script type="text/javascript">
         $('.select2').select2();
+        $('.datepicker').datetimepicker({
+            'format': 'D/M/Y'
+        });
+        var _sel = new selection();
     </script>
 {% endblock %}

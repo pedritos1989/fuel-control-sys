@@ -4,14 +4,12 @@ namespace CombBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Distribucion
  *
  * @ORM\Table(name="s_distribucion")
  * @ORM\Entity(repositoryClass="CombBundle\Repository\DistribucionRepository")
- * @UniqueEntity("planAsignacion")
  */
 class Distribucion
 {
@@ -25,41 +23,31 @@ class Distribucion
     private $id;
 
     /**
-     * @var int
+     * @var \CombBundle\Entity\PlanAsignacion
      *
-     * @ORM\Column(name="plan", type="integer")
-     * @Assert\NotBlank()
-     * @Assert\Type("integer")
-     */
-    private $plan;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="asignacion", type="integer")
-     * @Assert\NotBlank()
-     * @Assert\Type("integer")
-     */
-    private $asignacion;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="CombBundle\Entity\Solicitud", inversedBy="distribuciones")
-     * @ORM\JoinTable(name="distribucion_solicitud")
-     */
-    private $solicitudes;
-
-    /**
-     * @var PlanAsignacion
-     *
-     * @ORM\OneToOne(targetEntity="CombBundle\Entity\PlanAsignacion")
+     * @ORM\ManyToOne(targetEntity="CombBundle\Entity\PlanAsignacion", inversedBy="distribuciones")
      */
     private $planAsignacion;
 
     /**
-     * @ORM\ManyToMany(targetEntity="CombBundle\Entity\Tarjeta", inversedBy="distribuciones")
-     * @ORM\JoinTable(name="distribucion_tarjeta")
+     * @var \DateTime
+     *
+     * @ORM\Column(type="date")
+     * @Assert\Date()
      */
-    private $tarjetas;
+    private $fecha;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CombBundle\Entity\DistribucionXTarjeta", mappedBy="distribucion")
+     */
+    private $distTjts;
+
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return sprintf('%s', $this->getPlanAsignacion());
+    }
 
 
     /**
@@ -67,8 +55,7 @@ class Distribucion
      */
     public function __construct()
     {
-        $this->solicitudes = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->tarjetas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->distTjts = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -82,88 +69,34 @@ class Distribucion
     }
 
     /**
-     * Set plan
+     * Set fecha
      *
-     * @param integer $plan
+     * @param \DateTime $fecha
+     *
      * @return Distribucion
      */
-    public function setPlan($plan)
+    public function setFecha($fecha)
     {
-        $this->plan = $plan;
+        $this->fecha = $fecha;
 
         return $this;
     }
 
     /**
-     * Get plan
+     * Get fecha
      *
-     * @return integer
+     * @return \DateTime
      */
-    public function getPlan()
+    public function getFecha()
     {
-        return $this->plan;
-    }
-
-    /**
-     * Set asignacion
-     *
-     * @param integer $asignacion
-     * @return Distribucion
-     */
-    public function setAsignacion($asignacion)
-    {
-        $this->asignacion = $asignacion;
-
-        return $this;
-    }
-
-    /**
-     * Get asignacion
-     *
-     * @return integer
-     */
-    public function getAsignacion()
-    {
-        return $this->asignacion;
-    }
-
-    /**
-     * Add solicitudes
-     *
-     * @param \CombBundle\Entity\Solicitud $solicitudes
-     * @return Distribucion
-     */
-    public function addSolicitude(\CombBundle\Entity\Solicitud $solicitudes)
-    {
-        $this->solicitudes[] = $solicitudes;
-
-        return $this;
-    }
-
-    /**
-     * Remove solicitudes
-     *
-     * @param \CombBundle\Entity\Solicitud $solicitudes
-     */
-    public function removeSolicitude(\CombBundle\Entity\Solicitud $solicitudes)
-    {
-        $this->solicitudes->removeElement($solicitudes);
-    }
-
-    /**
-     * Get solicitudes
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSolicitudes()
-    {
-        return $this->solicitudes;
+        return $this->fecha;
     }
 
     /**
      * Set planAsignacion
      *
      * @param \CombBundle\Entity\PlanAsignacion $planAsignacion
+     *
      * @return Distribucion
      */
     public function setPlanAsignacion(\CombBundle\Entity\PlanAsignacion $planAsignacion = null)
@@ -184,42 +117,36 @@ class Distribucion
     }
 
     /**
-     * Add tarjetas
+     * Add distTjt
      *
-     * @param \CombBundle\Entity\Tarjeta $tarjetas
+     * @param \CombBundle\Entity\DistribucionXTarjeta $distTjt
+     *
      * @return Distribucion
      */
-    public function addTarjeta(\CombBundle\Entity\Tarjeta $tarjetas)
+    public function addDistTjt(\CombBundle\Entity\DistribucionXTarjeta $distTjt)
     {
-        $this->tarjetas[] = $tarjetas;
+        $this->distTjts[] = $distTjt;
 
         return $this;
     }
 
     /**
-     * Remove tarjetas
+     * Remove distTjt
      *
-     * @param \CombBundle\Entity\Tarjeta $tarjetas
+     * @param \CombBundle\Entity\DistribucionXTarjeta $distTjt
      */
-    public function removeTarjeta(\CombBundle\Entity\Tarjeta $tarjetas)
+    public function removeDistTjt(\CombBundle\Entity\DistribucionXTarjeta $distTjt)
     {
-        $this->tarjetas->removeElement($tarjetas);
+        $this->distTjts->removeElement($distTjt);
     }
 
     /**
-     * Get tarjetas
+     * Get distTjts
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getTarjetas()
+    public function getDistTjts()
     {
-        return $this->tarjetas;
+        return $this->distTjts;
     }
-
-    public function __toString()
-    {
-        // TODO: Implement __toString() method.
-        return sprintf('%s -> %s', $this->getPlan(), $this->getAsignacion());
-    }
-
 }

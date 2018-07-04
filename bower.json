@@ -1,6 +1,6 @@
 {
   "name": "base_develop",
-  "description": "Base para desarrollo sobre symfony 2.8",
+  "description": "Base para desarrollo sobre Symfony 2.8",
   "main": "",
   "authors": [
     "Pedro Ernesto Matos Santana <pedroernesto20@gmail.com>"
@@ -40,6 +40,9 @@
     "morris.js": "^0.5.1",
     "jquery.easy-pie-chart": "^2.1.6",
     "owl.carousel": "^2.2.0",
-    "blockUI": "jquery.blockUI#*"
+    "blockUI": "jquery.blockUI#*",
+    "bootstrap-switch": "^3.3.4",
+    "bootstrap-datepicker": "^1.7.1",
+    "bootstrap-fileinput": "^4.4.3"
   }
 }

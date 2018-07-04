@@ -1,0 +1,34 @@
+{{ form_errors(form) }}
+<form id="{{ form.vars.id }}" name="{{ form.vars.full_name }}" action="{{ form.vars.action }}" method="get">
+
+    <div class="input-group">
+        <div class="input-group-btn">
+            <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-table"></i> {{ 'actions.report'|trans }}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#monthly">{{ 'fuel.report.monthly'|trans }}</a></li>
+                <li><a href="#vehicle">{{ 'fuel.report.by.car'|trans }}</a></li>
+                <li class="divider"></li>
+                <li><a href="#year">{{ 'fuel.report.year'|trans }} {{ ''|date('Y') }}</a></li>
+            </ul>
+        </div><!-- /btn-group -->
+        {{ form_row(form.mes, {'attr': {'class': 'monthpicker input-sm'}}) }}
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+    </div>
+
+    {{ form_widget(form._token) }}
+
+    <div id="button_reports" class="col-md-12">
+        <button style="display: none" type="submit" id="{{ form.vars.id ~ '_report_monthly' }}"
+                name="{{ form.vars.full_name ~ '[report_monthly]' }}">
+        </button>
+        <button style="display: none" type="submit" id="{{ form.vars.id ~ '_report_vehicle' }}"
+                name="{{ form.vars.full_name ~ '[report_vehicle]' }}">
+        </button>
+        <button style="display: none" type="submit" id="{{ form.vars.id ~ '_report_year' }}"
+                name="{{ form.vars.full_name ~ '[report_year]' }}">
+        </button>
+    </div>
+</form>

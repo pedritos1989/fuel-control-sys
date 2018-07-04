@@ -24,9 +24,6 @@ class TarjetaType extends AbstractType
             ->add('lote', IntegerType::class, array(
                 'label' => 'card.group',
             ))
-            ->add('abastecimiento', IntegerType::class, array(
-                'label' => 'card.provide',
-            ))
             ->add('fechaVenc', DateType::class, array(
                 'label' => 'card.exp.date',
                 'widget' => 'single_text',

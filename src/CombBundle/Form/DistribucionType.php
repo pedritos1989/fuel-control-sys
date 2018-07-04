@@ -2,9 +2,10 @@
 
 namespace CombBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,25 +17,23 @@ class DistribucionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('plan', IntegerType::class, array(
-                'label' => 'distribution.plan',
-            ))
-            ->add('asignacion', IntegerType::class, array(
-                'label' => 'distribution.asignation',
-            ))
-            ->add('solicitudes', null, array(
-                'label' => 'distribution.request',
-                'class' => 'CombBundle\Entity\Solicitud',
-                'multiple' => 1,
-            ))
             ->add('planAsignacion', EntityType::class, array(
-                'label' => 'distribution.asignPlan',
+                'label' => 'distribution.plan',
                 'class' => 'CombBundle\Entity\PlanAsignacion',
+                'query_builder' => function (EntityRepository $er) {
+                    $qb = $er->createQueryBuilder('p');
+                    $qb->andWhere($qb->expr()->gte('p.fecha', ':firstDay'))
+                        ->andWhere($qb->expr()->lte('p.fecha', ':lastDay'));
+                    $qb->setParameter('firstDay', date('Y') . '-' . date('m') . '-' . '1')
+                        ->setParameter('lastDay', date('Y') . '-' . date('m') . '-' . date('t'));
+                    return $qb;
+                },
+                'group_by' => 'asignacionMensual',
             ))
-            ->add('tarjetas', null, array(
-                'label' => 'distribution.card',
-                'class' => 'CombBundle\Entity\Tarjeta',
-                'multiple' => 1,
+            ->add('fecha', DateTimeType::class, array(
+                'label' => 'distribution.date',
+                'widget' => 'single_text',
+                'format' => 'd/M/y',
             ));
     }
 

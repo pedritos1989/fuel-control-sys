@@ -4,12 +4,14 @@ namespace CombBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContext;
 
 /**
  * Chip
  *
  * @ORM\Table(name="s_chip")
  * @ORM\Entity(repositoryClass="CombBundle\Repository\ChipRepository")
+ * @Assert\Callback("cantidadValida")
  */
 class Chip
 {
@@ -32,25 +34,25 @@ class Chip
     private $fecha;
 
     /**
-     * @var float
+     * @var int
      *
-     * @ORM\Column(name="cantcomb", type="float")
+     * @ORM\Column(name="cantcomb", type="integer")
      * @Assert\NotBlank()
      */
     private $cantcomb;
 
     /**
-     * @var float
+     * @var int
      *
-     * @ORM\Column(name="saldo_inicial", type="float")
+     * @ORM\Column(name="saldo_inicial", type="integer")
      * @Assert\NotBlank()
      */
     private $saldoInicial;
 
     /**
-     * @var float
+     * @var int
      *
-     * @ORM\Column(name="saldo_final", type="float")
+     * @ORM\Column(name="saldo_final", type="integer")
      * @Assert\NotBlank()
      */
     private $saldoFinal;
@@ -59,6 +61,7 @@ class Chip
      * @var Tarjeta
      *
      * @ORM\ManyToOne(targetEntity="CombBundle\Entity\Tarjeta")
+     * @Assert\NotNull()
      */
     private $tarjeta;
 
@@ -106,7 +109,7 @@ class Chip
     /**
      * Set cantcomb
      *
-     * @param float $cantcomb
+     * @param integer $cantcomb
      * @return Chip
      */
     public function setCantcomb($cantcomb)
@@ -119,7 +122,7 @@ class Chip
     /**
      * Get cantcomb
      *
-     * @return float
+     * @return integer
      */
     public function getCantcomb()
     {
@@ -129,7 +132,7 @@ class Chip
     /**
      * Set saldoInicial
      *
-     * @param float $saldoInicial
+     * @param integer $saldoInicial
      * @return Chip
      */
     public function setSaldoInicial($saldoInicial)
@@ -142,7 +145,7 @@ class Chip
     /**
      * Get saldoInicial
      *
-     * @return float
+     * @return integer
      */
     public function getSaldoInicial()
     {
@@ -152,7 +155,7 @@ class Chip
     /**
      * Set saldoFinal
      *
-     * @param float $saldoFinal
+     * @param integer $saldoFinal
      * @return Chip
      */
     public function setSaldoFinal($saldoFinal)
@@ -165,7 +168,7 @@ class Chip
     /**
      * Get saldoFinal
      *
-     * @return float
+     * @return integer
      */
     public function getSaldoFinal()
     {
@@ -194,4 +197,14 @@ class Chip
     {
         return $this->tarjeta;
     }
+
+    // <editor-fold defaultstate="collapsed" desc="Validaciones">
+    public function cantidadValida(ExecutionContext $context)
+    {
+        if ($this->getSaldoInicial() - $this->getCantcomb() < 0) {
+            $context->addViolationAt('cantcomb', 'amounts.mismatch');
+            return;
+        }
+    }
+    // </editor-fold>
 }

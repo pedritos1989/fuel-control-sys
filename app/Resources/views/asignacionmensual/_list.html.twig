@@ -1,0 +1,40 @@
+<table class="table table-striped table-hover" id="table-datatable">
+    <thead>
+    <tr>
+        <th>{{ 'monthly.assign.number'|trans }}</th>
+        <th>{{ 'monthly.assign.date'|trans }}</th>
+        <th>{{ 'monthly.assign.amounts.amount'|trans }}</th>
+        <th>{{ 'actions.label'|trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for asignacionMensual  in asignacionMensuals %}
+        <tr>
+            <td>{{ asignacionMensual.consecutivo }}</td>
+            <td>{% if asignacionMensual.fecha %}{{ asignacionMensual.fecha|date('d/m/Y') }}{% endif %}</td>
+            <td>
+                {% for unity in asignacionMensual.cantidades %}
+                    {{ unity.servicio }} - {{ unity.cantidad }}<br>
+                {% endfor %}
+            </td>
+            <td>
+                <a class="btn btn-default btn-sm"
+                   href="{{ path('asignacionmensual_show', { 'id': asignacionMensual.id }) }}"
+                   title="{{ 'actions.show'|trans }}">
+                    <i class="fa fa-eye"></i> {{ 'actions.show'|trans }}</a>
+
+                <a class="btn btn-primary btn-sm"
+                   href="{{ path('asignacionmensual_edit', { 'id': asignacionMensual.id }) }}"
+                   title="{{ 'actions.edit'|trans }}">
+                    <i class="fa fa-edit"></i> {{ 'actions.edit'|trans }}</a>
+
+                <a data-id="{{ asignacionMensual.id }}" data-action="asignacionmensual_delete"
+                   href="javascript:;" class="btn btn-danger btn-sm tooltips delete-selection"
+                   data-container="body" title="{{ 'actions.delete'|trans }}">
+                    <i class="fa fa-trash-o"></i> {{ 'actions.delete'|trans }}</a>
+
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

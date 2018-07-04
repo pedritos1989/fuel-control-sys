@@ -1,15 +1,3 @@
-comb_tarjeta:
-    resource: "@CombBundle/Controller/TarjetaController.php"
-    type:     annotation
-
-comb_solicitud:
-    resource: "@CombBundle/Controller/SolicitudController.php"
-    type:     annotation
-
-comb_plan_asignacion:
-    resource: "@CombBundle/Controller/PlanAsignacionController.php"
-    type:     annotation
-
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
@@ -23,7 +11,7 @@ usuario:
 nomenclador:
     resource: "@NomencladorBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /nomenclators
 
 comb:
     resource: "@CombBundle/Controller/"

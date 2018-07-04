@@ -16,10 +16,32 @@
         {{ form_row(form.plainPassword) }}
     </div>
     <div class="col-md-12">
-        {{ form_row(form.roles, {'attr': {'class': 'select2'}}) }}
+        {{ form_row(form.groups, {'attr': {'class': 'select2'}}) }}
     </div>
     <div class="col-md-12">
         {{ form_row(form.enabled) }}
+    </div>
+    <div class="col-md-12">
+        {{ form_row(form.persona, {'attr': {'class': 'select2'}}) }}
+    </div>
+    <div class="col-md-2">
+        {{ form_label(form.avatar) }}
+        <a href="#" class="thumbnail">
+            {% if user.avatar is defined and user.avatar.getWebPath is defined %}
+                <img src="data:image/png;base64,
+                                    {% if user == app.user %}
+                                        {{ app.session.get('photo') }}
+                                    {% else %}
+                                        {{ user.avatar.getWebPath }}
+                                    {% endif %}
+                                    "
+                     alt="{{ 'client.avatar'|trans({}, 'messages') }}" {#width="152" height="120"#}/>
+            {% else %}
+                <img src="{{ asset('bundles/app/images/default.png') }}"
+                     alt="{{ 'client.avatar'|trans({}, 'messages') }}"/>
+            {% endif %}
+        </a>
+        {{ form_widget(form.avatar) }}
     </div>
     {{ form_widget(form._token) }}
 

@@ -1,0 +1,62 @@
+{% extends '::base.html.twig' %}
+
+{% block block('subheader') %}
+
+{% block header 'request.card.label'|trans %}
+
+{% block subheader 'request.card.list'|trans %}
+
+{% block stylesheets %}
+    <link rel="stylesheet"
+          href="{{ asset('assets/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}"
+          type="text/css">
+{% endblock %}
+
+{% block container -%}
+    {%- embed '_smart_widget.html.twig' %}
+        {% set config, collapse, refresh, remove = true, true, false, false %}
+        {% block widgetheader %}
+            {{ 'request.card.list'|trans }}
+        {% endblock widgetheader %}
+
+        {% block hidden_option_title 'request.card.report.label'|trans %}
+
+        {% block hidden_option_icon '<i class="fa fa-file-excel-o"></i>' %}
+
+        {% block hiddensection %}
+            {% include 'recargue/_form_report.html.twig' with {'form': reportForm} %}
+        {% endblock hiddensection %}
+
+        {% block widgetbody %}
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="btn btn-primary btn-sm" href="{{ path('recargue_new') }}">
+                        <i class="fa fa-plus-circle"></i> {{ 'actions.add'|trans }}
+                    </a>
+                </div>
+                <div class="col-md-12 separator-index">
+                    {% include 'recargue/_list.html.twig' %}
+                </div>
+            </div>
+        {% endblock widgetbody %}
+    {%- endembed %}
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript"
+            src="{{ asset('assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('assets/vendor/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#table-datatable').DataTable();
+        });
+        $('.monthpicker').datepicker({
+            autoclose: true,
+            language: 'es',
+            format: "mm/yyyy",
+            startView: "months",
+            minViewMode: "months"
+        });
+    </script>
+{% endblock %}

@@ -12,4 +12,49 @@ use Doctrine\ORM\EntityRepository;
  */
 class SolicitudRepository extends EntityRepository
 {
+    /**
+     * @return array
+     */
+    public function filter()
+    {
+        $firstDay = date('Y') . '-' . date('m') . '-' . '1 00:00:00';
+        $lastDay = date('Y') . '-' . date('m') . '-' . date('t') . ' 23:59:59';
+
+        $qb = $this->createQueryBuilder('s');
+
+        $qb->andWhere($qb->expr()->gte('s.fechaHoraS', ':firstDay'))
+            ->setParameter('firstDay', $firstDay);
+
+        $qb->andWhere($qb->expr()->lte('s.fechaHoraS', ':lastDay'))
+            ->setParameter('lastDay', $lastDay);
+
+        $qb->orderBy('s.id', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param $area
+     * @param $mes
+     * @return array
+     */
+    public function report($area, $mes)
+    {
+        $qb = $this->createQueryBuilder('s');
+        if ($area !== '') {
+            $qb->andWhere($qb->expr()->eq('s.area', ':areaParam'))
+                ->setParameter('areaParam', $area);
+        }
+        if ($mes !== '') {
+            $firstDay = $mes . '-01';
+            $lastDay = $mes . '-' . date('t', strtotime($firstDay));
+
+            $qb->andWhere($qb->expr()->gte('s.fechaHoraS', ':firstDay'))
+                ->andWhere($qb->expr()->lte('s.fechaHoraS', ':lastDay'))
+                ->setParameter('firstDay', $firstDay . ' 00:00:00')
+                ->setParameter('lastDay', $lastDay . ' 23:59:59');
+        }
+        $qb->orderBy('s.id', 'ASC');
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -7,8 +7,13 @@ security:
         Symfony\Component\Security\Core\User\User: bcrypt
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_USER:                ROLE_USER
+        ROLE_ADMIN:               [ROLE_ADMIN,ROLE_USER]
+        ROLE_CAJERO:              [ROLE_CAJERO,ROLE_USER]
+        ROLE_DIRECTOR:            [ROLE_DIRECTOR,ROLE_USER]
+        ROLE_JEFE:                [ROLE_JEFE,ROLE_USER]
+        ROLE_TECNICO:             [ROLE_TECNICO,ROLE_USER]
+        ROLE_SUPER_ADMIN:         [ROLE_SUPER_ADMIN,ROLE_USER,ROLE_DIRECTOR]
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
@@ -43,11 +48,22 @@ security:
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/admin/, role: ROLE_ADMIN }
-#        - { path: ^/enterprise/, role: [ROLE_ADMIN] }
-#        - { path: ^/client/, role: [ROLE_USER] }
-#        - { path: ^/clientsgroup/, role: [ROLE_USER] }
-#        - { path: ^/playlist/, role: [ROLE_USER] }
-        - { path: ^/, role: ROLE_USER }
+        - { path: ^/upload/, role: [ROLE_DIRECTOR,ROLE_TECNICO] }
+        - { path: ^/area/, role: [ROLE_DIRECTOR] }
+        - { path: ^/carro/, role: [ROLE_DIRECTOR] }
+        - { path: ^/chofer/, role: [ROLE_DIRECTOR] }
+        - { path: ^/tarjeta/, role: [ROLE_DIRECTOR] }
+        - { path: ^/asignacionmensual/, role: [ROLE_DIRECTOR] }
+        - { path: ^/planasignacion/, role: [ROLE_DIRECTOR] }
+        - { path: ^/chip/, role: [ROLE_CAJERO,ROLE_SUPER_ADMIN] }
+        - { path: ^/distribucion/, role: [ROLE_DIRECTOR] }
+        - { path: ^/service/, role: [ROLE_DIRECTOR] }
+        - { path: ^/car_status/, role: [ROLE_DIRECTOR] }
+        - { path: ^/car_type/, role: [ROLE_DIRECTOR] }
+        - { path: ^/brand/, role: [ROLE_DIRECTOR] }
+        - { path: ^/brand/, role: [ROLE_DIRECTOR] }
+        - { path: ^/people/, role: [ROLE_DIRECTOR] }
+        - { path: ^/solicitud/, role: [ROLE_JEFE,ROLE_SUPER_ADMIN] }
+        - { path: ^/recargue/, role: [ROLE_CAJERO,ROLE_TECNICO,ROLE_SUPER_ADMIN] }
+        - { path: ^/user/, role: [ROLE_DIRECTOR] }
+        - { path: ^/, role: [ROLE_USER] }

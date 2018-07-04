@@ -7,7 +7,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class UserType.
+ * Class UserRegistrationType
+ * @package UsuarioBundle\Form\Type
  */
 class UserRegistrationType extends AbstractType
 {
@@ -21,13 +22,22 @@ class UserRegistrationType extends AbstractType
                 'label' => 'user.active',
                 'required' => false,
             ))
-            ->add('roles', 'choice', array(
-                'choices' => array('ROLE_SUPER_ADMIN' => 'ROLE_SUPER_ADMIN', 'ROLE_USER' => 'ROLE_USER'),
+            ->add('groups', 'entity', array(
+                'label' => 'user.rol.label',
+                'class' => 'UsuarioBundle\Entity\Group',
                 'multiple' => true,
-                'label' => 'user.rol',
+            ))
+            ->add('avatar', ClientAvatarType::class, array(
+                'required' => false,
+                'label' => 'client.avatar',
                 'attr' => array(
-                    'style' => 'width:100%',
+                    'class' => 'hidden',
                 ),
+            ))
+            ->add('persona', 'entity', array(
+                'label' => 'nomenclator.people.label',
+                'required' => false,
+                'class' => 'NomencladorBundle\Entity\Persona',
             ));
     }
 

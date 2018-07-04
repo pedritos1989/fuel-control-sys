@@ -3,10 +3,13 @@
 namespace CombBundle\Controller;
 
 use AppBundle\Exceptions\ErrorHandler;
+use CombBundle\Entity\Area;
 use CombBundle\Entity\Carro;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
@@ -26,15 +29,74 @@ class CarroController extends Controller
      * @Route("/", name="carro_index", options={"expose"=true})
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
+        $reportVehicleForm = $this->createReportVehicleForm();
+        $reportStatusForm = $this->createStatusVehicleForm();
+
+        $reportVehicleForm->handleRequest($request);
+        if ($reportVehicleForm->isSubmitted() && $reportVehicleForm->isValid()) {
+            $submitted = $reportVehicleForm->getData();
+            return $this->get('vehiculos.report.manager')->designReport($submitted);
+        }
+
+        $reportStatusForm->handleRequest($request);
+        if ($reportStatusForm->isSubmitted() && $reportStatusForm->isValid()) {
+            return $this->get('automotor.report.manager')->designReport();
+        }
+        
         $carros = $em->getRepository('CombBundle:Carro')->findAll();
 
         return $this->render('carro/index.html.twig', array(
             'carros' => $carros,
+            'reportVehicleForm' => $reportVehicleForm->createView(),
+            'reportStatusVehiclesForm' => $reportStatusForm->createView(),
         ));
+    }
+
+    /**
+     * @return \Symfony\Component\Form\FormInterface
+     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     */
+    public function createStatusVehicleForm()
+    {
+        $form = $this->get('form.factory')
+            ->createNamedBuilder('status_vehicles_report')
+            ->setAction($this->generateUrl('carro_index'))
+            ->setMethod('GET');
+
+        $form
+            ->add('report', SubmitType::class, array(
+                'label' => 'actions.report',
+            ));
+
+        return $form->getForm();
+    }
+
+    /**
+     * @return \Symfony\Component\Form\FormInterface
+     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     */
+    public function createReportVehicleForm()
+    {
+        $form = $this->get('form.factory')
+            ->createNamedBuilder('vehicle_report')
+            ->setAction($this->generateUrl('carro_index'))
+            ->setMethod('GET');
+
+        $form
+            ->add('area', EntityType::class, array(
+                'label' => 'car.section',
+                'required' => false,
+                'class' => Area::class,
+            ))
+            ->add('report', SubmitType::class, array(
+                'label' => 'actions.report',
+            ));
+
+        return $form->getForm();
     }
 
     /**
@@ -79,7 +141,7 @@ class CarroController extends Controller
     /**
      * Finds and displays a carro entity.
      *
-     * @Route("/{id}", name="carro_show", requirements={
+     * @Route("/{id}", name="carro_show", options={"expose"=true}, requirements={
      *     "id": "\d+"
      * })
      * @Method("GET")

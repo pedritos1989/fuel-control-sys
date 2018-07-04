@@ -12,4 +12,45 @@ use Doctrine\ORM\EntityRepository;
  */
 class PlanAsignacionRepository extends EntityRepository
 {
+    /**
+     * @return array
+     */
+    public function filter()
+    {
+        $firstDay = date('Y') . '-' . date('m') . '-' . '1';
+        $lastDay = date('Y') . '-' . date('m') . '-' . date('t');
+
+        $qb = $this->createQueryBuilder('p');
+
+        $qb->andWhere($qb->expr()->gte('p.fecha', ':firstDay'))
+            ->setParameter('firstDay', $firstDay);
+
+        $qb->andWhere($qb->expr()->lte('p.fecha', ':lastDay'))
+            ->setParameter('lastDay', $lastDay);
+
+        $qb->orderBy('p.id', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param $mes
+     * @return array
+     */
+    public function report($mes)
+    {
+        $qb = $this->createQueryBuilder('s');
+
+        if ($mes !== '') {
+            $firstDay = $mes . '-01';
+            $lastDay = $mes . '-' . date('t', strtotime($firstDay));
+
+            $qb->andWhere($qb->expr()->gte('s.fecha', ':firstDay'))
+                ->andWhere($qb->expr()->lte('s.fecha', ':lastDay'))
+                ->setParameter('firstDay', $firstDay)
+                ->setParameter('lastDay', $lastDay);
+        }
+        $qb->orderBy('s.id', 'ASC');
+        return $qb->getQuery()->getResult();
+    }
 }

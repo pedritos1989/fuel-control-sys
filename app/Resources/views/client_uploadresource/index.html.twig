@@ -1,0 +1,77 @@
+{% extends '::base.html.twig' %}
+
+{% block block('subheader') %}
+
+{% block header 'client.uploadresource.label'|trans %}
+
+{% block subheader 'client.uploadresource.list'|trans %}
+
+{% block stylesheets %}
+    <link type="text/css" rel="stylesheet"
+          href="{{ asset('assets/vendor/bootstrap-fileinput/css/fileinput.min.css') }}">
+{% endblock %}
+
+{% block container -%}
+    {%- embed '_smart_widget.html.twig' %}
+        {% set config, collapse, refresh, remove = true, true, false, false %}
+        {% block widgetheader %}
+            {{ 'client.uploadresource.list'|trans }}
+        {% endblock widgetheader %}
+
+        {% block hidden_option_icon '<i></i>' %}
+
+        {% block widgetbody %}
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="#add" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> {{ 'actions.add'|trans }}
+                    </a>
+                </div>
+                <div class="col-md-12">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>{{ 'client.uploadresource.attachmentName'|trans }}</th>
+                            <th>{{ 'client.uploadresource.filename'|trans }}</th>
+                            <th style="width: 20%;">{{ 'actions.label'|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for r in resources %}
+                            <tr>
+                                <td>{{ r.attachmentName }}</td>
+                                <td>{{ r.originalName }}</td>
+                                <td>
+                                    <a target="_blank" href="{{ '/uploads/resources/' ~ r.path }}"
+                                       class="btn btn-default btn-sm">
+                                        <i class="fa fa-download"></i> {{ 'actions.show'|trans }}</a>
+                                    <a href="#delete" class="btn btn-danger btn-sm"
+                                       data-target="{{ path('client_uploadresource_delete', {'id': r.id}) }}">
+                                        <i class="fa fa-trash"></i> {{ 'actions.delete'|trans }}</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="2">{{ 'no_elements'|trans }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endblock widgetbody %}
+    {%- endembed %}
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('assets/vendor/bootstrap-fileinput/js/fileinput.min.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('assets/vendor/bootstrap-fileinput/js/locales/' ~ app.request.locale ~ '.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('bundles/comb/js/client_uploadresource/app.client.uploadresource.js') }}"></script>
+    <script src="{{ url('bazinga_jstranslation_js') }}"></script>
+    <script type="text/javascript">
+        $.fn.fileinput.defaults.language = '{{ app.request.locale }}';
+        var rs = new CombustiblesApp.Client.UploadResource();
+        rs.startEvents();
+    </script>
+{% endblock %}

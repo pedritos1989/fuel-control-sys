@@ -2,6 +2,7 @@
 
 namespace CombBundle\Entity;
 
+use CombBundle\Model\AreaInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -11,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="s_tarjeta")
  * @ORM\Entity(repositoryClass="CombBundle\Repository\TarjetaRepository")
  */
-class Tarjeta
+class Tarjeta implements AreaInterface
 {
     /**
      * @var int
@@ -40,9 +41,23 @@ class Tarjeta
     /**
      * @var int
      *
-     * @ORM\Column(name="abastecimiento", type="integer")
+     * @ORM\Column(name="abastecimiento", type="integer", nullable=true)
      */
     private $abastecimiento;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="saldo_inicial", type="integer", nullable=true)
+     */
+    private $saldoInicial;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="saldo_final", type="integer", nullable=true)
+     */
+    private $saldoFinal;
 
     /**
      * @var \DateTime
@@ -52,7 +67,7 @@ class Tarjeta
     private $fechaVenc;
 
     /**
-     * @ORM\ManyToMany(targetEntity="CombBundle\Entity\Distribucion", mappedBy="tarjetas")
+     * @ORM\OneToMany(targetEntity="CombBundle\Entity\DistribucionXTarjeta", mappedBy="tarjeta")
      */
     private $distribuciones;
 
@@ -70,6 +85,16 @@ class Tarjeta
      */
     private $servicio;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CombBundle\Entity\Carro", mappedBy="tarjeta", cascade={"all"})
+     */
+    private $carros;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CombBundle\Entity\Recargue", mappedBy="tarjeta", cascade={"all"})
+     */
+    private $recargues;
+
 
     public function __toString()
     {
@@ -78,11 +103,39 @@ class Tarjeta
     }
 
     /**
+     * Set area
+     *
+     * @param \CombBundle\Entity\Area $area
+     * @return Tarjeta
+     */
+    public function setArea(\CombBundle\Entity\Area $area = null)
+    {
+        $this->area = $area;
+
+        return $this;
+    }
+
+    /**
+     * Get area
+     *
+     * @return \CombBundle\Entity\Area
+     */
+    public function getArea()
+    {
+        return $this->area;
+    }
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->distribuciones = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->carros = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->recargues = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->saldoFinal = 0;
+        $this->saldoInicial = 0;
+        $this->abastecimiento = 0;
     }
 
     /**
@@ -165,6 +218,52 @@ class Tarjeta
     }
 
     /**
+     * Set saldoInicial
+     *
+     * @param integer $saldoInicial
+     * @return Tarjeta
+     */
+    public function setSaldoInicial($saldoInicial)
+    {
+        $this->saldoInicial = $saldoInicial;
+
+        return $this;
+    }
+
+    /**
+     * Get saldoInicial
+     *
+     * @return integer
+     */
+    public function getSaldoInicial()
+    {
+        return $this->saldoInicial;
+    }
+
+    /**
+     * Set saldoFinal
+     *
+     * @param integer $saldoFinal
+     * @return Tarjeta
+     */
+    public function setSaldoFinal($saldoFinal)
+    {
+        $this->saldoFinal = $saldoFinal;
+
+        return $this;
+    }
+
+    /**
+     * Get saldoFinal
+     *
+     * @return integer
+     */
+    public function getSaldoFinal()
+    {
+        return $this->saldoFinal;
+    }
+
+    /**
      * Set fechaVenc
      *
      * @param \DateTime $fechaVenc
@@ -190,10 +289,10 @@ class Tarjeta
     /**
      * Add distribuciones
      *
-     * @param \CombBundle\Entity\Distribucion $distribuciones
+     * @param \CombBundle\Entity\DistribucionXTarjeta $distribuciones
      * @return Tarjeta
      */
-    public function addDistribucione(\CombBundle\Entity\Distribucion $distribuciones)
+    public function addDistribucione(\CombBundle\Entity\DistribucionXTarjeta $distribuciones)
     {
         $this->distribuciones[] = $distribuciones;
 
@@ -203,9 +302,9 @@ class Tarjeta
     /**
      * Remove distribuciones
      *
-     * @param \CombBundle\Entity\Distribucion $distribuciones
+     * @param \CombBundle\Entity\DistribucionXTarjeta $distribuciones
      */
-    public function removeDistribucione(\CombBundle\Entity\Distribucion $distribuciones)
+    public function removeDistribucione(\CombBundle\Entity\DistribucionXTarjeta $distribuciones)
     {
         $this->distribuciones->removeElement($distribuciones);
     }
@@ -218,29 +317,6 @@ class Tarjeta
     public function getDistribuciones()
     {
         return $this->distribuciones;
-    }
-
-    /**
-     * Set area
-     *
-     * @param \CombBundle\Entity\Area $area
-     * @return Tarjeta
-     */
-    public function setArea(\CombBundle\Entity\Area $area = null)
-    {
-        $this->area = $area;
-
-        return $this;
-    }
-
-    /**
-     * Get area
-     *
-     * @return \CombBundle\Entity\Area
-     */
-    public function getArea()
-    {
-        return $this->area;
     }
 
     /**
@@ -265,4 +341,71 @@ class Tarjeta
     {
         return $this->servicio;
     }
+
+    /**
+     * Add carros
+     *
+     * @param \CombBundle\Entity\Carro $carros
+     * @return Tarjeta
+     */
+    public function addCarro(\CombBundle\Entity\Carro $carros)
+    {
+        $this->carros[] = $carros;
+
+        return $this;
+    }
+
+    /**
+     * Remove carros
+     *
+     * @param \CombBundle\Entity\Carro $carros
+     */
+    public function removeCarro(\CombBundle\Entity\Carro $carros)
+    {
+        $this->carros->removeElement($carros);
+    }
+
+    /**
+     * Get carros
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCarros()
+    {
+        return $this->carros;
+    }
+
+    /**
+     * Add recargue
+     *
+     * @param \CombBundle\Entity\Recargue $recargue
+     * @return Tarjeta
+     */
+    public function addRecargue(\CombBundle\Entity\Recargue $recargue)
+    {
+        $this->recargues[] = $recargue;
+
+        return $this;
+    }
+
+    /**
+     * Remove recargue
+     *
+     * @param \CombBundle\Entity\Recargue $recargue
+     */
+    public function removeRecargue(\CombBundle\Entity\Recargue $recargue)
+    {
+        $this->recargues->removeElement($recargue);
+    }
+
+    /**
+     * Get recargues
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRecargues()
+    {
+        return $this->recargues;
+    }
+
 }

@@ -2,10 +2,10 @@
 
 namespace CombBundle\Form\Type;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,13 +22,22 @@ class PlanAsignacionType extends AbstractType
                 'widget' => 'single_text',
                 'format' => 'd/M/y',
             ))
-            ->add('cantcomb', IntegerType::class, array(
-                'label' => 'assign.plan.total',
-            ))
-            ->add('servicio', EntityType::class, array(
-                'class' => 'NomencladorBundle\Entity\Servicio',
+            ->add('area', EntityType::class, array(
+                'class' => 'CombBundle\Entity\Area',
                 'required' => false,
-                'label' => 'assign.plan.service',
+                'label' => 'assign.plan.section',
+            ))
+            ->add('asignacionMensual', EntityType::class, array(
+                'label' => 'assign.plan.monthly.asign',
+                'class' => 'CombBundle\Entity\AsignacionMensual',
+                'query_builder' => function (EntityRepository $er) {
+                    $qb = $er->createQueryBuilder('p');
+                    $qb->andWhere($qb->expr()->gte('p.fecha', ':firstDay'))
+                        ->andWhere($qb->expr()->lte('p.fecha', ':lastDay'));
+                    $qb->setParameter('firstDay', date('Y') . '-' . date('m') . '-' . '1')
+                        ->setParameter('lastDay', date('Y') . '-' . date('m') . '-' . date('t'));
+                    return $qb;
+                }
             ));
     }
 
@@ -38,7 +47,7 @@ class PlanAsignacionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CombBundle\Entity\PlanAsignacion'
+            'data_class' => 'CombBundle\Entity\PlanAsignacion',
         ));
     }
 

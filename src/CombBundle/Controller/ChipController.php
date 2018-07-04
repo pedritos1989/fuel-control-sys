@@ -4,6 +4,8 @@ namespace CombBundle\Controller;
 
 use AppBundle\Exceptions\ErrorHandler;
 use CombBundle\Entity\Chip;
+use CombBundle\Entity\Tarjeta;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -30,7 +32,7 @@ class ChipController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $chips = $em->getRepository('CombBundle:Chip')->findAll();
+        $chips = $em->getRepository('CombBundle:Chip')->filter();
 
         return $this->render('chip/index.html.twig', array(
             'chips' => $chips,
@@ -52,14 +54,19 @@ class ChipController extends Controller
         $form = $this->createForm('CombBundle\Form\ChipType', $chip, array(
             'method' => 'POST',
             'action' => $this->generateUrl('chip_new'),
+            'translator' => $this->get('translator'),
         ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->get('doctrine.orm.entity_manager');
             try {
+                if ($chip->getSaldoFinal() >= 0) {
+                    $tarjeta = $chip->getTarjeta();
+                    $tarjeta->setSaldoFinal($chip->getSaldoFinal());
+                }
                 $em->persist($chip);
-                $em->flush($chip);
+                $em->flush();
 
                 $this->addFlash('success', $this->get('translator')->trans('created.success'));
 
@@ -111,6 +118,7 @@ class ChipController extends Controller
         $editForm = $this->createForm('CombBundle\Form\ChipType', $chip, array(
             'method' => 'PUT',
             'action' => $this->generateUrl('chip_edit', array('id' => $chip->getId())),
+            'translator' => $this->get('translator'),
         ));
 
         $editForm->handleRequest($request);
@@ -118,6 +126,11 @@ class ChipController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             try {
                 $em = $this->get('doctrine.orm.entity_manager');
+                if ($chip->getSaldoFinal() > 0) {
+                    $tarjeta = $chip->getTarjeta();
+                    $tarjeta->setSaldoFinal($chip->getSaldoFinal());
+                }
+
                 $em->flush();
 
                 $this->addFlash('success', $this->get('translator')->trans('updated.success'));

@@ -12,4 +12,28 @@ use Doctrine\ORM\EntityRepository;
  */
 class TarjetaRepository extends EntityRepository
 {
+    /**
+     * @param $mes
+     * @param $servicio
+     * @return array
+     */
+    public function report($mes, $servicio)
+    {
+        $qb = $this->createQueryBuilder('s');
+        $qb->innerJoin('s.recargues', 'rec');
+
+        $qb->andWhere($qb->expr()->eq('s.servicio', $servicio->getId()));
+
+        if ($mes !== '') {
+            $firstDay = $mes . '-01';
+            $lastDay = $mes . '-' . date('t', strtotime($firstDay));
+
+            $qb->andWhere($qb->expr()->gte('rec.fecha', ':firstDay'))
+                ->andWhere($qb->expr()->lte('rec.fecha', ':lastDay'))
+                ->setParameter('firstDay', $firstDay)
+                ->setParameter('lastDay', $lastDay);
+        }
+        $qb->orderBy('s.id', 'ASC');
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -1,0 +1,14 @@
+{{ form_errors(form) }}
+<form name="recargue_estado_change" id="recargue_estado_change" action="{{ form.vars.action }}" method="post"
+      enctype="multipart/form-data">
+
+    <div class="row">
+
+        <div class="col-md-12">
+            {{ form_row(form.confirmacion, {'attr': {'class': 'switch-comp'}}) }}
+        </div>
+
+        {{ form_widget(form._token) }}
+    </div>
+
+</form>

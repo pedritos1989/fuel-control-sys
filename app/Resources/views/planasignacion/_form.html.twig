@@ -1,28 +1,32 @@
 {{ form_errors(form) }}
 <form id="{{ form.vars.id }}" name="{{ form.vars.full_name }}" action="{{ form.vars.action }}"
       method="post" enctype="multipart/form-data">
-{% if form.vars.method == 'PUT' %}
-    <input type="hidden" name="_method" value="PUT">
-    {% set editing = true %}
-{% endif %}
+    {% if form.vars.method == 'PUT' %}
+        <input type="hidden" name="_method" value="PUT">
+        {% set editing = true %}
+    {% endif %}
 
     <div class="row">
+        <div class="col-md-12">
+            {{ form_row(form.asignacionMensual, {'attr': {'class': 'select2'}}) }}
+        </div>
         <div class="col-md-12">
             {{ form_row(form.fecha, {'attr': {'class': 'datepicker'}}) }}
         </div>
         <div class="col-md-12">
-            {{ form_row(form.cantcomb) }}
-        </div>
-        <div class="col-md-12">
-            {{ form_row(form.servicio, {'attr': {'class': 'select2'}}) }}
+            {{ form_row(form.area, {'attr': {'class': 'select2'}}) }}
         </div>
         {{ form_widget(form._token) }}
 
         <div id="button_actions" class="col-md-12">
-            <button type="submit" class="btn btn-primary btn-sm" title="{{ (editing is not defined ? "actions.new" : "actions.edit")|trans }}">
-                <i class="fa {{ editing is not defined ? "fa-save" : "fa-edit"}}"></i> {{ (editing is not defined ? "actions.new" : "actions.edit")|trans }}</button>
-            <a class="btn btn-default btn-sm" href="{{ path("planasignacion_index") }}" title="{{ (editing is not defined ? "actions.cancel" : "actions.list")|trans }}">
-                <i class="fa {{ editing is not defined ? " fa-remove" : " fa-chevron-left"}}"></i> {{ (editing is not defined ? "actions.cancel" : "actions.list")|trans }}</a>
+            <button type="submit" class="btn btn-primary btn-sm"
+                    title="{{ (editing is not defined ? "actions.new" : "actions.edit")|trans }}">
+                <i class="fa {{ editing is not defined ? "fa-save" : "fa-edit" }}"></i> {{ (editing is not defined ? "actions.new" : "actions.edit")|trans }}
+            </button>
+            <a class="btn btn-default btn-sm" href="{{ path("planasignacion_index") }}"
+               title="{{ (editing is not defined ? "actions.cancel" : "actions.list")|trans }}">
+                <i class="fa {{ editing is not defined ? " fa-remove" : " fa-chevron-left" }}"></i> {{ (editing is not defined ? "actions.cancel" : "actions.list")|trans }}
+            </a>
         </div>
     </div>
 </form>
