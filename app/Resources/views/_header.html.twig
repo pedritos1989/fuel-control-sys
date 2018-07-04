@@ -51,8 +51,9 @@
 
             {# Brand stuff #}
             <a href="{{ path('homepage') }}" class="brand">
-                <i class="{{ 'system.icon'|trans }} fa-lg"></i><span
-                        class="brand-name">{{ 'system.title'|trans|upper }}</span>
+                <img src="{{ asset('images/Imagen1.png') }}">
+                {#<i class="{{ 'system.icon'|trans }} fa-lg"></i><span
+                        class="brand-name">{{ 'system.title'|trans|upper }}</span>#}
             </a>
             {# END Brand stuff #}
         </div>
@@ -63,16 +64,16 @@
                 <span class="icon-bar"></span>
             </button>
             {# Notifications #}
-            <ul class="nav-notification">
-                <li class="search-list">
-                    <div class="search-input-wrapper">
-                        <div class="search-input">
-                            <input type="text" class="form-control input-sm inline-block">
-                            <a href="#" class="input-icon text-normal"><i class="ion-ios-search-strong"></i></a>
-                        </div>
-                    </div>
-                </li>
-            </ul>
+            {#<ul class="nav-notification">#}
+            {#<li class="search-list">#}
+            {#<div class="search-input-wrapper">#}
+            {#<div class="search-input">#}
+            {#<input type="text" class="form-control input-sm inline-block">#}
+            {#<a href="#" class="input-icon text-normal"><i class="ion-ios-search-strong"></i></a>#}
+            {#</div>#}
+            {#</div>#}
+            {#</li>#}
+            {#</ul>#}
             {# END Notifications #}
 
             <div class="pull-right m-right-sm">
@@ -101,12 +102,12 @@
                                                 class="m-left-xs">{{ 'layout.profile'|trans({}, 'messages') }}</span>
                                     </a>
                                 </li>
-                                {#<li>#}
-                                {#<a href="inbox.html">#}
-                                {#<i class="fa fa-inbox fa-lg"></i><span class="m-left-xs">Inboxes</span>#}
-                                {#<span class="badge badge-danger bounceIn animation-delay3">2</span>#}
-                                {#</a>#}
-                                {#</li>#}
+                                <li>
+                                    <a href="{{ path('fos_user_change_password') }}">
+                                        <i class="fa fa-key fa-lg"></i><span
+                                                class="m-left-xs">{{ 'change_password.submit'|trans({}, 'FOSUserBundle') }}</span>
+                                    </a>
+                                </li>
                                 <li>
                                     <a href="{{ path('fos_user_security_logout') }}">
                                         <i class="fa fa-power-off fa-lg"></i><span
@@ -178,58 +179,11 @@
                     {#<li><a href="#">View all messages</a></li>#}
                     {#</ul>#}
                     {#</li>#}
-                    <li>
-                        <a href="#" data-toggle="dropdown"><i class="fa fa-bell fa-lg"></i></a>
-                        <span class="badge badge-info bounceIn animation-delay6 active">4</span>
-                        <ul class="dropdown-menu notification dropdown-3 pull-right">
-                            <li><a href="#">You have 5 new notifications</a></li>
-                            <li>
-                                <a href="{{ path('homepage') }}">
-                                    <span class="notification-icon bg-warning">
-                                        <i class="fa fa-warning"></i>
-                                    </span>
-                                    <span class="m-left-xs">Server #2 not responding.</span>
-                                    <span class="time text-muted">Just now</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="notification-icon bg-success">
-                                        <i class="fa fa-plus"></i>
-                                    </span>
-                                    <span class="m-left-xs">New user registration.</span>
-                                    <span class="time text-muted">2m ago</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="notification-icon bg-danger">
-                                        <i class="fa fa-bolt"></i>
-                                    </span>
-                                    <span class="m-left-xs">Application error.</span>
-                                    <span class="time text-muted">5m ago</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="notification-icon bg-success">
-                                        <i class="fa fa-usd"></i>
-                                    </span>
-                                    <span class="m-left-xs">2 items sold.</span>
-                                    <span class="time text-muted">1hr ago</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="notification-icon bg-success">
-                                        <i class="fa fa-plus"></i>
-                                    </span>
-                                    <span class="m-left-xs">New user registration.</span>
-                                    <span class="time text-muted">1hr ago</span>
-                                </a>
-                            </li>
-                            <li><a href="#">View all notifications</a></li>
-                        </ul>
+                    <li id="card_expiration_alert">
+                        <a href="javascript:;" data-toggle="dropdown"><i class="fa fa-credit-card-alt fa-lg"></i></a>
+                    </li>
+                    <li id="car_expiration_alert">
+                        <a href="javascript:;" data-toggle="dropdown"><i class="fa fa-car fa-lg"></i></a>
                     </li>
                     {#<li class="chat-notification">#}
                     {#<a href="#" class="sidebarRight-toggle"><i class="fa fa-comments fa-lg"></i></a>#}

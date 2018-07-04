@@ -4,6 +4,8 @@ namespace CombBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Context\ExecutionContext;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Recargue
@@ -11,6 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="s_recargue")
  * @ORM\Entity(repositoryClass="CombBundle\Repository\RecargueRepository")
  * @UniqueEntity({"tarjeta","distTrjt"})
+ * @Assert\Callback("tarjetaVencida")
  */
 class Recargue
 {
@@ -24,9 +27,7 @@ class Recargue
     private $id;
 
     /**
-     * @var Tarjeta
-     *
-     * @ORM\ManyToOne(targetEntity="CombBundle\Entity\Tarjeta")
+     * @ORM\ManyToOne(targetEntity="CombBundle\Entity\Tarjeta", inversedBy="recargues")
      */
     private $tarjeta;
 
@@ -34,6 +35,7 @@ class Recargue
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
+     * @Assert\DateTime()
      */
     private $fecha;
 
@@ -57,6 +59,20 @@ class Recargue
      * @ORM\Column(type="string")
      */
     private $responsable;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $saldoAlRecargar;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $saldoDespRecarga;
 
 
     /**
@@ -189,4 +205,64 @@ class Recargue
     {
         return $this->responsable;
     }
+
+    /**
+     * @return int
+     */
+    public function getSaldoAlRecargar()
+    {
+        return $this->saldoAlRecargar;
+    }
+
+    /**
+     * @param int $saldoAlRecargar
+     * @return Recargue
+     */
+    public function setSaldoAlRecargar($saldoAlRecargar)
+    {
+        $this->saldoAlRecargar = $saldoAlRecargar;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSaldoDespRecarga()
+    {
+        return $this->saldoDespRecarga;
+    }
+
+    /**
+     * @param int $saldoDespRecarga
+     * @return Recargue
+     */
+    public function setSaldoDespRecarga($saldoDespRecarga)
+    {
+        $this->saldoDespRecarga = $saldoDespRecarga;
+        return $this;
+    }
+
+    /**
+     * Recargue constructor.
+     */
+    public function __construct()
+    {
+        $this->saldoAlRecargar = 0;
+        $this->saldoDespRecarga = 0;
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="Validaciones">
+    public function tarjetaVencida(ExecutionContext $context)
+    {
+        $venc = $this->getTarjeta()->getFechaVenc();
+        $now = new \DateTime();
+        $diff = $now->diff($venc);
+
+        if ($diff->format('%R%a') <= 7) {
+            $context->addViolationAt('tarjeta', 'card.expire');
+            return;
+        }
+    }
+    // </editor-fold>
+
 }

@@ -12,4 +12,30 @@ use Doctrine\ORM\EntityRepository;
  */
 class DistribucionXTarjetaRepository extends EntityRepository
 {
+    /**
+     * @param $tarjeta
+     * @return array
+     */
+    public function filter($tarjeta)
+    {
+        $firstDay = date('Y') . '-' . date('m') . '-' . '1';
+        $lastDay = date('Y') . '-' . date('m') . '-' . date('t');
+        $qb = $this->createQueryBuilder('dist');
+        $qb->leftJoin('dist.tarjeta', 'tarjeta')
+            ->leftJoin('dist.distribucion', 'distribucion');
+        if (\is_int($tarjeta)) {
+            $qb->andWhere($qb->expr()->eq('tarjeta.id', ':tarjeta'));
+        } else {
+            $qb->andWhere($qb->expr()->eq('tarjeta', ':tarjeta'));
+        }
+        $qb->andWhere($qb->expr()->gte('distribucion.fecha', ':firstDay'))
+            ->setParameter('firstDay', $firstDay);
+
+        $qb->andWhere($qb->expr()->lte('distribucion.fecha', ':lastDay'))
+            ->setParameter('lastDay', $lastDay);
+
+        $qb->setParameter('tarjeta', $tarjeta);
+
+        return $qb->getQuery()->getResult();
+    }
 }

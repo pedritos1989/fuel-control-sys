@@ -30,7 +30,7 @@ class DistribucionXTarjetaType extends AbstractType
                 'group_by' => 'servicio',
                 'choice_attr' => function (Tarjeta $tarjeta, $key, $index) use ($trans) {
                     return [
-                        'title' => $trans->trans('card.section') . ': ' . $tarjeta->getArea() . ' - ' . $trans->trans('card.provide') . ': ' . $tarjeta->getAbastecimiento()
+                        'title' => $trans->trans('card.section') . ': ' . $tarjeta->getArea()
                     ];
                 },
             ))

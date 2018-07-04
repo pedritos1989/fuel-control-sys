@@ -11,16 +11,16 @@
             {{ form_row(form.matricula) }}
         </div>
         <div class="col-md-12">
-            {{ form_row(form.modelo) }}
+            {{ form_row(form.marca, {'attr': {'class': 'select2'}}) }}
         </div>
         <div class="col-md-12">
-            {{ form_row(form.insptecn) }}
+            {{ form_row(form.insptecn, {'attr': {'class': 'datepicker'}}) }}
         </div>
         <div class="col-md-12">
             {{ form_row(form.indcons) }}
         </div>
         <div class="col-md-12">
-            {{ form_row(form.area, {'attr': {'class': 'select2'}}) }}
+            {{ form_row(form.area, {'attr': {'class': 'selection-section select2'}}) }}
         </div>
         <div class="col-md-12">
             {{ form_row(form.chofer, {'attr': {'class': 'select2'}}) }}
@@ -32,7 +32,7 @@
             {{ form_row(form.tipo, {'attr': {'class': 'select2'}}) }}
         </div>
         <div class="col-md-12">
-            {{ form_row(form.tarjeta, {'attr': {'class': 'select2'}}) }}
+            {{ form_row(form.tarjeta, {'attr': {'class': 'selection-card select2'}}) }}
         </div>
 
         {{ form_widget(form._token) }}

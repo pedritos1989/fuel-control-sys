@@ -90,6 +90,11 @@ class Tarjeta implements AreaInterface
      */
     private $carros;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CombBundle\Entity\Recargue", mappedBy="tarjeta", cascade={"all"})
+     */
+    private $recargues;
+
 
     public function __toString()
     {
@@ -127,6 +132,7 @@ class Tarjeta implements AreaInterface
     {
         $this->distribuciones = new \Doctrine\Common\Collections\ArrayCollection();
         $this->carros = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->recargues = new \Doctrine\Common\Collections\ArrayCollection();
         $this->saldoFinal = 0;
         $this->saldoInicial = 0;
         $this->abastecimiento = 0;
@@ -368,4 +374,38 @@ class Tarjeta implements AreaInterface
     {
         return $this->carros;
     }
+
+    /**
+     * Add recargue
+     *
+     * @param \CombBundle\Entity\Recargue $recargue
+     * @return Tarjeta
+     */
+    public function addRecargue(\CombBundle\Entity\Recargue $recargue)
+    {
+        $this->recargues[] = $recargue;
+
+        return $this;
+    }
+
+    /**
+     * Remove recargue
+     *
+     * @param \CombBundle\Entity\Recargue $recargue
+     */
+    public function removeRecargue(\CombBundle\Entity\Recargue $recargue)
+    {
+        $this->recargues->removeElement($recargue);
+    }
+
+    /**
+     * Get recargues
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRecargues()
+    {
+        return $this->recargues;
+    }
+
 }

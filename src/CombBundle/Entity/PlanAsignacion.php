@@ -47,56 +47,20 @@ class PlanAsignacion implements AreaInterface
     private $asignacionMensual;
 
     /**
-     * @ORM\OneToMany(targetEntity="CombBundle\Entity\CantidadXPlan", mappedBy="plan")
+     * @ORM\OneToMany(targetEntity="CombBundle\Entity\CantidadXPlan", mappedBy="plan", cascade="all")
      */
     private $cantidades;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CombBundle\Entity\Distribucion", mappedBy="planAsignacion")
+     */
+    private $distribuciones;
 
 
     public function __toString()
     {
         // TODO: Implement __toString() method.
         return sprintf('Fecha de asignación: %s - Área: %s', $this->getFecha()->format('d/m/Y'), $this->getArea());
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->cantidades = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set fecha
-     *
-     * @param \DateTime $fecha
-     * @return PlanAsignacion
-     */
-    public function setFecha($fecha)
-    {
-        $this->fecha = $fecha;
-
-        return $this;
-    }
-
-    /**
-     * Get fecha
-     *
-     * @return \DateTime
-     */
-    public function getFecha()
-    {
-        return $this->fecha;
     }
 
     /**
@@ -123,9 +87,53 @@ class PlanAsignacion implements AreaInterface
     }
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->cantidades = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->distribuciones = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set fecha
+     *
+     * @param \DateTime $fecha
+     *
+     * @return PlanAsignacion
+     */
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha
+     *
+     * @return \DateTime
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+
+    /**
      * Set asignacionMensual
      *
      * @param \CombBundle\Entity\AsignacionMensual $asignacionMensual
+     *
      * @return PlanAsignacion
      */
     public function setAsignacionMensual(\CombBundle\Entity\AsignacionMensual $asignacionMensual = null)
@@ -146,26 +154,27 @@ class PlanAsignacion implements AreaInterface
     }
 
     /**
-     * Add cantidades
+     * Add cantidade
      *
-     * @param \CombBundle\Entity\CantidadXPlan $cantidades
+     * @param \CombBundle\Entity\CantidadXPlan $cantidade
+     *
      * @return PlanAsignacion
      */
-    public function addCantidade(\CombBundle\Entity\CantidadXPlan $cantidades)
+    public function addCantidade(\CombBundle\Entity\CantidadXPlan $cantidade)
     {
-        $this->cantidades[] = $cantidades;
+        $this->cantidades[] = $cantidade;
 
         return $this;
     }
 
     /**
-     * Remove cantidades
+     * Remove cantidade
      *
-     * @param \CombBundle\Entity\CantidadXPlan $cantidades
+     * @param \CombBundle\Entity\CantidadXPlan $cantidade
      */
-    public function removeCantidade(\CombBundle\Entity\CantidadXPlan $cantidades)
+    public function removeCantidade(\CombBundle\Entity\CantidadXPlan $cantidade)
     {
-        $this->cantidades->removeElement($cantidades);
+        $this->cantidades->removeElement($cantidade);
     }
 
     /**
@@ -176,5 +185,39 @@ class PlanAsignacion implements AreaInterface
     public function getCantidades()
     {
         return $this->cantidades;
+    }
+
+    /**
+     * Add distribucione
+     *
+     * @param \CombBundle\Entity\Distribucion $distribucione
+     *
+     * @return PlanAsignacion
+     */
+    public function addDistribucione(\CombBundle\Entity\Distribucion $distribucione)
+    {
+        $this->distribuciones[] = $distribucione;
+
+        return $this;
+    }
+
+    /**
+     * Remove distribucione
+     *
+     * @param \CombBundle\Entity\Distribucion $distribucione
+     */
+    public function removeDistribucione(\CombBundle\Entity\Distribucion $distribucione)
+    {
+        $this->distribuciones->removeElement($distribucione);
+    }
+
+    /**
+     * Get distribuciones
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDistribuciones()
+    {
+        return $this->distribuciones;
     }
 }

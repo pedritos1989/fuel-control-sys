@@ -17,6 +17,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User extends BaseUser
 {
+
+    const ROLE_CAJERO = 'ROLE_CAJERO';
+    const ROLE_DIRECTOR = 'ROLE_DIRECTOR';
+    const ROLE_JEFE = 'ROLE_JEFE';
+    const ROLE_TECNICO = 'ROLE_TECNICO';
+    const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
+    const ROLE_USER = 'ROLE_USER';
+
     /**
      * @var int
      *
@@ -46,6 +54,11 @@ class User extends BaseUser
      * @ORM\OneToOne(targetEntity="UsuarioBundle\Entity\ClientAvatar", mappedBy="client", cascade={"persist","remove"})
      */
     private $avatar;
+
+    /**
+     * @ORM\OneToOne(targetEntity="NomencladorBundle\Entity\Persona")
+     */
+    private $persona;
 
 
     public function __construct()
@@ -77,5 +90,29 @@ class User extends BaseUser
     public function getAvatar()
     {
         return $this->avatar;
+    }
+
+    /**
+     * Set persona
+     *
+     * @param \NomencladorBundle\Entity\Persona $persona
+     *
+     * @return User
+     */
+    public function setPersona(\NomencladorBundle\Entity\Persona $persona = null)
+    {
+        $this->persona = $persona;
+
+        return $this;
+    }
+
+    /**
+     * Get persona
+     *
+     * @return \NomencladorBundle\Entity\Persona
+     */
+    public function getPersona()
+    {
+        return $this->persona;
     }
 }

@@ -40,17 +40,10 @@ class SolicitudController extends Controller
         $reportForm->handleRequest($request);
         if ($reportForm->isSubmitted() && $reportForm->isValid()) {
             $submitted = $reportForm->getData();
-            $area = $submitted['area'];
-            $report = array();
-            $report['area'] = isset($area) ? $area->getId() : '';
-            $report['mes'] = $submitted['mes'] ?? '';
-
-            return $this->redirectToRoute('rep_sol_trnsp_index', array(
-                'parameters' => $report,
-            ));
+            return $this->get('solicitudes.report.manager')->designReport($submitted);
         }
 
-        $solicituds = $em->getRepository('CombBundle:Solicitud')->findAll();
+        $solicituds = $em->getRepository('CombBundle:Solicitud')->filter();
 
         return $this->render('solicitud/index.html.twig', array(
             'solicituds' => $solicituds,
@@ -58,6 +51,9 @@ class SolicitudController extends Controller
         ));
     }
 
+    /**
+     * @return \Symfony\Component\Form\FormInterface
+     */
     public function createReportForm()
     {
         $form = $this->get('form.factory')
@@ -243,12 +239,11 @@ class SolicitudController extends Controller
      *
      * @param Solicitud $solicitud The solicitud entity
      *
-     * @return \Symfony\Component\Form\Form The delete form
+     * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm(Solicitud $solicitud)
     {
-        return $this->get('form.factory')
-            ->createNamedBuilder('solicitud_delete')
+        return $this->createFormBuilder()
             ->setAction($this->generateUrl('solicitud_delete', array('id' => $solicitud->getId())))
             ->setMethod('DELETE')
             ->getForm();

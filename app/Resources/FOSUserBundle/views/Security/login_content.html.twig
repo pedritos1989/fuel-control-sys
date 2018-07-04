@@ -1,7 +1,11 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    <div style="margin: 1%" class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{ error.messageKey|trans(error.messageData, 'security') }}
+    </div>
 {% endif %}
 
 <form action="{{ path("fos_user_security_check") }}" method="post">
@@ -27,17 +31,7 @@
     </div>
 
     <div class="m-top-md p-top-sm">
-        {#<a href="#signin" class="btn btn-success block"><i#}
-                    {#class="fa fa-sign-in"></i> {{ 'security.login.submit'|trans }}</a>#}
         <button type="submit" class="btn btn-success btn-block"><i
                     class="fa fa-sign-in"></i> {{ 'security.login.submit'|trans }}</button>
     </div>
-
-    {#<div class="m-top-md p-top-sm">#}
-    {#<div class="font-12 text-center m-bottom-xs">#}
-    {#<a href="#" class="font-12">Forgot password ?</a>#}
-    {#</div>#}
-    {#<div class="font-12 text-center m-bottom-xs">Do not have an account?</div>#}
-    {#<a href="signup.html" class="btn btn-default block">Create an accounts</a>#}
-    {#</div>#}
 </form>

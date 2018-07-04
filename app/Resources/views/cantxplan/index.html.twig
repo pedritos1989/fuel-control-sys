@@ -8,6 +8,7 @@
         <table class="table table-striped table-hover">
             <thead>
             <tr>
+                <th>{{ 'plan.amount.section'|trans }}</th>
                 <th>{{ 'plan.amount.service'|trans }}</th>
                 <th>{{ 'plan.amount.amount'|trans }}</th>
                 <th style="width: 20%;">{{ 'actions.label'|trans }}</th>
@@ -16,6 +17,7 @@
             <tbody>
             {% for cant in asignaciones %}
                 <tr>
+                    <td>{{ cant.plan.area }}</td>
                     <td>{{ cant.servicio }}</td>
                     <td>{{ cant.cantidad }}</td>
                     <td>
@@ -27,7 +29,7 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="3">{{ 'no_elements'|trans }}</td>
+                    <td colspan="4">{{ 'no_elements'|trans }}</td>
                 </tr>
             {% endfor %}
             </tbody>

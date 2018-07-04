@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services">
+
+    <services>
+
+        <service id="solicitudes.report.manager" class="CombBundle\Manager\Report\ReporteSolicitudManager">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="error_handler"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="translator"/>
+            <argument type="service" id="phpexcel"/>
+        </service>
+        <service id="plan.asignacion.report.manager" class="CombBundle\Manager\Report\ReportePlanAsignacionManager">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="error_handler"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="translator"/>
+            <argument type="service" id="phpexcel"/>
+        </service>
+        <service id="distribution.report.manager" class="CombBundle\Manager\Report\ReporteDistribucionManager">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="error_handler"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="translator"/>
+            <argument type="service" id="phpexcel"/>
+        </service>
+        <service id="recargue.report.manager" class="CombBundle\Manager\Report\ReporteRecargueManager">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="error_handler"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="translator"/>
+            <argument type="service" id="phpexcel"/>
+        </service>
+        <service id="vehiculos.report.manager" class="CombBundle\Manager\Report\ReporteVehiculoManager">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="error_handler"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="translator"/>
+            <argument type="service" id="phpexcel"/>
+        </service>
+        <service id="combustible.mensual.report.manager" class="CombBundle\Manager\Report\ReporteCombMensualManager">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="error_handler"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="translator"/>
+            <argument type="service" id="phpexcel"/>
+        </service>
+        <service id="desagregacion.report.manager" class="CombBundle\Manager\Report\ReporteDesagregacionManager">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="error_handler"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="translator"/>
+            <argument type="service" id="phpexcel"/>
+        </service>
+        <service id="anual.combustible.report.manager" class="CombBundle\Manager\Report\ReporteCombAnualManager">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="error_handler"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="translator"/>
+            <argument type="service" id="phpexcel"/>
+        </service>
+        <service id="automotor.report.manager" class="CombBundle\Manager\Report\ReporteParqueAutomotorManager">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="error_handler"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="translator"/>
+            <argument type="service" id="phpexcel"/>
+        </service>
+
+    </services>
+</container>

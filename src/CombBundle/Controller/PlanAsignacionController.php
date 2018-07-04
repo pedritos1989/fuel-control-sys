@@ -7,6 +7,9 @@ use CombBundle\Entity\PlanAsignacion;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
@@ -26,15 +29,62 @@ class PlanAsignacionController extends Controller
      * @Route("/", name="planasignacion_index", options={"expose"=true})
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->get('doctrine.orm.entity_manager');
 
+        $reportForm = $this->createReportForm();
+
+        $reportForm->handleRequest($request);
+        if ($reportForm->isSubmitted() && $reportForm->isValid()) {
+            $submitted = $reportForm->getData();
+            return $this->get('plan.asignacion.report.manager')->designReport($submitted);
+        }
+        
         $planAsignacions = $em->getRepository('CombBundle:PlanAsignacion')->filter();
 
         return $this->render('planasignacion/index.html.twig', array(
             'planAsignacions' => $planAsignacions,
+            'reportForm' => $reportForm->createView(),
         ));
+    }
+
+    /**
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    public function createReportForm()
+    {
+        $form = $this->get('form.factory')
+            ->createNamedBuilder('assign_plan_report')
+            ->setAction($this->generateUrl('planasignacion_index'))
+            ->setMethod('GET');
+
+        $form
+            ->add('mes', DateType::class, array(
+                'label' => 'assign.plan.month',
+                'widget' => 'single_text',
+                'format' => 'M/y',
+                'required' => false,
+            ))
+            ->add('elaborado', TextType::class, array(
+                'label' => 'assign.plan.report.write.name',
+            ))
+            ->add('cargoElab', TextType::class, array(
+                'required' => false,
+                'label' => 'assign.plan.report.charge',
+            ))
+            ->add('aprobado', TextType::class, array(
+                'label' => 'assign.plan.report.aprove.name',
+            ))
+            ->add('cargoAprob', TextType::class, array(
+                'required' => false,
+                'label' => 'assign.plan.report.charge'
+            ))
+            ->add('report', SubmitType::class, array(
+                'label' => 'actions.report',
+            ));
+
+        return $form->getForm();
     }
 
     /**

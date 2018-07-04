@@ -61,7 +61,7 @@ class ChipController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->get('doctrine.orm.entity_manager');
             try {
-                if ($chip->getSaldoFinal() > 0) {
+                if ($chip->getSaldoFinal() >= 0) {
                     $tarjeta = $chip->getTarjeta();
                     $tarjeta->setSaldoFinal($chip->getSaldoFinal());
                 }
@@ -126,6 +126,11 @@ class ChipController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             try {
                 $em = $this->get('doctrine.orm.entity_manager');
+                if ($chip->getSaldoFinal() > 0) {
+                    $tarjeta = $chip->getTarjeta();
+                    $tarjeta->setSaldoFinal($chip->getSaldoFinal());
+                }
+
                 $em->flush();
 
                 $this->addFlash('success', $this->get('translator')->trans('updated.success'));

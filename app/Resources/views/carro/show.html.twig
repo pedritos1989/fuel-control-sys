@@ -24,7 +24,7 @@
                         </tr>
                         <tr>
                             <th>{{ 'car.brand'|trans }}</th>
-                            <td>{{ carro.modelo|default('-') }}</td>
+                            <td>{{ carro.marca|default('-') }}</td>
                         </tr>
                         <tr>
                             <th>{{ 'car.consumn'|trans }}</th>
@@ -32,7 +32,7 @@
                         </tr>
                         <tr>
                             <th>{{ 'car.inspection'|trans }}</th>
-                            <td>{{ carro.insptecn|default('-') }}</td>
+                            <td>{{ carro.insptecn|date('d/m/Y')|default('-') }}</td>
                         </tr>
                         <tr>
                             <th>{{ 'car.state'|trans }}</th>

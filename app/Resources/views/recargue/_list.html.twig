@@ -2,6 +2,7 @@
     <thead>
     <tr>
         <th>{{ 'request.card.card'|trans }}</th>
+        <th>{{ 'card.service'|trans }}</th>
         <th>{{ 'request.card.date'|trans }}</th>
         <th>{{ 'request.card.dist.card'|trans }}</th>
         <th>{{ 'card.initialAmount'|trans }}</th>
@@ -14,10 +15,11 @@
     {% for recargue in recargues %}
         <tr>
             <td>{{ recargue.tarjeta|default('-') }}</td>
+            <td>{{ recargue.tarjeta.servicio|default('-') }}</td>
             <td>{% if recargue.fecha %}{{ recargue.fecha|date('d/m/Y H:i') }}{% endif %}</td>
             <td>{{ recargue.distTrjt|default('-') }}</td>
-            <td>{{ recargue.tarjeta.saldoInicial|default('-') }}</td>
-            <td>{{ recargue.tarjeta.saldoFinal|default('-') }}</td>
+            <td>{{ recargue.saldoAlRecargar|default('-') }}</td>
+            <td>{{ recargue.saldoDespRecarga|default('-') }}</td>
             {% if recargue.confirmacion %}
                 {% set badge = 'primary' %}
                 {% set text_color = 'primary' %}

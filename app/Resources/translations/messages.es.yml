@@ -57,7 +57,7 @@ invalid.extensionfile: No se puede importar, extensión de archivo inválida.
 manage.section:
   title: Gestión
 
-# Ususarios
+# Usuarios
 user:
   title: '[0,1] Usuario|[2,Inf] Usuarios'
   alt: Usuario
@@ -75,9 +75,11 @@ user:
   project: Proyecto
   rol:
     label: Rol(es)
-    director_transporte: Director(a) de Transporte
-    cajero: Cajero
+    role_director: Director(a) de Transporte
+    role_cajero: Cajero(a)
+    role_jefe: Jefe(a) de Área
     role_user: Usuario registrado
+    role_tecnico: Técnico(a) de Transporte
 
 # Carros
 car:
@@ -85,6 +87,11 @@ car:
   alt: Carro
   label: Carro
   list: Listado de Carros
+  report:
+    alt: Reportes de Vehículos
+    label: '[0,1] Reporte de Vehiculos por Areas|[2, Inf] Reporte de Vehículos por Áreas'
+    deprecated: No tiene (Vencida)
+    status.label: Reporte de Parque Automotor UNISS
   create: Adicionar Carro
   edit: Modificar Carro
   show: Ver Datos de Carro
@@ -99,6 +106,7 @@ car:
   consumn: Índice de consumo
   card: Tarjeta
 
+# Archivos
 client.uploadresource:
   title: '[0,1] Archivo|[2, Inf] Archivos'
   label: Archivo
@@ -109,15 +117,9 @@ client.uploadresource:
   status.pending: Pendiente
   status.attached: Subido
 
+# Avatar
 client:
   avatar: Foto de perfil
-
-#credit.uploaddocument:
-#  title: '[0,1] Documento|[2, Inf] Documentos'
-#  label: Documentos
-#  filename: Nombre del documento
-#  attachmentName: Documento a adjuntar
-#  type: Tipo de Documento
 
 # Chips
 chip:
@@ -165,8 +167,18 @@ distribution:
   delete: Eliminar Distribución
   plan: Plan de Asignación
   date: Fecha
+  month: Mes
   asignation: Asignación
   request: Solicitud(es)
+  report:
+    label: Reporte de Asignaciones y Distribuciones de Combustible
+    total:
+      asign: Totales asignados
+      free: Totales liberados MES
+    write.name: Elaborado por:
+    charge: Cargo:
+    aprove.name: Aprobado por:
+    review.name: Revisado por:
   card: Tarjeta(s)
   area:
     selection: Seleccionar Área
@@ -183,42 +195,53 @@ assign.plan:
   edit: Modificar Plan de Asignación
   show: Ver Datos de Plan de Asignación
   delete: Eliminar Plan de Asignación
+  manage: Gestionar Plan de Asignación
   date: Fecha
   section: Área
-  monthly.asign: Asignación mensual
+  month: Mes
+  report:
+    label: Reporte de Plan de Asignaciones
+    total:
+      asign: Totales asignados
+      free: Totales liberados MES
+    write.name: Elaborado por:
+    charge: Cargo:
+    aprove.name: Aprobado por:
+  monthly.asign: Plan Operativo Mensual del Combustible
 
 # Asignación mensual
 monthly.assign:
-  title: '[0,1] Asignación Mensual|[2,Inf] Asignaciones Mensuales'
-  alt: 'Asignación Mensual'
-  label: Asignación Mensual
-  list: Listado de Asignaciones Mensuales
-  create: Adicionar Asignación Mensual
-  edit: Modificar Asignación Mensual
-  show: Ver Datos de Asignación Mensual
-  delete: Eliminar Asignación Mensual
+  title: '[0,1] Plan Operativo Mensual del Combustible|[2,Inf] Planes Operativos Mensuales de los Combustibles'
+  alt: 'Plan Operativo Mensual del Combustible'
+  label: Plan Operativo Mensual del Combustible
+  list: Listado de Planes Operativos Mensuales de los Combustibles
+  create: Adicionar Plan Operativo Mensual del Combustible
+  edit: Modificar Plan Operativo Mensual del Combustible
+  show: Ver Datos de Plan Operativo Mensual del Combustible
+  delete: Eliminar Plan Operativo Mensual del Combustible
   date: Fecha
   number: Número
   plan: Plan
   amounts:
-    manage: Gestionar asignación mensual
+    manage: Gestionar Plan Operativo Mensual del Combustible
     amount: Cantidad (Litros)
 
 # Asignacion X Servicio
 service.assign:
-  title: '[0,1] Gestionar Asignación|[2, Inf] Gestionar Asignaciones'
-  label: Gestionar Asignación
+  title: '[0,1] Gestionar Plan Operativo Mensual del Combustible|[2, Inf] Gestionar Planes Operativos Mensuales de los Combustibles'
+  label: Gestionar Plan Operativo Mensual del Combustible
   service: Servicio
   amount: Cantidad (Litros)
-  assign: Asignación mensual
-  new: Insertar asignación mensual
-  delete: Eliminar asignación mensual
+  assign: Plan Operativo Mensual del Combustible
+  new: Insertar Plan Operativo Mensual del Combustible
+  delete: Eliminar Plan Operativo Mensual del Combustible
 
 # Cantidad X Plan
 plan.amount:
   title: '[0,1] Gestionar Asignación por Plan|[2, Inf] Gestionar Asignaciones por Planes'
   label: Gestionar Asignación por Plan
   service: Servicio
+  section: Área
   amount: Cantidad
   plan: Plan de Asignación
   new: Insertar asignación por plan
@@ -256,6 +279,7 @@ request:
   edit: Modificar Solicitud de Transporte
   delete: Eliminar Solicitud de Transporte
   show: Ver Datos de Solicitud de Transporte
+  report: Reporte de Solicitudes de Transporte
   date:
     out: Fecha de Salida
     in: Fecha de Regreso
@@ -274,7 +298,10 @@ request:
     delete: Eliminar Solicitud de Tarjeta
     show: Ver Datos de Solicitud de Tarjeta
     card: Tarjeta
+    month: Mes
     date: Fecha
+    report:
+      label: Reporte de Solicitudes de Recargue
     manager: Responsable
     dist.card: Distribución correspondiente
     status: Estado
@@ -317,7 +344,7 @@ actions:
   search: Buscar
   filter: Filtrar
   restore: Restaurar
-  restart: Restaurar
+  restart: Reiniciar
   hide: Ocultar
   goback: Volver
   list: Listado
@@ -344,6 +371,24 @@ nomenclator:
     edit: Modificar Servicio
     delete: Eliminar Servicio
     show: Ver Datos de Servicio
+  brand:
+    title: '[0,1] Fabricante|[2, Inf] Fabricantes'
+    label: Fabricante
+    alt: Fabricante
+    list: Listado de Fabricantes
+    create: Adicionar Fabricante
+    edit: Modificar Fabricante
+    delete: Eliminar Fabricante
+    show: Ver Datos de Fabricante
+  people:
+    title: '[0,1] Persona|[2, Inf] Personas'
+    label: Persona
+    alt: Persona
+    list: Listado de Personas
+    create: Adicionar Persona
+    edit: Modificar Persona
+    delete: Eliminar Persona
+    show: Ver Datos de Persona
   car_status:
     title: '[0,1] Estado de Auto|[2, Inf] Estados de Auto'
     label: Estado de Auto
@@ -377,9 +422,16 @@ section:
   name: Nombre
   manager: Responsable
 
-report:
-  title: '[0,1] Reporte|[2,Inf] Reportes'
-  alt: Reporte
-  label: '[0,1] Reporte|[2,Inf] Reportes'
-  card.request:
-    list: Reporte de Solicitudes de Transporte
+# Notificaciones
+notification:
+  card.label: Usted tiene __length__ notificación(es) sobre Tarjetas en vencimiento
+  car.label: Usted tiene __length__ notificación(es) sobre Inspecciones técnicas en vencimiento
+  card.expire: Tarjeta "card" - Área "section"
+  car.expire: Auto "card" - Área "section"
+
+# Reportes de Combustibles
+fuel.report:
+  label: Combustibles
+  monthly: Controles Mensuales del Combustible
+  by.car: Desagregaciones del Combustible por Carro
+  year: Resumen de Consumo de Combustible

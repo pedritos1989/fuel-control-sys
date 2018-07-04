@@ -16,142 +16,165 @@
                         </span>
                     </a>
                 </li>
-                <li class="openable bg-palette3">
-                    <a href="#">
+                {% for role in app.user.roles if role == constant('UsuarioBundle\\Entity\\User::ROLE_DIRECTOR')
+                    or role == constant('UsuarioBundle\\Entity\\User::ROLE_SUPER_ADMIN')
+                    or role == constant('UsuarioBundle\\Entity\\User::ROLE_TECNICO') %}
+                    <li class="openable bg-palette3">
+                        <a href="#">
                         <span class="menu-content block">
                             <span class="menu-icon"><i class="block fa fa-ellipsis-h fa-lg"></i></span>
                             <span class="text m-left-sm">{{ 'manage.section.title'|trans }}</span>
                             <span class="submenu-icon"></span>
                         </span>
-                        <span class="menu-content-hover block"> {{ 'manage.section.title'|trans }}</span>
-                    </a>
-                    <ul class="submenu bg-palette3" style="display: none;">
-                        <li>
-                            <a href="{{ path('client_uploadresource') }}">
-                                <span class="submenu-label">{{ 'client.uploadresource.title'|transchoice(2) }}</span></a>
-                        </li>
-                        <li>
-                            <a href="{{ path('area_index') }}">
-                                <span class="submenu-label">{{ 'section.title'|transchoice(2) }}</span></a>
-                        </li>
-                        <li>
-                            <a href="{{ path('carro_index') }}">
-                                <span class="submenu-label">{{ 'car.title'|transchoice(2) }}</span></a>
-                        </li>
-                        <li>
-                            <a href="{{ path('chofer_index') }}">
-                                <span class="submenu-label">{{ 'driver.title'|transchoice(2) }}</span></a>
-                        </li>
-                        <li>
-                            <a href="{{ path('tarjeta_index') }}">
-                                <span class="submenu-label">{{ 'card.title'|transchoice(2) }}</span></a>
-                        </li>
-                        <li>
-                            <a href="{{ path('asignacionmensual_index') }}">
-                                <span class="submenu-label">{{ 'monthly.assign.title'|transchoice(2) }}</span></a>
-                        </li>
-                        <li>
-                            <a href="{{ path('planasignacion_index') }}">
-                                <span class="submenu-label">{{ 'assign.plan.title'|transchoice(2) }}</span></a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="bg-palette4">
-                    <a href="{{ path('chip_index') }}">
+                            <span class="menu-content-hover block"> {{ 'manage.section.title'|trans }}</span>
+                        </a>
+                        <ul class="submenu bg-palette3" style="display: none;">
+                            {% for role in app.user.roles if role == constant('UsuarioBundle\\Entity\\User::ROLE_DIRECTOR')
+                                or role == constant('UsuarioBundle\\Entity\\User::ROLE_SUPER_ADMIN')
+                                or role == constant('UsuarioBundle\\Entity\\User::ROLE_TECNICO') %}
+                                <li>
+                                    <a href="{{ path('client_uploadresource') }}">
+                                        <span class="submenu-label">{{ 'client.uploadresource.title'|transchoice(2) }}</span></a>
+                                </li>
+                            {% endfor %}
+                            {% for role in app.user.roles if role == constant('UsuarioBundle\\Entity\\User::ROLE_DIRECTOR')
+                                or role == constant('UsuarioBundle\\Entity\\User::ROLE_SUPER_ADMIN') %}
+                                <li>
+                                    <a href="{{ path('area_index') }}">
+                                        <span class="submenu-label">{{ 'section.title'|transchoice(2) }}</span></a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('carro_index') }}">
+                                        <span class="submenu-label">{{ 'car.title'|transchoice(2) }}</span></a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('chofer_index') }}">
+                                        <span class="submenu-label">{{ 'driver.title'|transchoice(2) }}</span></a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('tarjeta_index') }}">
+                                        <span class="submenu-label">{{ 'card.title'|transchoice(2) }}</span></a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('asignacionmensual_index') }}">
+                                        <span class="submenu-label">{{ 'monthly.assign.title'|transchoice(2) }}</span></a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('planasignacion_index') }}">
+                                        <span class="submenu-label">{{ 'assign.plan.title'|transchoice(2) }}</span></a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+                {% for role in app.user.roles if role == constant('UsuarioBundle\\Entity\\User::ROLE_CAJERO')
+                    or role == constant('UsuarioBundle\\Entity\\User::ROLE_SUPER_ADMIN') %}
+                    <li class="bg-palette4">
+                        <a href="{{ path('chip_index') }}">
                         <span class="menu-content block">
                             <span class="menu-icon"><i class="block fa fa-ticket fa-lg"></i></span>
                             <span class="text m-left-sm">{{ 'chip.title'|transchoice(2) }}</span>
                         </span>
-                        <span class="menu-content-hover block"> {{ 'chip.alt'|trans }}</span>
-                    </a>
-                </li>
-                <li class="bg-palette2">
-                    <a href="{{ path('distribucion_index') }}">
+                            <span class="menu-content-hover block"> {{ 'chip.alt'|trans }}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+                {% for role in app.user.roles if role == constant('UsuarioBundle\\Entity\\User::ROLE_DIRECTOR')
+                    or role == constant('UsuarioBundle\\Entity\\User::ROLE_SUPER_ADMIN') %}
+                    <li class="bg-palette2">
+                        <a href="{{ path('distribucion_index') }}">
                         <span class="menu-content block">
                             <span class="menu-icon"><i class="block fa fa-send fa-lg"></i></span>
                             <span class="text m-left-sm">{{ 'distribution.title'|transchoice(2) }}</span>
                         </span>
-                        <span class="menu-content-hover block"> {{ 'distribution.alt'|trans }}</span>
-                    </a>
-                </li>
-                <li class="openable bg-palette3">
-                    <a href="#">
+                            <span class="menu-content-hover block"> {{ 'distribution.alt'|trans }}</span>
+                        </a>
+                    </li>
+                    <li class="openable bg-palette3">
+                        <a href="#">
                         <span class="menu-content block">
                             <span class="menu-icon"><i class="block fa fa-cogs fa-lg"></i></span>
                             <span class="text m-left-sm">{{ 'nomenclator.title'|transchoice(2) }}</span>
                             <span class="submenu-icon"></span>
                         </span>
-                        <span class="menu-content-hover block"> {{ 'nomenclator.alt'|trans }}</span>
-                    </a>
-                    <ul class="submenu bg-palette3" style="display: none;">
-                        <li>
-                            <a href="{{ path('service_index') }}">
-                                <span class="submenu-label">{{ 'nomenclator.service.title'|transchoice(2) }}</span></a>
-                        </li>
-                        <li>
-                            <a href="{{ path('car_status_index') }}">
-                                <span class="submenu-label">{{ 'nomenclator.car_status.title'|transchoice(2) }}</span></a>
-                        </li>
-                        <li>
-                            <a href="{{ path('car_type_index') }}">
-                                <span class="submenu-label">{{ 'nomenclator.car_type.title'|transchoice(2) }}</span></a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="openable bg-palette4">
-                    <a href="#">
+                            <span class="menu-content-hover block"> {{ 'nomenclator.alt'|trans }}</span>
+                        </a>
+                        <ul class="submenu bg-palette3" style="display: none;">
+                            <li>
+                                <a href="{{ path('service_index') }}">
+                                    <span class="submenu-label">{{ 'nomenclator.service.title'|transchoice(2) }}</span></a>
+                            </li>
+                            <li>
+                                <a href="{{ path('car_status_index') }}">
+                                    <span class="submenu-label">{{ 'nomenclator.car_status.title'|transchoice(2) }}</span></a>
+                            </li>
+                            <li>
+                                <a href="{{ path('car_type_index') }}">
+                                    <span class="submenu-label">{{ 'nomenclator.car_type.title'|transchoice(2) }}</span></a>
+                            </li>
+                            <li>
+                                <a href="{{ path('brand_index') }}">
+                                    <span class="submenu-label">{{ 'nomenclator.brand.title'|transchoice(2) }}</span></a>
+                            </li>
+                            <li>
+                                <a href="{{ path('people_index') }}">
+                                    <span class="submenu-label">{{ 'nomenclator.people.title'|transchoice(2) }}</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                {% endfor %}
+                {% for role in app.user.roles if role == constant('UsuarioBundle\\Entity\\User::ROLE_CAJERO')
+                    or role == constant('UsuarioBundle\\Entity\\User::ROLE_SUPER_ADMIN')
+                    or role == constant('UsuarioBundle\\Entity\\User::ROLE_TECNICO')
+                    or role == constant('UsuarioBundle\\Entity\\User::ROLE_JEFE') %}
+                    <li class="openable bg-palette4">
+                        <a href="#">
                         <span class="menu-content block">
                             <span class="menu-icon"><i class="block fa fa-sticky-note fa-lg"></i></span>
                             <span class="text m-left-sm">{{ 'request.global'|trans }}</span>
                             <span class="submenu-icon"></span>
                         </span>
-                        <span class="menu-content-hover block"> {{ 'request.global'|trans }}</span>
-                    </a>
-                    <ul class="submenu bg-palette3" style="display: none;">
-                        <li>
-                            <a href="{{ path('solicitud_index') }}">
-                                <span class="submenu-label">{{ 'request.title'|transchoice(2) }}</span></a>
-                        </li>
-                        <li>
-                            <a href="{{ path('recargue_index') }}">
-                                <span class="submenu-label">{{ 'request.card.title'|transchoice(2) }}</span></a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="openable bg-palette1">
-                    <a href="#">
-                        <span class="menu-content block">
-                            <span class="menu-icon"><i class="block fa fa-table fa-lg"></i></span>
-                            <span class="text m-left-sm">{{ 'report.label'|transchoice(2) }}</span>
-                            <span class="submenu-icon"></span>
-                        </span>
-                        <span class="menu-content-hover block"> {{ 'report.label'|transchoice(1) }}</span>
-                    </a>
-                    <ul class="submenu bg-palette1">
-                        <li>
-                            <a href="{{ path('rep_sol_trnsp_index') }}">
-                                <span class="submenu-label">{{ 'report.card.request.list'|trans }}</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="openable bg-palette2">
-                    <a href="#">
+                            <span class="menu-content-hover block"> {{ 'request.global'|trans }}</span>
+                        </a>
+                        <ul class="submenu bg-palette3" style="display: none;">
+                            {% for role in app.user.roles if role == constant('UsuarioBundle\\Entity\\User::ROLE_JEFE')
+                                or role == constant('UsuarioBundle\\Entity\\User::ROLE_SUPER_ADMIN') %}
+                                <li>
+                                    <a href="{{ path('solicitud_index') }}">
+                                        <span class="submenu-label">{{ 'request.title'|transchoice(2) }}</span></a>
+                                </li>
+                            {% endfor %}
+                            {% for role in app.user.roles if role == constant('UsuarioBundle\\Entity\\User::ROLE_CAJERO')
+                                or role == constant('UsuarioBundle\\Entity\\User::ROLE_SUPER_ADMIN')
+                                or role == constant('UsuarioBundle\\Entity\\User::ROLE_TECNICO') %}
+                                <li>
+                                    <a href="{{ path('recargue_index') }}">
+                                        <span class="submenu-label">{{ 'request.card.title'|transchoice(2) }}</span></a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+                {% for role in app.user.roles if role == constant('UsuarioBundle\\Entity\\User::ROLE_DIRECTOR')
+                    or role == constant('UsuarioBundle\\Entity\\User::ROLE_SUPER_ADMIN') %}
+                    <li class="openable bg-palette2">
+                        <a href="#">
                         <span class="menu-content block">
                             <span class="menu-icon"><i class="block fa fa-desktop fa-lg"></i></span>
                             <span class="text m-left-sm">{{ 'system.menu.label'|transchoice(2) }}</span>
                             <span class="submenu-icon"></span>
                         </span>
-                        <span class="menu-content-hover block"> {{ 'system.menu.label'|transchoice(1) }}</span>
-                    </a>
-                    <ul class="submenu bg-palette1">
-                        <li>
-                            <a href="{{ path('user_index') }}">
-                                <span class="submenu-label">{{ 'user.title'|transchoice(2) }}</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                            <span class="menu-content-hover block"> {{ 'system.menu.label'|transchoice(1) }}</span>
+                        </a>
+                        <ul class="submenu bg-palette1">
+                            <li>
+                                <a href="{{ path('user_index') }}">
+                                    <span class="submenu-label">{{ 'user.title'|transchoice(2) }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                {% endfor %}
             </ul>
         </div>
         <div class="sidebar-fix-bottom clearfix">

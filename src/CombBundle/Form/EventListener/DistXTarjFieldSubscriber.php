@@ -31,18 +31,20 @@ class DistXTarjFieldSubscriber implements EventSubscriberInterface
             'label' => 'request.card.dist.card',
             'query_builder' => function (EntityRepository $er) use ($tarjeta, $firstDay, $lastDay) {
                 $qb = $er->createQueryBuilder('dist');
-                $qb->innerJoin('dist.tarjeta', 'tarjeta')
-                    ->innerJoin('dist.distribucion', 'distribucion');
+                $qb->leftJoin('dist.tarjeta', 'tarjeta')
+                    ->leftJoin('dist.distribucion', 'distribucion');
                 if (\is_int($tarjeta)) {
-                    $qb->where($qb->expr()->eq('tarjeta.id', ':tarjeta'));
+                    $qb->andWhere($qb->expr()->eq('tarjeta.id', ':tarjeta'));
                 } else {
-                    $qb->where($qb->expr()->eq('tarjeta', ':tarjeta'));
+                    $qb->andWhere($qb->expr()->eq('tarjeta', ':tarjeta'));
                 }
                 $qb->andWhere($qb->expr()->gte('distribucion.fecha', ':firstDay'))
-                    ->andWhere($qb->expr()->lte('distribucion.fecha', ':lastDay'));
-                $qb->setParameter('tarjeta', $tarjeta)
-                    ->setParameter('firstDay', $firstDay)
+                    ->setParameter('firstDay', $firstDay);
+
+                $qb->andWhere($qb->expr()->lte('distribucion.fecha', ':lastDay'))
                     ->setParameter('lastDay', $lastDay);
+
+                $qb->setParameter('tarjeta', $tarjeta);
 
                 return $qb;
             },

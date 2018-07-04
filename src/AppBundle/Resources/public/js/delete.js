@@ -33,7 +33,7 @@ $(function () {
             } while (cont < 6);
 
             bootbox.dialog({
-                title: arr[1],
+                title: '<i class="fa fa-trash-o fa-lg"></i> ' + arr[1],
                 message: arr[2] + response,
                 buttons: {
                     delete: {

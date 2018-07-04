@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Servicio extends BaseNomenclador
 {
+    public const SERVICE_DIESEL = 1;
+    public const SERVICE_GR = 2;
+    public const SERVICE_GE = 3;
+
     /**
      * @var int
      *

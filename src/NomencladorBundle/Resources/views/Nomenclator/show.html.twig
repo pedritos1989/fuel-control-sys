@@ -47,16 +47,20 @@
                 </div>
 
                 <div class="col-md-12" id="button_actions">
-                    <a class="btn btn-primary btn-sm" title="{{ 'actions.edit'|trans }}"
-                       href="{{ path(entityType ~ '_edit', { 'id': entity.id }) }}">
-                        <i class="fa fa-edit"></i> {{ 'actions.edit'|trans }}</a>
+                    {% if entityType != 'service' and entityType != 'car_status' %}
+                        <a class="btn btn-primary btn-sm" title="{{ 'actions.edit'|trans }}"
+                           href="{{ path(entityType ~ '_edit', { 'id': entity.id }) }}">
+                            <i class="fa fa-edit"></i> {{ 'actions.edit'|trans }}</a>
+                    {% endif %}
                     <a title="{{ 'actions.list'|trans }}" class="btn btn-default btn-sm"
                        href="{{ path(entityType ~ '_index') }}">
                         <i class="fa fa-chevron-left"></i> {{ 'actions.list'|trans }}</a>
-                    <a data-id="{{ entity.id }}" data-action="{{ entityType }}_delete"
-                       title="{{ 'actions.delete'|trans }}" class="btn btn-danger btn-sm delete-selection"
-                       href="javascript:;">
-                        <i class="fa fa-trash"></i> {{ 'actions.delete'|trans }}</a>
+                    {% if entityType != 'service' and entityType != 'car_status' %}
+                        <a data-id="{{ entity.id }}" data-action="{{ entityType }}_delete"
+                           title="{{ 'actions.delete'|trans }}" class="btn btn-danger btn-sm delete-selection"
+                           href="javascript:;">
+                            <i class="fa fa-trash"></i> {{ 'actions.delete'|trans }}</a>
+                    {% endif %}
                 </div>
             </div>
         {% endblock widgetbody %}

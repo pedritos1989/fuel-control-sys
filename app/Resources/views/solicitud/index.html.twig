@@ -19,7 +19,9 @@
             {{ 'request.list'|trans }}
         {% endblock widgetheader %}
 
-        {% block hidden_option_icon '<i class="fa fa-table"></i>' %}
+        {% block hidden_option_title 'request.report'|trans %}
+
+        {% block hidden_option_icon '<i class="fa fa-file-excel-o"></i>' %}
 
         {% block hiddensection %}
             {% include 'solicitud/_form_report.html.twig' with {'form': reportForm} %}

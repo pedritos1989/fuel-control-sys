@@ -134,4 +134,12 @@ class ClientAvatar extends UploadAbstract
             ? null
             : base64_encode(stream_get_contents($this->picture));
     }
+
+    /**
+     * Remove from file system
+     */
+    public function removeUpload()
+    {
+        $this->picture = null;
+    }
 }

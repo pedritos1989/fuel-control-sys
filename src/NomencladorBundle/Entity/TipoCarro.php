@@ -21,6 +21,11 @@ class TipoCarro extends BaseNomenclador
      */
     protected $id;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CombBundle\Entity\Carro", mappedBy="tipo")
+     */
+    private $carros;
+
 
     /**
      * Get id
@@ -30,6 +35,48 @@ class TipoCarro extends BaseNomenclador
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->carros = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add carro
+     *
+     * @param \CombBundle\Entity\Carro $carro
+     *
+     * @return TipoCarro
+     */
+    public function addCarro(\CombBundle\Entity\Carro $carro)
+    {
+        $this->carros[] = $carro;
+
+        return $this;
+    }
+
+    /**
+     * Remove carro
+     *
+     * @param \CombBundle\Entity\Carro $carro
+     */
+    public function removeCarro(\CombBundle\Entity\Carro $carro)
+    {
+        $this->carros->removeElement($carro);
+    }
+
+    /**
+     * Get carros
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCarros()
+    {
+        return $this->carros;
     }
 
 }

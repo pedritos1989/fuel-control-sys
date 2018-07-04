@@ -32,4 +32,25 @@ class PlanAsignacionRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * @param $mes
+     * @return array
+     */
+    public function report($mes)
+    {
+        $qb = $this->createQueryBuilder('s');
+
+        if ($mes !== '') {
+            $firstDay = $mes . '-01';
+            $lastDay = $mes . '-' . date('t', strtotime($firstDay));
+
+            $qb->andWhere($qb->expr()->gte('s.fecha', ':firstDay'))
+                ->andWhere($qb->expr()->lte('s.fecha', ':lastDay'))
+                ->setParameter('firstDay', $firstDay)
+                ->setParameter('lastDay', $lastDay);
+        }
+        $qb->orderBy('s.id', 'ASC');
+        return $qb->getQuery()->getResult();
+    }
 }

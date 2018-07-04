@@ -11,7 +11,7 @@ usuario:
 nomenclador:
     resource: "@NomencladorBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /nomenclators
 
 comb:
     resource: "@CombBundle/Controller/"

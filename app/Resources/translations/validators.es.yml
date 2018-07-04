@@ -2,3 +2,4 @@ not_valid_mimetype_archive: No es un tipo de archivo válido.
 
 amounts.mismatch: El valor insertado no puede sobrepasar al disponible.
 amounts.exceed: El valor insertado no puede sobrepasar al aceptado por la Tarjeta.
+card.expire: La Tarjeta no puede solicitarse puesto que está en período de expiración.

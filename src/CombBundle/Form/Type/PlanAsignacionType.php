@@ -2,6 +2,7 @@
 
 namespace CombBundle\Form\Type;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -29,6 +30,14 @@ class PlanAsignacionType extends AbstractType
             ->add('asignacionMensual', EntityType::class, array(
                 'label' => 'assign.plan.monthly.asign',
                 'class' => 'CombBundle\Entity\AsignacionMensual',
+                'query_builder' => function (EntityRepository $er) {
+                    $qb = $er->createQueryBuilder('p');
+                    $qb->andWhere($qb->expr()->gte('p.fecha', ':firstDay'))
+                        ->andWhere($qb->expr()->lte('p.fecha', ':lastDay'));
+                    $qb->setParameter('firstDay', date('Y') . '-' . date('m') . '-' . '1')
+                        ->setParameter('lastDay', date('Y') . '-' . date('m') . '-' . date('t'));
+                    return $qb;
+                }
             ));
     }
 

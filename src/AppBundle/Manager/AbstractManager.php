@@ -122,4 +122,17 @@ class AbstractManager
             $this->dispatcher->dispatch($eventName, $event);
         }
     }
+
+    /**
+     * @param \PHPExcel $objPHPExcel
+     * @param string $column
+     * @param int $row
+     * @param array $borders
+     * @throws \PHPExcel_Exception
+     */
+    public function setBorders(\PHPExcel $objPHPExcel, string $column, int $row, array $borders)
+    {
+        $objPHPExcel->getActiveSheet()->getStyle(strtoupper($column) . $row)->applyFromArray($borders);
+    }
+
 }

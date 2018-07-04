@@ -5,6 +5,7 @@ namespace CombBundle\Controller;
 use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
 use CombBundle\Entity\AsignacionMensual;
 use AppBundle\Exceptions\ErrorHandler;
+use NomencladorBundle\Entity\Servicio;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\HttpFoundation\Response;
 
 
 /**
@@ -207,5 +209,39 @@ class AsignacionMensualController extends Controller
             ->setAction($this->generateUrl('asignacionmensual_delete', array('id' => $asignacionMensual->getId())))
             ->setMethod('DELETE')
             ->getForm();
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @Route("/operativo/grafico", name="grafico_operativo_anual", options={"expose"=true})
+     */
+    public function getOperativoAnualAction(Request $request)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $meses = array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
+        $output = array();
+        foreach ($meses as $key => $mes) {
+            $asignacionesXMes = $em->getRepository('CombBundle:AsignacionMensual')->report(date('Y') . '-' . ($key + 1));
+            $diesel = 0;
+            $ge = 0;
+            $gr = 0;
+            foreach ($asignacionesXMes as $asign) {
+                $cantidades = $asign->getCantidades()->toArray();
+                foreach ($cantidades as $ctdad) {
+                    if ($ctdad->getServicio()->getId() === Servicio::SERVICE_DIESEL)
+                        $diesel += $ctdad->getCantidad();
+
+                    if ($ctdad->getServicio()->getId() === Servicio::SERVICE_GR)
+                        $gr += $ctdad->getCantidad();
+
+                    if ($ctdad->getServicio()->getId() === Servicio::SERVICE_GE)
+                        $ge += $ctdad->getCantidad();
+                }
+            }
+            $output[] = array('m' => $mes, 'd' => $diesel, 'r' => $gr, 'e' => $ge);
+        }
+        return new JsonResponse($output, Response::HTTP_OK);
     }
 }

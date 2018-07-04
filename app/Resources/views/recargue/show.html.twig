@@ -40,6 +40,10 @@
                             <td>{{ recargue.fecha|date('d/m/Y H:i')|default('-') }}</td>
                         </tr>
                         <tr>
+                            <th>{{ 'request.card.manager'|trans }}</th>
+                            <td>{{ recargue.responsable|default('-') }}</td>
+                        </tr>
+                        <tr>
                             <th>{{ 'request.card.status'|trans }}</th>
                             {% if recargue.confirmacion %}
                                 {% set badge = 'primary' %}
@@ -65,9 +69,11 @@
                     <a class="btn btn-default btn-sm" href="{{ path('recargue_index') }}"
                        title="{{ 'actions.list'|trans }}">
                         <i class="fa fa-chevron-left"></i> {{ 'actions.list'|trans }}</a>
-                    <a href="#changer" title="{{ 'request.card.change'|trans }}"
-                       class="btn btn-default btn-sm">
-                        <i class="fa fa-check"></i> {{ 'request.card.change'|trans }}</a>
+                    {% if recargue.confirmacion == false %}
+                        <a href="#changer" title="{{ 'request.card.change'|trans }}"
+                           class="btn btn-default btn-sm">
+                            <i class="fa fa-check"></i> {{ 'request.card.change'|trans }}</a>
+                    {% endif %}
                     <a data-id="{{ recargue.id }}" data-action="recargue_delete"
                        href="javascript:;" class="btn btn-danger btn-sm tooltips delete-selection"
                        data-container="body" title="{{ 'actions.delete'|trans }}">
@@ -78,13 +84,13 @@
     {%- endembed %}
 {% endblock %}
 
-{% block javascripts %}
-    <script type="text/javascript"
-            src="{{ asset('assets/vendor/bootstrap-switch/dist/js/bootstrap-switch.min.js') }}"></script>
-    <script src="{{ url('bazinga_jstranslation_js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/comb/js/recargue/cambiar.estado.js') }}"></script>
-    <script type="text/javascript">
-        var rs = new CombustiblesApp.Recargue.Estado({{ recargue.id }});
-        rs.startEvents();
-    </script>
-{% endblock %}
+            {% block javascripts %}
+                <script type="text/javascript"
+                        src="{{ asset('assets/vendor/bootstrap-switch/dist/js/bootstrap-switch.min.js') }}"></script>
+                <script src="{{ url('bazinga_jstranslation_js') }}"></script>
+                <script type="text/javascript" src="{{ asset('bundles/comb/js/recargue/cambiar.estado.js') }}"></script>
+                <script type="text/javascript">
+                    var rs = new CombustiblesApp.Recargue.Estado({{ recargue.id }});
+                    rs.startEvents();
+                </script>
+            {% endblock %}

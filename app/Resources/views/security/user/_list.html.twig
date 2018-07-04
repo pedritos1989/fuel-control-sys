@@ -2,6 +2,7 @@
     <thead>
     <tr>
         <th>{{ 'user.username'|trans }}</th>
+        <th>{{ 'user.rol.label'|trans }}</th>
         <th>{{ 'user.email'|trans }}</th>
         <th>{{ 'user.lastLogin'|trans }}</th>
         <th>{{ 'user.active'|trans }}</th>
@@ -12,6 +13,12 @@
     {% for user  in users %}
         <tr>
             <td>{{ user.username }}</td>
+            <td>
+                {% for rol in user.roles %}
+                    {{ ('user.rol.' ~ rol|lower)|trans }}
+                    <br>
+                {% endfor %}
+            </td>
             <td>{{ user.email }}</td>
             <td>{{ user.lastLogin ? user.lastLogin | date('d/m/Y h:i a') : '-' }}</td>
             <td><i class="fa {{ user.enabled ? 'fa-check text-success' : 'fa-remove text-danger' }}"></i></td>

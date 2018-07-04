@@ -2,8 +2,10 @@
 
 namespace CombBundle\Form;
 
+use CombBundle\Form\EventListener\TarjetaFieldSubscriber;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,22 +22,27 @@ class CarroType extends AbstractType
             ->add('matricula', TextType::class, array(
                 'label' => 'car.code'
             ))
-            ->add('modelo', TextType::class, array(
-                'label' => 'car.brand'
+            ->add('marca', EntityType::class, array(
+                'label' => 'car.brand',
+                'class' => 'NomencladorBundle\Entity\Marca',
             ))
-            ->add('insptecn', TextType::class, array(
-                'label' => 'car.inspection'
+            ->add('insptecn', DateType::class, array(
+                'label' => 'car.inspection',
+                'widget' => 'single_text',
+                'format' => 'd/M/y',
             ))
             ->add('indcons', NumberType::class, array(
-                'label' => 'car.consumn'
+                'label' => 'car.consumn',
             ))
             ->add('area', EntityType::class, array(
                 'label' => 'car.section',
                 'class' => 'CombBundle\Entity\Area',
+                'required' => false,
             ))
             ->add('chofer', EntityType::class, array(
                 'label' => 'car.driver',
                 'class' => 'CombBundle\Entity\Chofer',
+                'required' => false,
             ))
             ->add('estado', EntityType::class, array(
                 'label' => 'car.state',
@@ -44,12 +51,8 @@ class CarroType extends AbstractType
             ->add('tipo', EntityType::class, array(
                 'label' => 'car.type',
                 'class' => 'NomencladorBundle\Entity\TipoCarro',
-            ))
-            ->add('tarjeta', EntityType::class, array(
-                'label' => 'car.card',
-                'class' => 'CombBundle\Entity\Tarjeta',
-                'group_by' => 'servicio',
             ));
+        $builder->addEventSubscriber(new TarjetaFieldSubscriber());
     }
 
     /**
@@ -58,7 +61,7 @@ class CarroType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CombBundle\Entity\Carro'
+            'data_class' => 'CombBundle\Entity\Carro',
         ));
     }
 

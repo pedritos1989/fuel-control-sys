@@ -12,10 +12,13 @@
         {{ form_row(form.plainPassword) }}
     </div>
     <div class="col-md-12">
-        {{ form_row(form.roles, {'attr': {'class': 'select2'}}) }}
+        {{ form_row(form.groups, {'attr': {'class': 'select2'}}) }}
     </div>
     <div class="col-md-12">
         {{ form_row(form.enabled) }}
+    </div>
+    <div class="col-md-12">
+        {{ form_row(form.persona, {'attr': {'class': 'select2'}}) }}
     </div>
     <div class="col-md-2">
         {{ form_label(form.avatar) }}

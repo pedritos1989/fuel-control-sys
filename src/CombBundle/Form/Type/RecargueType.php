@@ -28,14 +28,14 @@ class RecargueType extends AbstractType
                 'group_by' => 'servicio',
                 'choice_attr' => function (Tarjeta $tarjeta, $key, $index) use ($trans) {
                     return [
-                        'title' => $trans->trans('card.section') . ': ' . $tarjeta->getArea() . ' - ' . $trans->trans('card.provide') . ': ' . $tarjeta->getAbastecimiento()
+                        'title' => $trans->trans('card.section') . ': ' . $tarjeta->getArea()
                     ];
                 },
             ))
             ->add('fecha', DateTimeType::class, array(
                 'label' => 'request.card.date',
                 'widget' => 'single_text',
-                'format' => 'd/M/y H:i',
+                'format' => 'd/M/y H:mm',
             ))
             ->add('responsable', TextType::class, array(
                 'label' => 'request.card.manager'

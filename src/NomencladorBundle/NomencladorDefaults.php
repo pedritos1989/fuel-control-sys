@@ -16,4 +16,12 @@ class NomencladorDefaults
     public const CAR_TYPE_TYPE = 'car_type';
     /* end car type */
 
+    /* start car brand */
+    public const CAR_BRAND_TYPE = 'brand';
+    /* end car brand *
+
+    /* start people */
+    public const PEOPLE_TYPE = 'people';
+    /* end people */
+
 }

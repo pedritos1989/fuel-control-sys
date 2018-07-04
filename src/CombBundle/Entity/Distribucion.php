@@ -25,7 +25,7 @@ class Distribucion
     /**
      * @var \CombBundle\Entity\PlanAsignacion
      *
-     * @ORM\ManyToOne(targetEntity="CombBundle\Entity\PlanAsignacion")
+     * @ORM\ManyToOne(targetEntity="CombBundle\Entity\PlanAsignacion", inversedBy="distribuciones")
      */
     private $planAsignacion;
 
@@ -72,6 +72,7 @@ class Distribucion
      * Set fecha
      *
      * @param \DateTime $fecha
+     *
      * @return Distribucion
      */
     public function setFecha($fecha)
@@ -95,6 +96,7 @@ class Distribucion
      * Set planAsignacion
      *
      * @param \CombBundle\Entity\PlanAsignacion $planAsignacion
+     *
      * @return Distribucion
      */
     public function setPlanAsignacion(\CombBundle\Entity\PlanAsignacion $planAsignacion = null)
@@ -115,26 +117,27 @@ class Distribucion
     }
 
     /**
-     * Add distTjts
+     * Add distTjt
      *
-     * @param \CombBundle\Entity\DistribucionXTarjeta $distTjts
+     * @param \CombBundle\Entity\DistribucionXTarjeta $distTjt
+     *
      * @return Distribucion
      */
-    public function addDistTjt(\CombBundle\Entity\DistribucionXTarjeta $distTjts)
+    public function addDistTjt(\CombBundle\Entity\DistribucionXTarjeta $distTjt)
     {
-        $this->distTjts[] = $distTjts;
+        $this->distTjts[] = $distTjt;
 
         return $this;
     }
 
     /**
-     * Remove distTjts
+     * Remove distTjt
      *
-     * @param \CombBundle\Entity\DistribucionXTarjeta $distTjts
+     * @param \CombBundle\Entity\DistribucionXTarjeta $distTjt
      */
-    public function removeDistTjt(\CombBundle\Entity\DistribucionXTarjeta $distTjts)
+    public function removeDistTjt(\CombBundle\Entity\DistribucionXTarjeta $distTjt)
     {
-        $this->distTjts->removeElement($distTjts);
+        $this->distTjts->removeElement($distTjt);
     }
 
     /**

@@ -84,3 +84,5 @@ fos_user:
             type: UsuarioBundle\Form\Type\UserRegistrationType
     group:
         group_class: UsuarioBundle\Entity\Group
+        form:
+            type: UsuarioBundle\Form\Type\GroupRegistrationType

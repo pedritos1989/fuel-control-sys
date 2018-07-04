@@ -208,10 +208,6 @@ class DistribucionXTarjeta
                 $context->addViolationAt('asignacion', 'amounts.mismatch');
                 return;
             }
-            if ($this->getTarjeta()->getAbastecimiento() !== null && $this->getTarjeta()->getAbastecimiento() < $this->getAsignacion()) {
-                $context->addViolationAt('asignacion', 'amounts.exceed');
-                return;
-            }
         }
     }
     // </editor-fold>

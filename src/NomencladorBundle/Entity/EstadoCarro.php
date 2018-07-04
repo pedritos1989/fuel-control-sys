@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class EstadoCarro extends BaseNomenclador
 {
+    public const STATUS_OK = 1;
+    public const STATUS_BREAK = 2;
+    public const STATUS_OUT = 3;
+
     /**
      * @var int
      *

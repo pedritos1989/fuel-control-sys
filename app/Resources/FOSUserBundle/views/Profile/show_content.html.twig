@@ -1,6 +1,28 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 <div class="fos_user_user_show">
-    <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
-    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+    <p><b>{{ 'profile.show.username'|trans }}:</b><br> {{ user.username }}</p>
+    <p><b>{{ 'profile.show.email'|trans }}:</b><br> {{ user.email }}</p>
+    <p><b>{{ 'nomenclator.people.label'|trans({}, 'messages') }}:</b><br> {{ user.persona }}</p>
+    <p><b>{{ 'client.avatar'|trans({}, 'messages') }}</b>:<br>
+        {% if user.avatar is defined and user.avatar is not null and user.avatar.getWebPath is defined %}
+            <img src="data:image/png;base64,
+                                    {% if user == app.user %}
+                                        {{ app.session.get('photo') }}
+                                    {% else %}
+                                        {{ user.avatar.getWebPath }}
+                                    {% endif %}
+                                    "
+                 alt="{{ 'client.avatar'|trans({}, 'messages') }}" width="25%"/>
+        {% else %}
+            <img src="{{ asset('bundles/app/images/default.png') }}"
+                 alt="{{ 'client.avatar'|trans({}, 'messages') }}" width="25%"/>
+        {% endif %}</p>
+</div>
+
+<div class="pull-left">
+    <a class="btn btn-default btn-sm" href="{{ path("homepage") }}"
+       title="{{ 'actions.goback'|trans({}, 'messages') }}">
+        <i class="fa fa-chevron-left"></i> {{ "actions.goback"|trans({}, 'messages') }}
+    </a>
 </div>

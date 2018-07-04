@@ -12,4 +12,24 @@ use Doctrine\ORM\EntityRepository;
  */
 class DistribucionRepository extends EntityRepository
 {
+	/**
+     * @return array
+     */
+    public function filter()
+    {
+        $firstDay = date('Y') . '-' . date('m') . '-' . '1';
+        $lastDay = date('Y') . '-' . date('m') . '-' . date('t');
+
+        $qb = $this->createQueryBuilder('p');
+
+        $qb->andWhere($qb->expr()->gte('p.fecha', ':firstDay'))
+            ->setParameter('firstDay', $firstDay);
+
+        $qb->andWhere($qb->expr()->lte('p.fecha', ':lastDay'))
+            ->setParameter('lastDay', $lastDay);
+
+        $qb->orderBy('p.id', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
 }

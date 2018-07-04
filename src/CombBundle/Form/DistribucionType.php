@@ -27,7 +27,8 @@ class DistribucionType extends AbstractType
                     $qb->setParameter('firstDay', date('Y') . '-' . date('m') . '-' . '1')
                         ->setParameter('lastDay', date('Y') . '-' . date('m') . '-' . date('t'));
                     return $qb;
-                }
+                },
+                'group_by' => 'asignacionMensual',
             ))
             ->add('fecha', DateTimeType::class, array(
                 'label' => 'distribution.date',

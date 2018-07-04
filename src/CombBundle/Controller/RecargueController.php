@@ -10,11 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
 use Symfony\Component\HttpFoundation\Response;
-
 
 /**
  * Recargue controller.
@@ -31,15 +33,48 @@ class RecargueController extends Controller
      * @Route("/", name="recargue_index", options={"expose"=true})
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->get('doctrine.orm.entity_manager');
+
+        $reportForm = $this->createReportForm();
+
+        $reportForm->handleRequest($request);
+        if ($reportForm->isSubmitted() && $reportForm->isValid()) {
+            $submitted = $reportForm->getData();
+            return $this->get('recargue.report.manager')->designReport($submitted);
+        }
 
         $recargues = $em->getRepository('CombBundle:Recargue')->filter();
 
         return $this->render('recargue/index.html.twig', array(
             'recargues' => $recargues,
+            'reportForm' => $reportForm->createView(),
         ));
+    }
+
+    /**
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    public function createReportForm()
+    {
+        $form = $this->get('form.factory')
+            ->createNamedBuilder('recargue_report')
+            ->setAction($this->generateUrl('recargue_index'))
+            ->setMethod('GET');
+
+        $form
+            ->add('mes', DateType::class, array(
+                'label' => 'request.card.month',
+                'widget' => 'single_text',
+                'format' => 'M/y',
+                'required' => false,
+            ))
+            ->add('report', SubmitType::class, array(
+                'label' => 'actions.report',
+            ));
+
+        return $form->getForm();
     }
 
     /**
@@ -228,7 +263,7 @@ class RecargueController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $dists = $em->getRepository('CombBundle:DistribucionXTarjeta')
-            ->findBy(array('tarjeta' => $tarjeta));
+            ->filter($tarjeta);
 
         $exportData = array();
         foreach ($dists as $dist) {
@@ -265,11 +300,11 @@ class RecargueController extends Controller
                 $tarjeta = $recargue->getTarjeta();
                 if ($recargue->getConfirmacion()) {
                     $dist = $recargue->getDistTrjt();
-                    $tarjeta->setSaldoInicial($dist->getAsignacion());
-                    $tarjeta->setSaldoFinal($dist->getAsignacion());
-                } else {
-                    $tarjeta->setSaldoInicial(0);
-                    $tarjeta->setSaldoFinal(0);
+                    $recargue->setSaldoAlRecargar($tarjeta->getSaldoFinal());
+                    $recargue->setSaldoDespRecarga($dist->getAsignacion() + $tarjeta->getSaldoFinal());
+                    $tarjeta->setAbastecimiento($dist->getAsignacion());
+                    $tarjeta->setSaldoInicial($dist->getAsignacion() + $tarjeta->getSaldoFinal());
+                    $tarjeta->setSaldoFinal($dist->getAsignacion() + $tarjeta->getSaldoFinal());
                 }
 
                 $em->flush();
@@ -305,7 +340,7 @@ class RecargueController extends Controller
      */
     public function formGenerator($methodType, $action, Recargue $recargue)
     {
-        $recargue == null ? $recargue = new Recargue() : '';
+        $recargue === null ? $recargue = new Recargue() : '';
 
         $form = $this->createFormBuilder($recargue)
             ->add('confirmacion', CheckboxType::class, array(
